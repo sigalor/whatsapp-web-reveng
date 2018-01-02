@@ -1,0 +1,29 @@
+{
+  "name": "whatsapp-web-reveng",
+  "version": "1.0.0",
+  "description": "A graphical, web-based client for WhatsApp Web, using the reverse engineered Python code as backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "concurrently --kill-others \"node index.js\" \"./backend/whatsapp-web-backend.py\"",
+    "start": "npm run dev",
+    "dev": "concurrently --kill-others \"./node_modules/.bin/nodemon index.js -i client -e js\" \"./node_modules/.bin/nodemon --exec python ./backend/whatsapp-web-backend.py -i client -e py\" \"sass --sourcemap=none --watch client/css/main.scss:client/css/main.css\""
+  },
+  "author": "sigalor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sigalor/whatsapp-web-reveng.git"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.4",
+    "path": "^0.12.7",
+    "string_decoder": "^1.0.3",
+    "ws": "^3.3.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.12.5"
+  }
+}
