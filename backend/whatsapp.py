@@ -132,6 +132,7 @@ class WhatsAppWebClient:
 			if messageTag in self.messageQueue:											# when the server responds to a client's message
 				pend = self.messageQueue[messageTag];
 				if pend["desc"] == "_login":
+					eprint("Message after login: ", message);
 					self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
 					eprint("set server id: " + self.loginInfo["serverRef"]);
 					self.loginInfo["privateKey"] = curve25519.Private();
@@ -163,6 +164,7 @@ class WhatsAppWebClient:
 				else:
 					self.onMessageCallback["func"](jsonObj, self.onMessageCallback, { "message_type": "json" });
 					if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
+						eprint(json.dumps(jsonObj));
 						if jsonObj[0] == "Conn":
 							self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
 							self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
@@ -206,7 +208,7 @@ class WhatsAppWebClient:
 
 	def generateQRCode(self, callback=None):
 		self.loginInfo["clientId"] = base64.b64encode(os.urandom(16));
-		messageTag = str(getTimestamp()) + ".--0";
+		messageTag = str(getTimestamp());
 		self.messageQueue[messageTag] = { "desc": "_login", "callback": callback };
 		message = messageTag + ',["admin","init",[0,2,7314],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
 		self.activeWs.send(message);
