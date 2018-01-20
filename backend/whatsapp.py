@@ -55,7 +55,7 @@ def AESEncrypt(key, plaintext):							# like "AESPad"/"AESUnpad" from https://st
 	plaintext = AESPad(plaintext);
 	iv = os.urandom(AES.block_size);
 	cipher = AES.new(key, AES.MODE_CBC, iv);
-	return iv + cipher.encrypt(raw);
+	return iv + cipher.encrypt(plaintext);
 
 def WhatsAppEncrypt(encKey, macKey, plaintext):
 	enc = AESEncrypt(encKey, plaintext)
@@ -182,6 +182,14 @@ class WhatsAppWebClient:
 							keysDecrypted = AESDecrypt(sse[:32], keysEncrypted);
 							self.loginInfo["key"]["encKey"] = keysDecrypted[:32];
 							self.loginInfo["key"]["macKey"] = keysDecrypted[32:64];
+							
+							# eprint("private key            : ", base64.b64encode(self.loginInfo["privateKey"].serialize()));
+							# eprint("secret                 : ", base64.b64encode(self.connInfo["secret"]));
+							# eprint("shared secret          : ", base64.b64encode(self.connInfo["sharedSecret"]));
+							# eprint("shared secret expanded : ", base64.b64encode(self.connInfo["sharedSecretExpanded"]));
+							# eprint("hmac validation        : ", base64.b64encode(hmacValidation));
+							# eprint("keys encrypted         : ", base64.b64encode(keysEncrypted));
+							# eprint("keys decrypted         : ", base64.b64encode(keysDecrypted));
 
 							eprint("set connection info: client, server and browser token; secret, shared secret, enc key, mac key");
 							eprint("logged in as " + jsonObj[1]["pushname"]  + " (" + jsonObj[1]["wid"] + ")");

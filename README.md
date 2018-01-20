@@ -59,7 +59,7 @@ To log in at an open websocket, follow these steps:
 8. Turn this string into an image (e.g. using `pyqrcode`) and scan it using the WhatsApp app.
 
 ### After scanning the QR code
-9. Immediately after you scan the QR code, the websocket received several important JSON messages that build up the encryption details. These use the specified message format and have a JSON _array_ as payload. Their message tag has no special meaning. The second entry is an object. The first entry of the JSON array has one of the following values:
+9. Immediately after you scan the QR code, the websocket receives several important JSON messages that build up the encryption details. These use the specified message format and have a JSON _array_ as payload. Their message tag has no special meaning. The first entry of the JSON array has one of the following values:
 	- `Conn`: array contains JSON object as second element with connection information containing the following attributes and many more:
 		- `battery`: the current battery percentage of your phone
 		- `browserToken` (could be important, but not used by the application yet)
@@ -79,7 +79,7 @@ To log in at an open websocket, follow these steps:
 12. Encode a message containing 32 null bytes with the shared secret using HMAC SHA256. Take this value and extend it to 80 bytes using HKDF. Call this value `sharedSecretExpanded`. This is done with `HKDF(HmacSha256("\0"*32, sharedSecret), 80)`.
 13. This step is optional, it validates the data provided by the server. The method is called _HMAC validation_. Do it by first calculating `HmacSha256(sharedSecretExpanded[32:64], secret[:32] + secret[64:])`. Compare this value to `secret[32:64]`. If they are not equal, abort the login.
 14. You now have the encrypted keys: store `sharedSecretExpanded[64:] + secret[64:]` as `keysEncrypted`.
-15. The encrypted keys now need to be decrypted using AES with `sse[:32]` as key, i.e. store `AESDecrypt(sharedSecretExpanded[:32], keysEncrypted)` as `keysDecrypted`.
+15. The encrypted keys now need to be decrypted using AES with `sharedSecretExpanded[:32]` as key, i.e. store `AESDecrypt(sharedSecretExpanded[:32], keysEncrypted)` as `keysDecrypted`.
 16. The `keysDecrypted` variable is 64 bytes long and contains two keys, each 32 bytes long. The `encKey` is used for decrypting binary messages sent to you by the WhatsApp Web server or encrypting binary messages you send to the server. The `macKey` is needed to validate the messages sent to you:
 	- `encKey`: `keysDecrypted[:32]`
 	- `macKey`: `keysDecrypted[32:64]`
@@ -114,4 +114,7 @@ The WhatsApp Web API uses the following formats to identify chats with individua
 ### WebSocket messages
 There are two types of WebSocket messages that are exchanged between server and client. On the one hand, plain JSON that is rather unambiguous (especially for the API calls above), on the other hand encrypted binary messages.
 
-Unfortunately, these cannot be looked at using the Chrome developer tools. Additionally, the Python backend, that of course also receives these messages, needs to decrypt them, as they contain encrypted data. The section about encryption details discusses how it can be decrypted.
+Unfortunately, these binary ones cannot be looked at using the Chrome developer tools. Additionally, the Python backend, that of course also receives these messages, needs to decrypt them, as they contain encrypted data. The section about encryption details discusses how it can be decrypted.
+
+## Disclaimer
+TODO

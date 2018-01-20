@@ -10,6 +10,7 @@ body {
   width: 100vw;
   height: 100vh;
   background: radial-gradient(#fff 40%, #ddd);
+  background-attachment: fixed;
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;
@@ -104,3 +105,5 @@ body {
   background-color: rgba(200, 200, 200, 0.5); }
   #console.extended {
     left: 80vw; }
+
+/*# sourceMappingURL=main.css.map */
