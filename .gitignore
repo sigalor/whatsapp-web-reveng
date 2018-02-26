@@ -58,6 +58,7 @@ typings/
 .env
 
 misc/
+.vscode/
 .sass-cache/
 backend/decodable_msgs
 backend/undecodable_msgs

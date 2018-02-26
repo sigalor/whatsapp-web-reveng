@@ -114,6 +114,29 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 	- _BINARY_20_: 253
 	- _BINARY_32_: 254
 	- _NIBBLE_8_: 255
+- _Tokens_ are a long list of 151 strings in which the indices matter:
+	- `[None,None,None,"200","400","404","500","501","502","action","add",
+ "after","archive","author","available","battery","before","body",
+ "broadcast","chat","clear","code","composing","contacts","count",
+ "create","debug","delete","demote","duplicate","encoding","error",
+ "false","filehash","from","g.us","group","groups_v2","height","id",
+ "image","in","index","invis","item","jid","kind","last","leave",
+ "live","log","media","message","mimetype","missing","modify","name",
+ "notification","notify","out","owner","participant","paused",
+ "picture","played","presence","preview","promote","query","raw",
+ "read","receipt","received","recipient","recording","relay",
+ "remove","response","resume","retry","s.whatsapp.net","seconds",
+ "set","size","status","subject","subscribe","t","text","to","true",
+ "type","unarchive","unavailable","url","user","value","web","width",
+ "mute","read_only","admin","creator","short","update","powersave",
+ "checksum","epoch","block","previous","409","replaced","reason",
+ "spam","modify_tag","message_info","delivery","emoji","title",
+ "description","canonical-url","matched-text","star","unstar",
+ "media_key","filename","identity","unread","page","page_count",
+ "search","media_message","security","call_log","profile","ciphertext",
+ "invite","gif","vcard","frequent","privacy","blacklist","whitelist",
+ "verify","location","document","elapsed","revoke_invite","expiration",
+ "unsubscribe","disable"]`
 
 #### Number reformatting
 - _Unpacking nibbles_: Returns the ASCII representation for numbers between 0 and 9. Returns `-` for 10, `.` for 11 and `\0` for 15.
@@ -123,7 +146,7 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 #### Number formats
 
 - _Byte_: A plain ol' byte.
-- _Integer with N bytes_: Reads N bytes and builds a number out of them. Can be little or big endian. Note that no negative values are possible.
+- _Integer with N bytes_: Reads N bytes and builds a number out of them. Can be little or big endian; if not specified otherwise, big endian is used. Note that no negative values are possible.
 - _Int16_: An integer with two bytes, read using _Integer with N bytes_.
 - _Int20_: Consumes three bytes and constructs an integer using the last four bits of the first byte and the entire second and third byte. Is therefore always big endian.
 - _Int32_: An integer with four bytes, read using _Integer with N bytes_.
@@ -132,18 +155,65 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 	- First reads a byte `n` and does the following `n&127` many times: Reads a byte `l` and for each nibble, adds the result of its _unpacked version_ to the return value (using _unpacking bytes_). Most significant nibble first.
 	- If the most significant bit of `n` was set, removes the last character of the return value.
 
-#### Number chunks
-- _Bytes_: Reads the specified number of bytes.
-
 #### Variable length integers
 
-In contrast to the previous number formats, reading a _variable length integer_ (VLI) does not change the current data pointer.
+In contrast to the previous number formats, reading a _variable length integer_ (VLI) does _not_ change the current data pointer.
 
 First, the length `l` of the VLI is read by reading bytes until a byte with the most significant bit set is encountered, but at most 10 bytes.
 
 TODO
 
 _Ranged variable length integers_ expect a minimum and a maximum value. If the read _variable length integer_ is less then the minimum or greater than or equal to the maximum, throw an error.
+
+#### Helper methods
+- _Read bytes_: Reads and returns the specified number of bytes.
+- _Check for list tag_: Expects a tag as parameter and returns true if the tag is `LIST_EMPTY`, `LIST_8` or `LIST_16` (i.e. 0, 248 or 249).
+- _Read list size_: Expects a list tag as parameter. Returns 0 for `LIST_EMPTY`, returns a read byte for `LIST_8` or a read _Int16_ for `LIST_16`.
+- _Read a string from characters_: Expects the string length as parameter, reads this many bytes and returns them as a string.
+- _Get a token_: Expects an index to the array of _Tokens_, and returns the respective string.
+- _Get a double token_: Expects two integers `a` and `b` and gets the token at index `a*256+b`.
+
+#### Strings
+
+Reading a string needs a _tag_ as parameter. Depending on this tag, different data is read.
+
+- If the tag is between 3 and 235, the _token_ (i.e. a string) of this tag is got. If the token is `"s.whatsapp.net"`, `"c.us"` is returned instead, otherwise the token is returned as is.
+- If the tag is between _DICTIONARY_0_ and _DICTIONARY_3_, a _double token_ is returned, with `tag-DICTIONARY_0` as first and a read byte as second parameter.
+- _LIST_EMPTY_: Nothing is returned (e.g. `None`).
+- _BINARY_8_: A byte is read which is then used to _read a string from characters_ with this length.
+- _BINARY_20_: An _Int20_ is read which is then used to _read a string from characters_ with this length.
+- _BINARY_32_: An _Int32_ is read which is then used to _read a string from characters_ with this length.
+- _JID_PAIR_
+	- First, a byte is read which is then used to _read a string_ `i` with this tag.
+	- Second, another byte is read which is then used to _read a string_ `j` with this tag.
+	- Finally, `i` and `j` are joined together with an `@` sign and the result is returned.
+- _NIBBLE_8_ or _HEX_8_: A _Packed8_ with this tag is returned.
+
+#### Attribute lists
+
+Reading an attribute list needs the number of attributes to read as parameter. An attribute list is always a JSON object. For each attribute read, the following steps are executed for getting key-value pairs (exactly in this order!):
+- _Key_: A byte is read which is then used to _read a string_ with this tag.
+- _Value_: A byte is read which is then used to _read a string_ with this tag.
+
+#### Nodes
+
+A node always consists of a JSON array with exactly three entries: description, attributes and content. The following steps are needed to read a node:
+
+1. A _list size_ `a` is read by using a read byte as the tag. The list size 0 is invalid.
+2. The description tag is read as a byte. The value 2 is invalid for this tag. The description string `descr` is then obtained by _reading a string_ with this tag.
+3. The attributes object `attrs` is read by _reading `(a-2 + a%2) >> 1` attributes_.
+4. If `a` was odd, this node does not have any content, i.e. `[descr, attrs, None]` is returned.
+5. For getting the node's content, first a byte, i.e. a tag is read. Depending on this tag, different types of content emerge:
+	- If the tag is a _list tag_, a _list is read_ using this tag (see below for lists).
+	- _BINARY_8_: A byte is read which is then used as length for _reading bytes_.
+	- _BINARY_20_: An _Int20_ is read which is then used as length for _reading bytes_.
+	- _BINARY_32_: An _Int32_ is read which is then used as length for _reading bytes_.
+	- If the tag is something else, a _string is read_ using this tag.
+6. Eventually, `[descr, attrs, content]` is returned.
+
+#### Lists
+
+Reading a list requires a _list tag_ (i.e. _LIST_EMPTY_, _LIST_8_ for _LIST_16_). The length of the list is then obtained by _reading a list size_ using this tag. For each list entry, a _node is read_.
 
 ### Node Handling
 TODO
