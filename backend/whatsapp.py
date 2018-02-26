@@ -153,13 +153,18 @@ class WhatsAppWebClient:
 						if hmacValidation != messageContent[:32]:
 							raise ValueError("Hmac mismatch");
 						
+						decryptedMessage = AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]);
 						try:
-							processedData = decoder.processData(messageTag, AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]), me=self.connInfo["me"]);
+							outFilename = writeMessageToFile(decryptedMessage, True, self.connInfo["me"], messageTag);
+							processedData = decoder.processData(messageTag, decryptedMessage, me=self.connInfo["me"]);
 							messageType = "binary";
 						except:
-							processedData = { "traceback": traceback.format_exc().splitlines() };
+							outFilename = writeMessageToFile(decryptedMessage, False, self.connInfo["me"], messageTag)
+							processedData = { "binaryMessageFile": outFilename, "traceback": traceback.format_exc().splitlines() };
 							messageType = "error";
 						finally:
+							with open("log.txt", "a") as f:
+								f.write("just processed " + outFilename + "\n");
 							self.onMessageCallback["func"](processedData, self.onMessageCallback, { "message_type": messageType });
 				else:
 					self.onMessageCallback["func"](jsonObj, self.onMessageCallback, { "message_type": "json" });

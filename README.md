@@ -1,4 +1,5 @@
 
+
 # WhatsApp Web reverse engineered
 
 ## Introduction
@@ -92,9 +93,60 @@ Now that you have the two keys, validating and decrypting messages the server se
 
 The data you get in the final step has a binary format which is described in the following. Even though it's binary, you can still see several strings in it, especially the content of messages you sent is quite obvious there.
 
-### Binary message format
+## Binary message format
+### Binary decoding
+The Python script `backend/decoder.py` implements the `MessageParser` class. It is able to create a JSON structure out of binary data in which the data is still organized in a rather messy way. The section about Node Handling below will discuss how the nodes are reorganized afterwards.
 
-This section will be completed later.
+`MessageParser` initially just needs some data and then processes it byte by byte, i.e. as a stream. It has a couple of constants and a lot of methods which all build on each other.
+
+#### Constants
+- _Tags_ with their respective integer values
+	- _LIST_EMPTY_: 0
+	- _DICTIONARY_0_: 236
+	- _DICTIONARY_1_: 237
+	- _DICTIONARY_2_: 238
+	- _DICTIONARY_3_: 239
+	- _LIST_8_: 248
+	- _LIST_16_: 249
+	- _JID_PAIR_: 250
+	- _HEX_8_: 251
+	- _BINARY_8_: 252
+	- _BINARY_20_: 253
+	- _BINARY_32_: 254
+	- _NIBBLE_8_: 255
+
+#### Number reformatting
+- _Unpacking nibbles_: Returns the ASCII representation for numbers between 0 and 9. Returns `-` for 10, `.` for 11 and `\0` for 15.
+- _Unpacking hex values_: Returns the ASCII representation for numbers between 0 and 9 or letters between A and F (i.e. uppercase) for numbers between 10 and 15.
+- _Unpacking bytes_: Expects a tag as an additional parameter, namely _NIBBLE_8_ or _HEX_8_. Unpacks a nibble or hex value accordingly.
+
+#### Number formats
+
+- _Byte_: A plain ol' byte.
+- _Integer with N bytes_: Reads N bytes and builds a number out of them. Can be little or big endian. Note that no negative values are possible.
+- _Int16_: An integer with two bytes, read using _Integer with N bytes_.
+- _Int20_: Consumes three bytes and constructs an integer using the last four bits of the first byte and the entire second and third byte. Is therefore always big endian.
+- _Int32_: An integer with four bytes, read using _Integer with N bytes_.
+- _Int64_: An integer with eight bytes, read using _Integer with N bytes_.
+- _Packed8_: Expects a tag as an additional parameter, namely _NIBBLE_8_ or _HEX_8_. Returns a string.
+	- First reads a byte `n` and does the following `n&127` many times: Reads a byte `l` and for each nibble, adds the result of its _unpacked version_ to the return value (using _unpacking bytes_). Most significant nibble first.
+	- If the most significant bit of `n` was set, removes the last character of the return value.
+
+#### Number chunks
+- _Bytes_: Reads the specified number of bytes.
+
+#### Variable length integers
+
+In contrast to the previous number formats, reading a _variable length integer_ (VLI) does not change the current data pointer.
+
+First, the length `l` of the VLI is read by reading bytes until a byte with the most significant bit set is encountered, but at most 10 bytes.
+
+TODO
+
+_Ranged variable length integers_ expect a minimum and a maximum value. If the read _variable length integer_ is less then the minimum or greater than or equal to the maximum, throw an error.
+
+### Node Handling
+TODO
 
 ## WhatsApp Web API
 WhatsApp Web itself has an interesting API as well. You can even try it out directly in your browser. Just log in at the normal [https://web.whatsapp.com/](https://web.whatsapp.com/), then open the browser development console. Now enter something like the following (see below for details on the chat identification):
