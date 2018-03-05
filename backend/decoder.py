@@ -14,8 +14,6 @@ connInfo = {
 	"me": "1234567890@c.us"
 };
 
-
-
 Tokens = [None,None,None,"200","400","404","500","501","502","action","add",
 		  "after","archive","author","available","battery","before","body",
 		  "broadcast","chat","clear","code","composing","contacts","count",
@@ -41,6 +39,7 @@ Tokens = [None,None,None,"200","400","404","500","501","502","action","add",
 
 class Tags:
 	LIST_EMPTY   = 0;
+	STREAM_END   = 2;
 	DICTIONARY_0 = 236;
 	DICTIONARY_1 = 237;
 	DICTIONARY_2 = 238;
@@ -95,13 +94,14 @@ class MessageParser:
 	def readInt64(self, littleEndian=False):
 		return readIntN(8, littleEndian);
 
+	# in the source code, there also is the function "nibblesToBytes". It is the same like this one, but works as if tag==NIBBLE_8
 	def readPacked8(self, tag):
 		startByte = self.readByte();
 		ret = "";
 		for i in range(startByte & 127):
-			l = self.readByte();
-			ret += self.unpackByte(tag, (l & 240) >> 4) + self.unpackByte(tag, l & 15);
-		if((startByte >> 7) != 0):
+			currByte = self.readByte();
+			ret += self.unpackByte(tag, (currByte & 240) >> 4) + self.unpackByte(tag, currByte & 15);
+		if (startByte >> 7) == 0:
 			ret = ret[:len(ret)-1];
 		#print "read packed8: " + str(ret);
 		return ret;
@@ -130,7 +130,7 @@ class MessageParser:
 			return chr(ord('0') + value);
 		else:
 			return chr(ord('A') + value - 10);
-	
+		
 	def readVarInt(self):
 		self.checkEOS(0);
 		with open("log.txt", "a") as f:
@@ -207,19 +207,21 @@ class MessageParser:
 		elif tag == Tags.LIST_EMPTY:
 			return;
 		elif tag == Tags.BINARY_8:
-			return self.readStringFromChars(self.readByte());			# is this really "readStringFromChars"? At least seems like that...
+			return self.readString(self.readByte());			# is this really "readStringFromChars"? At least seems like that...
 		elif tag == Tags.BINARY_20:
-			return self.readStringFromChars(self.readInt20());
+			return self.readString(self.readInt20());
 		elif tag == Tags.BINARY_32:
-			return self.readStringFromChars(self.readInt32());
+			return self.readString(self.readInt32());
 		elif tag == Tags.JID_PAIR:
 			i = self.readString(self.readByte());
 			j = self.readString(self.readByte());
 			if i is None or j is None:
-				raise ValueError("invalid jid pair");
+				raise ValueError("invalid jid pair: " + str(i) + ", " + str(j));
 			return i + "@" + j;
 		elif tag == Tags.NIBBLE_8 or tag == Tags.HEX_8:
 			return self.readPacked8(tag);
+		else:
+			raise ValueError("invalid string with tag " + str(tag));
 	
 	def readStringFromChars(self, length):		# TODO: investigate app***:2094
 		self.checkEOS(length);
@@ -246,16 +248,18 @@ class MessageParser:
 		#print base64.b64encode(self.data);
 		listSize = self.readListSize(self.readByte());
 		descrTag = self.readByte();
-		if descrTag == 2:		# 2 = STREAM_END
+		if descrTag == Tags.STREAM_END:
 			raise ValueError("unexpected stream end");
 		descr = self.readString(descrTag);
 		if listSize == 0 or not descr:
 			raise ValueError("invalid node");
+		#print listSize, listSize-2 + listSize%2 >> 1;
 		attrs = self.readAttributes(listSize-2 + listSize%2 >> 1);
 		if listSize % 2 == 1:
 			return [descr, attrs, None];
 
 		tag = self.readByte();
+		print "node content tag is", tag;
 		if self.isListTag(tag):
 			content = self.readList(tag);
 		elif tag == Tags.BINARY_8:
@@ -817,6 +821,7 @@ def parseContextInfoProto(info, obj):
 		info["mentionedJidList"] = mentionedJid;
 
 def parseMsgProto(msg, info, tag):
+	print msg, info, tag;
 	if msg is None:
 		raise ValueError("drop: not Message");
 	
@@ -847,6 +852,7 @@ def parseMsgProto(msg, info, tag):
 	return info;
 
 def parseWebMessageInfo(msg, tag):
+	print msg
 	currJid = decodeJid(msg["key"]["remoteJid"]);
 	toUser = currJid if msg["key"]["fromMe"] else connInfo["me"];
 	fromUser = connInfo["me"] if msg["key"]["fromMe"] else currJid;
@@ -1046,7 +1052,7 @@ def handleActionMsg(actionMeta, actionGroup, node):
 		if len(parsedMessages) == 0:
 			raise ValueError("handle action msg " + addParam + " dropped to 0");
 		messageTarget = msgGetTarget(parsedMessages[0]);
-		return [{						# app2***:730: Store.msg.handle called with this array
+		return [{						# app2***:730: Store.Msg.handle called with this array
 			"meta": actionMeta,
 			"chat": messageTarget,
 			"msgs": parsedMessages
@@ -1365,7 +1371,7 @@ def processData(nodeName, data, doFilterNone=True, me=connInfo["me"], debug=Fals
 	msg = MessageParser(data);
 	msgNode = msg.readNode();
 	if debug:
-		print json.dumps(msgNode, indent=4);
+		print json.dumps(msgNode, indent=4, ensure_ascii=False);
 	handledMsg = handle(msgNode, nodeName);
 	return filterNone(handledMsg) if doFilterNone else handledMsg;
 

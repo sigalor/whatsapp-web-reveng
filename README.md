@@ -46,9 +46,9 @@ To log in at an open websocket, follow these steps:
 	- `status`: should be 200
 	- `ref`: in the application, this is treated as the server ID; important for the QR generation, see below
 	- `ttl`: is 20000, maybe the time after the QR code becomes invalid
-	- `update`: false
+	- `update`: a boolean flag
 	- `curr`: the current WhatsApp Web version, e.g. `0.2.7314`
-	- `time`: the timestamp the server responded on, as floating-point milliseconds, e.g. `1515592039037.0`
+	- `time`: the timestamp the server responded at, as floating-point milliseconds, e.g. `1515592039037.0`
 
 ### QR code generation
 5. Generate your own private key with Curve25519, e.g. `curve25519.Private()`.
@@ -102,6 +102,7 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 #### Constants
 - _Tags_ with their respective integer values
 	- _LIST_EMPTY_: 0
+	- _STREAM_8_: 2
 	- _DICTIONARY_0_: 236
 	- _DICTIONARY_1_: 237
 	- _DICTIONARY_2_: 238
@@ -152,7 +153,7 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 - _Int32_: An integer with four bytes, read using _Integer with N bytes_.
 - _Int64_: An integer with eight bytes, read using _Integer with N bytes_.
 - _Packed8_: Expects a tag as an additional parameter, namely _NIBBLE_8_ or _HEX_8_. Returns a string.
-	- First reads a byte `n` and does the following `n&127` many times: Reads a byte `l` and for each nibble, adds the result of its _unpacked version_ to the return value (using _unpacking bytes_). Most significant nibble first.
+	- First reads a byte `n` and does the following `n&127` many times: Reads a byte `l` and for each nibble, adds the result of its _unpacked version_ to the return value (using _unpacking bytes_ with the given tag). Most significant nibble first.
 	- If the most significant bit of `n` was set, removes the last character of the return value.
 
 #### Variable length integers
@@ -201,7 +202,7 @@ A node always consists of a JSON array with exactly three entries: description, 
 
 1. A _list size_ `a` is read by using a read byte as the tag. The list size 0 is invalid.
 2. The description tag is read as a byte. The value 2 is invalid for this tag. The description string `descr` is then obtained by _reading a string_ with this tag.
-3. The attributes object `attrs` is read by _reading `(a-2 + a%2) >> 1` attributes_.
+3. The attributes object `attrs` is read by _reading an attributes object_ with length `(a-2 + a%2) >> 1`.
 4. If `a` was odd, this node does not have any content, i.e. `[descr, attrs, None]` is returned.
 5. For getting the node's content, first a byte, i.e. a tag is read. Depending on this tag, different types of content emerge:
 	- If the tag is a _list tag_, a _list is read_ using this tag (see below for lists).
@@ -213,7 +214,7 @@ A node always consists of a JSON array with exactly three entries: description, 
 
 #### Lists
 
-Reading a list requires a _list tag_ (i.e. _LIST_EMPTY_, _LIST_8_ for _LIST_16_). The length of the list is then obtained by _reading a list size_ using this tag. For each list entry, a _node is read_.
+Reading a list requires a _list tag_ (i.e. _LIST_EMPTY_, _LIST_8_ or _LIST_16_). The length of the list is then obtained by _reading a list size_ using this tag. For each list entry, a _node is read_.
 
 ### Node Handling
 TODO
@@ -237,6 +238,22 @@ The WhatsApp Web API uses the following formats to identify chats with individua
 There are two types of WebSocket messages that are exchanged between server and client. On the one hand, plain JSON that is rather unambiguous (especially for the API calls above), on the other hand encrypted binary messages.
 
 Unfortunately, these binary ones cannot be looked at using the Chrome developer tools. Additionally, the Python backend, that of course also receives these messages, needs to decrypt them, as they contain encrypted data. The section about encryption details discusses how it can be decrypted.
+
+## Tasks
+
+### Backend
+
+- [ ] Allow sending messages as well. Of course JSON is easy, but _writing_ the binary message format needs to start being examined.
+
+### Web frontend
+
+- [ ] Allow reusing the session after successful login. Probably normal cookies are best for this.
+- [ ] An UI that is not that technical, but rather starts to emulate the actual WhatsApp Web UI.
+
+### Documentation
+- [ ] The _Node Handling_ section. Could become very long.
+- [ ] The _Disclaimer_ section. Should contain stuff like "no warranty" and "don't do bad stuff".
+- [ ] Outsource the different documentation parts into their own files, maybe into the `gh-pages` branch.
 
 ## Disclaimer
 TODO

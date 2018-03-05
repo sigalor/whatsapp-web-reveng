@@ -40,4 +40,4 @@ if "me" not in messageMetadata or "messageTag" not in messageMetadata:
 	exit(1);
 
 processedData = decoder.processData(messageMetadata["messageTag"], binaryMessage, doFilterNone=False, me=messageMetadata["me"], debug=True);
-print json.dumps(processedData, indent=4, sort_keys=True);
+#print json.dumps(processedData, indent=4, ensure_ascii=False, sort_keys=True);
