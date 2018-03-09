@@ -149,6 +149,11 @@ class WhatsAppWebClient:
 					jsonObj = json.loads(messageContent);								# try reading as json
 				except ValueError, e:
 					if messageContent != "":
+						
+						# Message content shouldnt have the -.XY, prefix, so pad the first bytes untilt ","
+						# Please test this though, otherwise decryption is not working
+						messageContent = messageContent[messageContent.find(b",")+1:]
+						
 						hmacValidation = HmacSha256(self.loginInfo["key"]["macKey"], messageContent[32:]);
 						if hmacValidation != messageContent[:32]:
 							raise ValueError("Hmac mismatch");
