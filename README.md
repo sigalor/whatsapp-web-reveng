@@ -77,7 +77,7 @@ To log in at an open websocket, follow these steps:
 ### Key generation
 10. You are now ready for generating the final encryption keys. Start by decoding the `secret` from `Conn` as base64 and storing it as `secret`. This decoded secret will be 144 bytes long.
 11. Take the _first 32 bytes_ of the decoded secret and use it as a public key. Together with your private key, generate a shared key out of it and call it `sharedSecret`. The application does it using `privateKey.get_shared_key(curve25519.Public(secret[:32]), lambda a:a)`.
-12. Encode a message containing 32 null bytes with the shared secret using HMAC SHA256. Take this value and extend it to 80 bytes using HKDF. Call this value `sharedSecretExpanded`. This is done with `HKDF(HmacSha256("\0"*32, sharedSecret), 80)`.
+12. Use a key containing 32 null bytes to encode the shared secret using HMAC SHA256. Take this value and extend it to 80 bytes using HKDF. Call this value `sharedSecretExpanded`. This is done with `HKDF(HmacSha256("\0"*32, sharedSecret), 80)`.
 13. This step is optional, it validates the data provided by the server. The method is called _HMAC validation_. Do it by first calculating `HmacSha256(sharedSecretExpanded[32:64], secret[:32] + secret[64:])`. Compare this value to `secret[32:64]`. If they are not equal, abort the login.
 14. You now have the encrypted keys: store `sharedSecretExpanded[64:] + secret[64:]` as `keysEncrypted`.
 15. The encrypted keys now need to be decrypted using AES with `sharedSecretExpanded[:32]` as key, i.e. store `AESDecrypt(sharedSecretExpanded[:32], keysEncrypted)` as `keysDecrypted`.

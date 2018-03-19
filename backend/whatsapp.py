@@ -149,6 +149,7 @@ class WhatsAppWebClient:
 					jsonObj = json.loads(messageContent);								# try reading as json
 				except ValueError, e:
 					if messageContent != "":
+						#messageContent = messageContent[messageContent.find(b",")+1:];
 						hmacValidation = HmacSha256(self.loginInfo["key"]["macKey"], messageContent[32:]);
 						if hmacValidation != messageContent[:32]:
 							raise ValueError("Hmac mismatch");
@@ -208,7 +209,7 @@ class WhatsAppWebClient:
 
 
 	def connect(self):
-		self.activeWs = websocket.WebSocketApp("wss://w6.web.whatsapp.com/ws",
+		self.activeWs = websocket.WebSocketApp("wss://w3.web.whatsapp.com/ws",
 											   on_message = lambda ws, message: self.onMessage(ws, message),
 											   on_error = lambda ws, error: self.onError(ws, error),
 											   on_open = lambda ws: self.onOpen(ws),
