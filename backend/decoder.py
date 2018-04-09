@@ -254,7 +254,7 @@ class MessageParser:
 		if listSize == 0 or not descr:
 			raise ValueError("invalid node");
 		#print listSize, listSize-2 + listSize%2 >> 1;
-		attrs = self.readAttributes(listSize-2 + listSize%2 >> 1);
+		attrs = self.readAttributes((listSize-1) >> 1);		#self.readAttributes(listSize-2 + listSize%2 >> 1);
 		if listSize % 2 == 1:
 			return [descr, attrs, None];
 
