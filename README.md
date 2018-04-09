@@ -223,7 +223,7 @@ TODO
 WhatsApp Web itself has an interesting API as well. You can even try it out directly in your browser. Just log in at the normal [https://web.whatsapp.com/](https://web.whatsapp.com/), then open the browser development console. Now enter something like the following (see below for details on the chat identification):
 
 - `window.Store.Wap.profilePicFind("49123456789@c.us").then(res => console.log(res));`
-- `window.Store.Wap.lasteenFind("49123456789@c.us").then(res => console.log(res));`
+- `window.Store.Wap.lastseenFind("49123456789@c.us").then(res => console.log(res));`
 - `window.Store.Wap.statusFind("49123456789@c.us").then(res => console.log(res));`
 
 Using the amazing Chrome developer console, you can see that `window.Store.Wap` contains a lot of other very interesting functions. Many of them return JavaScript promises. When you click on the _Network_ tab and then on _WS_ (maybe you need to reload the site first), you can look at all the communication between WhatsApp Web and its servers.
