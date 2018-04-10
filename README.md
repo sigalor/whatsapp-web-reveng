@@ -15,7 +15,7 @@ Before you can run the application, make sure that you have the following softwa
   - `curve25519-donna` and `pycrypto` for the encryption stuff
   - `pyqrcode` for QR code generation
  
-Before starting the application for the first time, run `npm install` to install all Node and `pip install -r requirements` for all Python dependencies.
+Before starting the application for the first time, run `npm install` to install all Node and `pip install -r requirements.txt` for all Python dependencies.
 
 Lastly, to finally launch it, just run `npm start`. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
 
