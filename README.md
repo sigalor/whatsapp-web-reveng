@@ -19,13 +19,15 @@ Before starting the application for the first time, run `npm install` to install
 
 Lastly, to finally launch it, just run `npm start`. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
 
+A recent addition is a version of the decryption routine translated to in-browser JavaScript. Run `node index_jsdemo.js` (just needed because browsers don't allow changing HTTP headers for WebSockets), then open `client/login-via-js-demo.html` as a normal file in any browser. The console output should show decrypted binary messages after scanning the QR code.
+
 ## Application architecture
 The project is organized in the following way. Note the used ports and make sure that they are not in use elsewhere before starting the application.
 ![whatsapp-web-reveng Application architecture](https://raw.githubusercontent.com/sigalor/whatsapp-web-reveng/master/doc/img/app-architecture1000.png)
 
 
 ## Login and encryption details
-WhatsApp Web encrypts the data using several different algorithms. These include [AES 256 ECB](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), [Curve25519](https://en.wikipedia.org/wiki/Curve25519) as Diffie-Hellman key agreement scheme, [HKDF](https://en.wikipedia.org/wiki/HKDF) for generating the extended shared secret and [HMAC](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code) with SHA256.
+WhatsApp Web encrypts the data using several different algorithms. These include [AES 256 CBC](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), [Curve25519](https://en.wikipedia.org/wiki/Curve25519) as Diffie-Hellman key agreement scheme, [HKDF](https://en.wikipedia.org/wiki/HKDF) for generating the extended shared secret and [HMAC](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code) with SHA256.
 
 Starting the WhatsApp Web session happens by just connecting to one of its websocket servers at `wss://w[1-8].web.whatsapp.com/ws` (`wss://` means that the websocket connection is secure; `w[1-8]` means that any number between 1 and 8 can follow the `w`). Also make sure that, when establishing the connection, the HTTP header `Origin: https://web.whatsapp.com` is set, otherwise the connection will be rejected.
 
@@ -243,16 +245,20 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 
 ### Backend
 
+- [ ] More and more errors start to occur in the binary message decoding. Update this documentation to resemble the changes, then implement them.
 - [ ] Allow sending messages as well. Of course JSON is easy, but _writing_ the binary message format needs to start being examined.
 
 ### Web frontend
 
-- [ ] Allow reusing the session after successful login. Probably normal cookies are best for this.
+- [ ] Allow reusing the session after successful login. Probably normal cookies are best for this. See [#9](https://github.com/sigalor/whatsapp-web-reveng/issues/9) for details.
 - [ ] An UI that is not that technical, but rather starts to emulate the actual WhatsApp Web UI.
+
+### General development
+
+- [ ] Allow usage on Windows, i.e. entirely fix [#10](https://github.com/sigalor/whatsapp-web-reveng/issues/16).
 
 ### Documentation
 - [ ] The _Node Handling_ section. Could become very long.
-- [ ] The _Disclaimer_ section. Should contain stuff like "no warranty" and "don't do bad stuff".
 - [ ] Outsource the different documentation parts into their own files, maybe into the `gh-pages` branch.
 
 ## Terms and conditions

@@ -8,8 +8,6 @@
 		<title>WhatsApp Web: Login via JavaScript demo</title>
 		
 		<!-- stylesheets -->
-		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/main.css">
 		<style type="text/css">
 			body {
@@ -19,15 +17,10 @@
 		
 		<!-- fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,700" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 		
 		<!-- scripts -->
-		<script type="text/javascript" src="lib/lodash/js/lodash.min.js"></script>
 		<script type="text/javascript" src="lib/jquery/js/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/qrcode/js/qrcode.min.js"></script>
-		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="lib/bootstrap/js/bootbox.min.js"></script>
-		<script type="text/javascript" src="lib/moment/js/moment.min.js"></script>
 		<script type="text/javascript" src="lib/sjcl/js/sjcl.js"></script>
 		<script type="text/javascript" src="lib/curve25519-js/js/axlsign.js"></script>
 		
@@ -146,13 +139,14 @@
 							let fileReader = new FileReader();				//from https://stackoverflow.com/a/15981017
 							fileReader.onload = function() {
 								let ba = sjcl.bitArray;
-								let messageContent = sjcl.codec.arrayBuffer.toBits(this.result);
+								let delimPos = new Uint8Array(this.result).indexOf(44);		//look for index of comma because there is a message tag before it
+								let messageContent = sjcl.codec.arrayBuffer.toBits(this.result.slice(delimPos+1));
 								let hmacValidation = HmacSha256(macKey, ba.bitSlice(messageContent, 32*8));
 								if(!sjcl.bitArray.equal(hmacValidation, ba.bitSlice(messageContent, 0, 32*8)))
 									throw ["hmac mismatch", sjcl.codec.hex.fromBits(hmacValidation), sjcl.codec.hex.fromBits(ba.bitSlice(messageContent, 0, 32*8))];
 								
 								let data = AESDecrypt(encKey, ba.bitSlice(messageContent, 32*8));
-								console.log("got binary data: ", sjcl.codec.base64.fromBits(data));
+								console.log("got binary data: ", String.fromCharCode.apply(null, new Uint8Array(sjcl.codec.arrayBuffer.fromBits(data, 0))));
 							};
 							fileReader.readAsArrayBuffer(e.data);
 						}
