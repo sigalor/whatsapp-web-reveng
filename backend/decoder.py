@@ -100,7 +100,7 @@ class MessageParser:
 		ret = "";
 		for i in range(startByte & 127):
 			currByte = self.readByte();
-			ret += self.unpackByte(tag, (currByte & 240) >> 4) + self.unpackByte(tag, currByte & 15);
+			ret += self.unpackByte(tag, (currByte & 0xF0) >> 4) + self.unpackByte(tag, currByte & 0x0F);
 		if (startByte >> 7) == 0:
 			ret = ret[:len(ret)-1];
 		#print "read packed8: " + str(ret);
@@ -207,11 +207,11 @@ class MessageParser:
 		elif tag == Tags.LIST_EMPTY:
 			return;
 		elif tag == Tags.BINARY_8:
-			return self.readString(self.readByte());			# is this really "readStringFromChars"? At least seems like that...
+			return self.readStringFromChars(self.readByte());			# is this really "readStringFromChars"? At least seems like that...
 		elif tag == Tags.BINARY_20:
-			return self.readString(self.readInt20());
+			return self.readStringFromChars(self.readInt20());
 		elif tag == Tags.BINARY_32:
-			return self.readString(self.readInt32());
+			return self.readStringFromChars(self.readInt32());
 		elif tag == Tags.JID_PAIR:
 			i = self.readString(self.readByte());
 			j = self.readString(self.readByte());
@@ -280,13 +280,13 @@ class MessageParser:
 	
 	def getToken(self, index):
 		if index < 0 or index >= len(Tokens):
-			raise ValueError("invalid index: " + str(index));
+			raise ValueError("invalid token index: " + str(index));
 		return Tokens[index];
 
 	def getTokenDouble(self, index1, index2):
 		n = 256 * index1 + index2;
 		if n < 0 or n >= len(Tokens):
-			raise ValueError("invalid index: " + str(n));
+			raise ValueError("invalid token index: " + str(n));
 		return Tokens[n];
 
 

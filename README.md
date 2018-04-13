@@ -255,7 +255,7 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 
 ### General development
 
-- [ ] Allow usage on Windows, i.e. entirely fix [#10](https://github.com/sigalor/whatsapp-web-reveng/issues/16).
+- [ ] Allow usage on Windows, i.e. entirely fix [#16](https://github.com/sigalor/whatsapp-web-reveng/issues/16).
 
 ### Documentation
 - [ ] The _Node Handling_ section. Could become very long.
