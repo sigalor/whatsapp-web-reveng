@@ -14,12 +14,15 @@ Before you can run the application, make sure that you have the following softwa
   - `websocket-client` and `git+https://github.com/dpallot/simple-websocket-server.git` for acting as WebSocket server and client.
   - `curve25519-donna` and `pycrypto` for the encryption stuff.
   - `pyqrcode` for QR code generation.
-
-Note: On Windows `curve25519-donna requires` [Microsoft Visual C++ 9.0](http://aka.ms/vcpython27) and you need to copy the [`stdint.h`](windows) into `C:\Users\YOUR USERNAME\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0\VC\include`
+- Note: On Windows `curve25519-donna` requires [Microsoft Visual C++ 9.0](http://aka.ms/vcpython27) and you need to copy [`stdint.h`](windows) into `C:\Users\YOUR USERNAME\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0\VC\include`.
 
 Before starting the application for the first time, run `npm install` to install all Node and `pip install -r requirements.txt` for all Python dependencies.
 
-Lastly, to finally launch it, just run `npm start` on linux based os's and `npm run win` on windows. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
+Lastly, to finally launch it, just run `npm start` on Linux based OS's and `npm run win` on Windows. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
+
+## Decryption routine reimplementations
+
+### JavaScript
 
 A recent addition is a version of the decryption routine translated to in-browser JavaScript. Run `node index_jsdemo.js` (just needed because browsers don't allow changing HTTP headers for WebSockets), then open `client/login-via-js-demo.html` as a normal file in any browser. The console output should show decrypted binary messages after scanning the QR code.
 
