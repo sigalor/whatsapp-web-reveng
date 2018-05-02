@@ -247,6 +247,39 @@ There are two types of WebSocket messages that are exchanged between server and 
 
 Unfortunately, these binary ones cannot be looked at using the Chrome developer tools. Additionally, the Python backend, that of course also receives these messages, needs to decrypt them, as they contain encrypted data. The section about encryption details discusses how it can be decrypted.
 
+
+## Extending the web app's capabilities  
+
+### Adding own commands
+
+The message forwarding procedures are rather complex, as there are several layers of websockes involved in the process. For adding your own commands, follow these steps.
+
+1. First, decide on what the final destination of your command shall be. To be consistent with the other, please prefix it with `backend_` if it's meant to be received by the Python backend or use `api_` if the command is directed to the NodeJS API.
+
+2. Now, look at [`client/js/main.js`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/client/js/main.js). In [line 214](https://github.com/sigalor/whatsapp-web-reveng/blob/master/client/js/main.js#L214), you can see an instantiation of the `BootstrapStep` JavaScript class. It needs the following information:
+
+	-  `websocket`: is probably always the same
+
+	-  `request.type`: should generally be `call`, as this allows a response to be passed back to the command's sender
+
+	-  `request.callArgs`: an object which has to contain a `command` attribute specifying the name of your command and as many additional key-value-pairs as you want. All of these will be passed to the receiver.
+
+	-  `request.successCondition`: on receiving a response for a call, this shall be a function returning `true` when the response is valid/expected. Use the next attribute for specifying code to be executed when the response is valid.
+
+	-  `request.successActor`: when the success condition evaluated to `true`, this success actor function is called
+
+	When the `BootstrapStep` object has been constructed, call `.run()` for running indefinitely or `.run(timeout_ms)` for failing when no response has been received after a specific timeout. The `run` function returns a Promise.
+
+3. Next, edit [`index.js`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/index.js). It contains a couple of blocks beginning with `clientWebsocket.waitForMessage`. You can copy one of these blocks and edit the parameters. The `waitForMessage` function needs the following attributes:
+
+	-  `condition`: when a message is received and this condition evaluates to `true` on it, the message will be processed by the following `.then(...)` block
+
+	-  `keepWhenHit`: it is possible for a message handler to be detached immediately after it receives its first fitting message. Control this here.
+
+	The returned promise's `then` block finally handles a received message. It gets a `clientCallRequest` you can call `.respond({...})` on to send a JSON response to the caller. If the NodeJS API is not the message's final destination, you need to instantiate a new `BootstrapStep` here which will contact to the Python backend and, after it receives its response, will return it to the original caller.
+
+4. Thus, when you want a message for the backend, now edit [`backend/whatsapp-web-backend.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py). In the if-else-compound starting in [line 88](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py#L88), add your own branch for the command name you chose. Then, edit [`backend/whatsapp.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py) and add a function similar to `generateQRCode` in [line 223](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L223). Just using something like in [`getLoginInfo`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L230) may not be enough, as your command may require an asynchronous request to the WhatsApp Web servers. In this case, make sure to add an entry to `self.messageQueue` with the message tag you chose and send an appropriate message to `self.activeWs`. The servers will respond to your request with a response containing the same tag, thus this is resolved in [line 134](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L134). Make sure to eventually call `pend["callback"]["func"]({...})` with the JSON object containing your response data to resolve the callback.
+
 ## Tasks
 
 ### Backend
