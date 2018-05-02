@@ -93,7 +93,7 @@ To log in at an open websocket, follow these steps:
 	- `macKey`: `keysDecrypted[32:64]`
 
 ### Validating and decrypting messages
-Now that you have the two keys, validating and decrypting messages the server sent to you is quite easy. Note that this is only needed for _binary_ messages, all JSON you receive stays plain. The binary messages always have 32 bytes at the beginning that specify the HMAC checksum.
+Now that you have the two keys, validating and decrypting messages the server sent to you is quite easy. Note that this is only needed for _binary_ messages, all JSON you receive stays plain. The binary messages always have 32 bytes at the beginning that specify the HMAC checksum. Both JSON _and_ binary messages have a message tag at their very start that can be discarded, i.e. only the portion after the first comma character is significant.
 
 1. Validate the message by hashing the actual message content with the `macKey` (here `messageContent` is the _entire_ binary message): `HmacSha256(macKey, messageContent[32:])`. If this value is not equal to `messageContent[:32]`, the message sent to you by the server is invalid and should be discarded.
 2. Decrypt the message content using AES and the `encKey`: `AESDecrypt(encKey, messageContent[32:])`.

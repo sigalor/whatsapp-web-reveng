@@ -133,8 +133,6 @@ class MessageParser:
 		
 	def readVarInt(self):
 		self.checkEOS(0);
-		with open("log.txt", "a") as f:
-			f.write("\nreadVarInt at " + str(self.index) + "\n");
 		startIndex = self.index;
 		numBytesLeft = len(self.data) - startIndex;
 		currByte = ord(self.data[self.index]);
@@ -153,16 +151,12 @@ class MessageParser:
 		for i in range(min(3, varIntLength)):
 			varIntPart1 |= (ord(self.data[startIndex + i]) & 127) << (i * 7);
 		if varIntLength < 4:
-			with open("log.txt", "a") as f:
-				f.write("result: " + str(varIntPart1) + "\n");
 			return varIntPart1;
 
 		varIntPart2 = 0;
 		for i in range(3, min(6, varIntLength)):
 			varIntPart2 |= (ord(self.data[startIndex + i]) & 127) << ((i-3) * 7);
 		if varIntLength < 7:
-			with open("log.txt", "a") as f:
-				f.write("result: " + str((varIntPart2 << 21) | varIntPart1) + "\n");
 			return (varIntPart2 << 21) | varIntPart1;
 
 		varIntPart3 = 0;
@@ -172,8 +166,6 @@ class MessageParser:
 			varIntPart3 |= (ord(self.data[startIndex + 9]) & 1) << 21;
 		
 		ret = ((varIntPart3 << 10 | varIntPart2 >> 11) << 32) | (varIntPart2 << 21 | varIntPart1);
-		with open("log.txt", "a") as f:
-			f.write("result: " + str(ret) + "\n");
 		return ret;
 
 	def readRangedVarInt(self, minVal, maxVal, desc="unknown"):
