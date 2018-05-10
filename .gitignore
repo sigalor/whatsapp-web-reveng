@@ -63,3 +63,5 @@ misc/
 backend/decodable_msgs
 backend/undecodable_msgs
 
+# direnv environment
+.envrc
