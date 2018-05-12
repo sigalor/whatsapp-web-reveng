@@ -225,7 +225,28 @@ A node always consists of a JSON array with exactly three entries: description, 
 Reading a list requires a _list tag_ (i.e. _LIST_EMPTY_, _LIST_8_ or _LIST_16_). The length of the list is then obtained by _reading a list size_ using this tag. For each list entry, a _node is read_.
 
 ### Node Handling
-TODO
+
+After a binary message has been transformed into JSON, it is still rather hard to read. That's why, internally, WhatsApp Web completely retransforms this structure into something that can be easily processed and eventually translated into user interface content. This section will deal with this and awaits completion.
+
+## Binary conversation format
+
+When a node has been read, the contents of messages that have been actually sent by the user (i.e. text, image, audio, video etc.) are still not directly visible or accessible via the JSON. Instead, they are kept in a binary string/array buffer and there is another binary format for this. At first, one could think that this is unnecessary, but this format has entirely different objectives and is designed to provide optimal backward compatibility, as, in contrast to the binary message format, WhatsApp frequently adds new methods of communicating. For example, in the past few months, sticker, live location and payment messages have been added.
+
+The first thing to know about the binary conversation format is that it depends on a [specification](https://github.com/sigalor/whatsapp-web-reveng/blob/master/doc/spec/binary-conversation-format.js) of the expected members. I used JavaScript here to keep a certain structure but still allow adapting it to other programming languages. The file's comments elaborate on various details of the specification.
+
+Here, the details on how the binary data must be read in order to generate an easily readable JSON structure are discussed. First, look at the four type classes. You can see that, without knowing which data they actually keep, type class 0 is always a varint, class 1 is always 64 bit, class 2 always first reads a varint which specifies the number of following bytes and class 5 is always 32 bit. Thus, to skip a submessage/member, only the type class needs to be known; if the client misses its actual definition, it knows exactly how many bytes to skip. This is an essential component for backward compatibility.
+
+The routine for reading a binary conversation always keeps the name of the submessage it currently reads as a string. Initially, this is `__messageFrame` (an arbitraty, but fixed name chosen by myself) and may later be `key`, `message`, `imageMessage` etc. (all chosen by WhatsApp). The routine then keeps following these steps _while there is still more data to read_:
+
+1. Read a _ranged variable length integer_ that is limited to values >=0 and <4294967296. This is the "field and enc type".
+2. Extract the type class from it using `fieldAndEncType & WAMsgTypeClasses.TYPE_CLASS_MASK` and get the field value using `fieldAndEncType >> WAMsgTypeClasses.TYPE_CLASS_BITWIDTH`.
+3. Find the (name, field, type)-tuple using the field value from `WAMessageDefs[currSubmessageName]`. If it doesn't exist, return something like `undefined`, but _do not_ treat this as a fatal exception! Instead, skip this type class by skipping as many bytes as described in the third paragraph of this section.
+4. Make sure that the type class extracted from `fieldAndEncType` matches up with the type class of the `type` member from the (name, field, type)-tuple previously found. If it does not, this is a fatal error and all remaining bytes in the current submessage can be ignored.
+5. Now, there are two main options for the current base type (i.e. `type & WAMsgTypes.BASE_TYPE_MASK` with `type` coming from the current (name, field, type)-tuple):
+	- If it's `WAMsgTypes.SUBMESSAGE`, recursion happens. Read a _variable length integer_, then read this many bytes and construct a new instance of your message decoder with them. Make sure that this new instance _only_ has access to the bytes of the new submessage, as it may otherwise read data which is not meant for it. Of couse this instance also needs the name of the new submessage; if the tuple has the `subMsgRef` member, that's it, otherwise it's just the `name` member.
+	- If it's any other message type, an integer, floating point number, boolean, string or byte string are read. Numbers are always big endian, strings and byte string have, just like all other members from type class 5, their length in bytes prefixed to them.
+	- TODO: Arrays?
+6. The value that has been read is then stored in the result object together with its key (`name` in the tuple).
 
 ## WhatsApp Web API
 WhatsApp Web itself has an interesting API as well. You can even try it out directly in your browser. Just log in at the normal [https://web.whatsapp.com/](https://web.whatsapp.com/), then open the browser development console. Now enter something like the following (see below for details on the chat identification):
@@ -255,29 +276,18 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 The message forwarding procedures are rather complex, as there are several layers of websockes involved in the process. For adding your own commands, follow these steps.
 
 1. First, decide on what the final destination of your command shall be. To be consistent with the other, please prefix it with `backend_` if it's meant to be received by the Python backend or use `api_` if the command is directed to the NodeJS API.
-
 2. Now, look at [`client/js/main.js`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/client/js/main.js). In [line 214](https://github.com/sigalor/whatsapp-web-reveng/blob/master/client/js/main.js#L214), you can see an instantiation of the `BootstrapStep` JavaScript class. It needs the following information:
-
 	-  `websocket`: is probably always the same
-
 	-  `request.type`: should generally be `call`, as this allows a response to be passed back to the command's sender
-
 	-  `request.callArgs`: an object which has to contain a `command` attribute specifying the name of your command and as many additional key-value-pairs as you want. All of these will be passed to the receiver.
-
 	-  `request.successCondition`: on receiving a response for a call, this shall be a function returning `true` when the response is valid/expected. Use the next attribute for specifying code to be executed when the response is valid.
-
 	-  `request.successActor`: when the success condition evaluated to `true`, this success actor function is called
 
 	When the `BootstrapStep` object has been constructed, call `.run()` for running indefinitely or `.run(timeout_ms)` for failing when no response has been received after a specific timeout. The `run` function returns a Promise.
-
 3. Next, edit [`index.js`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/index.js). It contains a couple of blocks beginning with `clientWebsocket.waitForMessage`. You can copy one of these blocks and edit the parameters. The `waitForMessage` function needs the following attributes:
-
 	-  `condition`: when a message is received and this condition evaluates to `true` on it, the message will be processed by the following `.then(...)` block
-
 	-  `keepWhenHit`: it is possible for a message handler to be detached immediately after it receives its first fitting message. Control this here.
-
 	The returned promise's `then` block finally handles a received message. It gets a `clientCallRequest` you can call `.respond({...})` on to send a JSON response to the caller. If the NodeJS API is not the message's final destination, you need to instantiate a new `BootstrapStep` here which will contact to the Python backend and, after it receives its response, will return it to the original caller.
-
 4. Thus, when you want a message for the backend, now edit [`backend/whatsapp-web-backend.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py). In the if-else-compound starting in [line 88](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py#L88), add your own branch for the command name you chose. Then, edit [`backend/whatsapp.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py) and add a function similar to `generateQRCode` in [line 223](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L223). Just using something like in [`getLoginInfo`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L230) may not be enough, as your command may require an asynchronous request to the WhatsApp Web servers. In this case, make sure to add an entry to `self.messageQueue` with the message tag you chose and send an appropriate message to `self.activeWs`. The servers will respond to your request with a response containing the same tag, thus this is resolved in [line 134](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L134). Make sure to eventually call `pend["callback"]["func"]({...})` with the JSON object containing your response data to resolve the callback.
 
 ## Tasks
