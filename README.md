@@ -67,31 +67,59 @@ To log in at an open websocket, follow these steps:
 	- your client ID
 8. Turn this string into an image (e.g. using `pyqrcode`) and scan it using the WhatsApp app.
 
+### Requesting new ref for QR code generation (not implemented)
+9. You can request up to 5 new server refs when previous one expires (`ttl`).
+10. Do it by sending `messageTag,["admin","Conn","reref"]`.
+11. The server responds with JSON with the following attributes:
+	- `status`: should be 200 (other ones: 304 - reuse previous ref, 429 - new ref denied)
+	- `ref`: new ref
+	- `ttl`: expiration time
+12. Update your QR code with the new ref.
+
 ### After scanning the QR code
-9. Immediately after you scan the QR code, the websocket receives several important JSON messages that build up the encryption details. These use the specified message format and have a JSON _array_ as payload. Their message tag has no special meaning. The first entry of the JSON array has one of the following values:
+13. Immediately after you scan the QR code, the websocket receives several important JSON messages that build up the encryption details. These use the specified message format and have a JSON _array_ as payload. Their message tag has no special meaning. The first entry of the JSON array has one of the following values:
 	- `Conn`: array contains JSON object as second element with connection information containing the following attributes and many more:
 		- `battery`: the current battery percentage of your phone
-		- `browserToken` (could be important, but not used by the application yet)
-		- `clientToken` (could be important, but not used by the application yet)
+		- `browserToken`: used to logout without active WebSocket connection (not implemented yet)
+		- `clientToken`: used to resuming closed sessions aka "Remember me" (not implemented yet)
 		- `phone`: an object with detailed information about your phone, e.g. `device_manufacturer`, `device_model`, `os_build_number`, `os_version`
 		- `platform`: your phone OS, e.g. `android`
 		- `pushname`: the name of yours you provided WhatsApp
 		- `secret` (remember this!)
-		- `serverToken` (could be important, but not used by the application yet)
+		- `serverToken`: used to resuming closed sessions aka "Remember me" (not implemented yet)
 		- `wid`: your phone number in the chat identification format (see below)
 	- `Stream`: array has four elements in total, so the entire payload is like `["Stream","update",false,"0.2.7314"]`
 	- `Props`: array contains JSON object as second element with several properties like `imageMaxKBytes` (1024), `maxParticipants` (257), `videoMaxEdge` (960) and others
 
 ### Key generation
-10. You are now ready for generating the final encryption keys. Start by decoding the `secret` from `Conn` as base64 and storing it as `secret`. This decoded secret will be 144 bytes long.
-11. Take the _first 32 bytes_ of the decoded secret and use it as a public key. Together with your private key, generate a shared key out of it and call it `sharedSecret`. The application does it using `privateKey.get_shared_key(curve25519.Public(secret[:32]), lambda a:a)`.
-12. Use a key containing 32 null bytes to encode the shared secret using HMAC SHA256. Take this value and extend it to 80 bytes using HKDF. Call this value `sharedSecretExpanded`. This is done with `HKDF(HmacSha256("\0"*32, sharedSecret), 80)`.
-13. This step is optional, it validates the data provided by the server. The method is called _HMAC validation_. Do it by first calculating `HmacSha256(sharedSecretExpanded[32:64], secret[:32] + secret[64:])`. Compare this value to `secret[32:64]`. If they are not equal, abort the login.
-14. You now have the encrypted keys: store `sharedSecretExpanded[64:] + secret[64:]` as `keysEncrypted`.
-15. The encrypted keys now need to be decrypted using AES with `sharedSecretExpanded[:32]` as key, i.e. store `AESDecrypt(sharedSecretExpanded[:32], keysEncrypted)` as `keysDecrypted`.
-16. The `keysDecrypted` variable is 64 bytes long and contains two keys, each 32 bytes long. The `encKey` is used for decrypting binary messages sent to you by the WhatsApp Web server or encrypting binary messages you send to the server. The `macKey` is needed to validate the messages sent to you:
+14. You are now ready for generating the final encryption keys. Start by decoding the `secret` from `Conn` as base64 and storing it as `secret`. This decoded secret will be 144 bytes long.
+15. Take the _first 32 bytes_ of the decoded secret and use it as a public key. Together with your private key, generate a shared key out of it and call it `sharedSecret`. The application does it using `privateKey.get_shared_key(curve25519.Public(secret[:32]), lambda a:a)`.
+16. Use a key containing 32 null bytes to encode the shared secret using HMAC SHA256. Take this value and extend it to 80 bytes using HKDF. Call this value `sharedSecretExpanded`. This is done with `HKDF(HmacSha256("\0"*32, sharedSecret), 80)`.
+17. This step is optional, it validates the data provided by the server. The method is called _HMAC validation_. Do it by first calculating `HmacSha256(sharedSecretExpanded[32:64], secret[:32] + secret[64:])`. Compare this value to `secret[32:64]`. If they are not equal, abort the login.
+18. You now have the encrypted keys: store `sharedSecretExpanded[64:] + secret[64:]` as `keysEncrypted`.
+19. The encrypted keys now need to be decrypted using AES with `sharedSecretExpanded[:32]` as key, i.e. store `AESDecrypt(sharedSecretExpanded[:32], keysEncrypted)` as `keysDecrypted`.
+20. The `keysDecrypted` variable is 64 bytes long and contains two keys, each 32 bytes long. The `encKey` is used for decrypting binary messages sent to you by the WhatsApp Web server or encrypting binary messages you send to the server. The `macKey` is needed to validate the messages sent to you:
 	- `encKey`: `keysDecrypted[:32]`
 	- `macKey`: `keysDecrypted[32:64]`
+    
+### Restoring closed sessions (not implemented)
+1. After sending `init` command, check whether you have `serverToken` and `clientToken`.
+2. If so, send `messageTag,["admin","login","clientToken","serverToken","clientId","takeover"]`
+3. The server should respond with `{"status": 200}`. Other statuses:
+	- 401: Unpaired from the phone
+	- 403: Access denied, check `tos` field in the JSON: if it equals or greater than 2, you have violated TOS
+	- 405: Already logged in
+	- 409: Logged in from another location
+
+### Resolving challenge (not implemented)
+4. When using old or expired `serverToken` and `clientToken`, you will be challenged to confirm that you still have valid encryption keys.
+5. The challenge looks like this `messageTag,["Cmd",{"type":"challenge","challenge":"BASE_64_ENCODED_STRING=="}]`
+6. Decode `challenge` string from Base64, sign it with your macKey, encode it back with Base64 and send `messageTag,["admin","challenge","BASE_64_ENCODED_STRING==","serverToken","clientId"]`
+7. The server should respond with `{"status": 200}`, but it means nothing.
+8. After solving challenge your connection should be restored.
+
+### Logging out
+TBD
 
 ### Validating and decrypting messages
 Now that you have the two keys, validating and decrypting messages the server sent to you is quite easy. Note that this is only needed for _binary_ messages, all JSON you receive stays plain. The binary messages always have 32 bytes at the beginning that specify the HMAC checksum. Both JSON _and_ binary messages have a message tag at their very start that can be discarded, i.e. only the portion after the first comma character is significant.
