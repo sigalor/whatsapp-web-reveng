@@ -119,7 +119,10 @@ To log in at an open websocket, follow these steps:
 8. After solving challenge your connection should be restored.
 
 ### Logging out
-TBD
+1. When you have an active WebSocket connection, just send `goodbye,,["admin","Conn","disconnect"]`.
+2. When you don't have such connection (for example your session has been taken over from another location), sign your `encKey` with your `macKey` and encode it with Base64. Let's say it is your `logoutToken`.
+3. Send a POST request to `https://dyn.web.whatsapp.com/logout?t=browserToken&m=logoutToken`
+4. Remember to always clear your sessions, so sessions list in your phone will not grow big.
 
 ### Validating and decrypting messages
 Now that you have the two keys, validating and decrypting messages the server sent to you is quite easy. Note that this is only needed for _binary_ messages, all JSON you receive stays plain. The binary messages always have 32 bytes at the beginning that specify the HMAC checksum. Both JSON _and_ binary messages have a message tag at their very start that can be discarded, i.e. only the portion after the first comma character is significant.
