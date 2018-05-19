@@ -195,16 +195,6 @@ The Python script `backend/decoder.py` implements the `MessageParser` class. It 
 	- First reads a byte `n` and does the following `n&127` many times: Reads a byte `l` and for each nibble, adds the result of its _unpacked version_ to the return value (using _unpacking bytes_ with the given tag). Most significant nibble first.
 	- If the most significant bit of `n` was set, removes the last character of the return value.
 
-#### Variable length integers
-
-In contrast to the previous number formats, reading a _variable length integer_ (VLI) does _not_ change the current data pointer.
-
-First, the length `l` of the VLI is read by reading bytes until a byte with the most significant bit set is encountered, but at most 10 bytes.
-
-TODO
-
-_Ranged variable length integers_ expect a minimum and a maximum value. If the read _variable length integer_ is less then the minimum or greater than or equal to the maximum, throw an error.
-
 #### Helper methods
 - _Read bytes_: Reads and returns the specified number of bytes.
 - _Check for list tag_: Expects a tag as parameter and returns true if the tag is `LIST_EMPTY`, `LIST_8` or `LIST_16` (i.e. 0, 248 or 249).
