@@ -62,6 +62,7 @@ misc/
 .sass-cache/
 backend/decodable_msgs
 backend/undecodable_msgs
+log.txt
 
 # direnv environment
 .envrc

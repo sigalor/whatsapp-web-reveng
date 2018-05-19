@@ -35,6 +35,7 @@ def HmacSha256(key, sign):
 	return hmac.new(key, sign, hashlib.sha256).digest();
 
 def HKDF(key, length, appInfo=""):						# implements RFC 5869, some parts from https://github.com/MirkoDziadzka/pyhkdf
+	key = HmacSha256("\0"*32, key);
 	keyStream = "";
 	keyBlock = "";
 	blockIndex = 1;
@@ -179,7 +180,7 @@ class WhatsAppWebClient:
 							
 							self.connInfo["secret"] = base64.b64decode(jsonObj[1]["secret"]);
 							self.connInfo["sharedSecret"] = self.loginInfo["privateKey"].get_shared_key(curve25519.Public(self.connInfo["secret"][:32]), lambda a: a);
-							sse = self.connInfo["sharedSecretExpanded"] = HKDF(HmacSha256("\0"*32, self.connInfo["sharedSecret"]), 80);
+							sse = self.connInfo["sharedSecretExpanded"] = HKDF(self.connInfo["sharedSecret"], 80);
 							hmacValidation = HmacSha256(sse[32:64], self.connInfo["secret"][:32] + self.connInfo["secret"][64:]);
 							if hmacValidation != self.connInfo["secret"][32:64]:
 								raise ValueError("Hmac mismatch");
