@@ -283,6 +283,31 @@ There are two types of WebSocket messages that are exchanged between server and 
 
 Unfortunately, these binary ones cannot be looked at using the Chrome developer tools. Additionally, the Python backend, that of course also receives these messages, needs to decrypt them, as they contain encrypted data. The section about encryption details discusses how it can be decrypted.
 
+## Dealing with E2E media
+### Encryption
+TBD
+
+### Decryption
+1. Obtain `mediaKey` and decode it from Base64 if necessary.
+2. Expand it to 112 bytes using HKDF with type-specific application info (see below). Call this value `mediaKeyExpanded`.
+3. Split `mediaKeyExpanded` to:
+	- `iv`: `keysDecrypted[:16]`
+	- `cipherKey`: `keysDecrypted[16:48]`
+	- `macKey`: `keysDecrypted[48:80]`
+	- `refKey`: `keysDecrypted[80:]` (not used)
+4. Download media data from the `url` and split it into:
+	- `file`: `mediaData[:-10]`
+	- `mac`: `mediaData[-10:]`
+5. Validate media data with HMAC by signing `iv` + `file` with `macKey` using SHA-256. Take in mind that `mac` is truncated to 10 bytes, so you should compare only first 10 bytes.
+6. Decrypt `file` with AES-CBC using `cipherKey` and `iv`, and unpad it.
+
+### Application info for HKDF
+| Media Type | Application Info       |
+| ---------- | ---------------------- |
+| IMAGE      | WhatsApp Image Keys    |
+| VIDEO      | WhatsApp Video Keys    |
+| AUDIO      | WhatsApp Audio Keys    |
+| DOCUMENT   | WhatsApp Document Keys |
 
 ## Extending the web app's capabilities  
 
