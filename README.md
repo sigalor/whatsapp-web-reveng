@@ -280,24 +280,26 @@ TBD
 ### Decryption
 1. Obtain `mediaKey` and decode it from Base64 if necessary.
 2. Expand it to 112 bytes using HKDF with type-specific application info (see below). Call this value `mediaKeyExpanded`.
-3. Split `mediaKeyExpanded` to:
-	- `iv`: `keysDecrypted[:16]`
-	- `cipherKey`: `keysDecrypted[16:48]`
-	- `macKey`: `keysDecrypted[48:80]`
-	- `refKey`: `keysDecrypted[80:]` (not used)
+3. Split `mediaKeyExpanded` into:
+	- `iv`: `mediaKeyExpanded[:16]`
+	- `cipherKey`: `mediaKeyExpanded[16:48]`
+	- `macKey`: `mediaKeyExpanded[48:80]`
+	- `refKey`: `mediaKeyExpanded[80:]` (not used)
 4. Download media data from the `url` and split it into:
 	- `file`: `mediaData[:-10]`
 	- `mac`: `mediaData[-10:]`
-5. Validate media data with HMAC by signing `iv` + `file` with `macKey` using SHA-256. Take in mind that `mac` is truncated to 10 bytes, so you should compare only first 10 bytes.
-6. Decrypt `file` with AES-CBC using `cipherKey` and `iv`, and unpad it.
+5. Validate media data with HMAC by signing `iv + file` with `macKey` using SHA-256. Take in mind that `mac` is truncated to 10 bytes, so you should compare only the first 10 bytes.
+6. Decrypt `file` with AES-CBC using `cipherKey` and `iv`, and unpad it. Note that this means that your session's keys (i.e. `encKey` and `macKey` from the _Key generation_ section) are not necessary to decrypt a media file.
 
 ### Application info for HKDF
-| Media Type | Application Info       |
-| ---------- | ---------------------- |
-| IMAGE      | WhatsApp Image Keys    |
-| VIDEO      | WhatsApp Video Keys    |
-| AUDIO      | WhatsApp Audio Keys    |
-| DOCUMENT   | WhatsApp Document Keys |
+Depending on the media type, the literal strings in the right column are the values for the `appInfo` parameter from the [`HKDF` function](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L37).
+
+| Media Type | Application Info         |
+| ---------- | ------------------------ |
+| IMAGE      | `WhatsApp Image Keys`    |
+| VIDEO      | `WhatsApp Video Keys`    |
+| AUDIO      | `WhatsApp Audio Keys`    |
+| DOCUMENT   | `WhatsApp Document Keys` |
 
 ## Extending the web app's capabilities  
 

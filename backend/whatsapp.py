@@ -34,12 +34,12 @@ sys.setdefaultencoding("utf-8");
 def HmacSha256(key, sign):
 	return hmac.new(key, sign, hashlib.sha256).digest();
 
-def HKDF(key, length):									# implements RFC 5869, some parts from https://github.com/MirkoDziadzka/pyhkdf
+def HKDF(key, length, appInfo=""):						# implements RFC 5869, some parts from https://github.com/MirkoDziadzka/pyhkdf
 	keyStream = "";
 	keyBlock = "";
 	blockIndex = 1;
 	while len(keyStream) < length:
-		keyBlock = hmac.new(key, msg=keyBlock+chr(blockIndex), digestmod=hashlib.sha256).digest();
+		keyBlock = hmac.new(key, msg=keyBlock+appInfo+chr(blockIndex), digestmod=hashlib.sha256).digest();
 		blockIndex += 1;
 		keyStream += keyBlock;
 	return keyStream[:length];
