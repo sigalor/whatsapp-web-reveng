@@ -189,13 +189,15 @@ class WABinaryReader:
 
 
 def whatsappReadMessageArray(msgs):
+	if not isinstance(msgs, list):
+		return msgs;
 	ret = [];
 	for x in msgs:
-		ret.append(WAWebMessageInfo.decode(x[2]) if x[0]=="message" else x);
+		ret.append(WAWebMessageInfo.decode(x[2]) if isinstance(x, list) and x[0]=="message" else x);
 	return ret;
 
 def whatsappReadBinary(data):
 	node = WABinaryReader(data).readNode();
-	if node is not None and isinstance(node, list) and node[1] is not None and isinstance(node[1], dict) and "type" in node[1] and node[1]["type"] == "message":
+	if node is not None and isinstance(node, list) and node[1] is not None:
 		node[2] = whatsappReadMessageArray(node[2]);
 	return node;
