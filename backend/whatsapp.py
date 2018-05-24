@@ -24,7 +24,7 @@ import websocket;
 import curve25519;
 import pyqrcode;
 from utilities import *;
-import decoder;
+from whatsapp_binary_reader import whatsappReadBinary;
 
 reload(sys);
 sys.setdefaultencoding("utf-8");
@@ -150,23 +150,18 @@ class WhatsAppWebClient:
 					jsonObj = json.loads(messageContent);								# try reading as json
 				except ValueError, e:
 					if messageContent != "":
-						#messageContent = messageContent[messageContent.find(b",")+1:];
 						hmacValidation = HmacSha256(self.loginInfo["key"]["macKey"], messageContent[32:]);
 						if hmacValidation != messageContent[:32]:
 							raise ValueError("Hmac mismatch");
 						
 						decryptedMessage = AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]);
 						try:
-							outFilename = writeMessageToFile(decryptedMessage, True, self.connInfo["me"], messageTag);
-							processedData = decoder.processData(messageTag, decryptedMessage, me=self.connInfo["me"]);
+							processedData = whatsappReadBinary(decryptedMessage);
 							messageType = "binary";
 						except:
-							outFilename = writeMessageToFile(decryptedMessage, False, self.connInfo["me"], messageTag)
-							processedData = { "binaryMessageFile": outFilename, "traceback": traceback.format_exc().splitlines() };
+							processedData = { "traceback": traceback.format_exc().splitlines() };
 							messageType = "error";
 						finally:
-							with open("log.txt", "a") as f:
-								f.write("just processed " + outFilename + "\n");
 							self.onMessageCallback["func"](processedData, self.onMessageCallback, { "message_type": messageType });
 				else:
 					self.onMessageCallback["func"](jsonObj, self.onMessageCallback, { "message_type": "json" });
@@ -210,7 +205,7 @@ class WhatsAppWebClient:
 
 
 	def connect(self):
-		self.activeWs = websocket.WebSocketApp("wss://w3.web.whatsapp.com/ws",
+		self.activeWs = websocket.WebSocketApp("wss://w1.web.whatsapp.com/ws",
 											   on_message = lambda ws, message: self.onMessage(ws, message),
 											   on_error = lambda ws, error: self.onError(ws, error),
 											   on_open = lambda ws: self.onOpen(ws),
@@ -225,7 +220,7 @@ class WhatsAppWebClient:
 		self.loginInfo["clientId"] = base64.b64encode(os.urandom(16));
 		messageTag = str(getTimestamp());
 		self.messageQueue[messageTag] = { "desc": "_login", "callback": callback };
-		message = messageTag + ',["admin","init",[0,2,8358],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
+		message = messageTag + ',["admin","init",[0,2,9229],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
 		self.activeWs.send(message);
 	
 	def getLoginInfo(self, callback):
@@ -238,31 +233,3 @@ class WhatsAppWebClient:
 		self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
 		#time.sleep(0.5);
 		#self.activeWs.close();
-
-
-'''
-	connTimeout = 10000;
-	while websocketIsOpened:
-		try:
-			inp = raw_input("(client)  ").strip();
-		except:
-			break;
-		inpSplit = inp.split(" ");
-		if inpSplit[0] == "_login":
-			#if len(inpSplit) > 1 and os.path.exists(inpSplit[1]):
-			#	with open(inpSplit[1], "rb") as f:
-			#		data = json.load(f);
-			#		loginInfo = data["loginInfo"];
-			#		connInfo = data["connInfo"];
-			#else:
-			loginInfo["clientId"] = base64.b64encode(os.urandom(16));
-			messageTag = getTimestamp() + ".--0";
-			messageQueue[messageTag] = "_login";
-			message = messageTag + ',["admin","init",[0,2,6969],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + loginInfo["clientId"] + '",true]';
-			print "send: " + message;
-			ws.send(message);
-		elif inpSplit[0] == "_goodbye":
-			ws.send('goodbye,,["admin","Conn","disconnect"]');
-		else:
-			ws.send(inp);
-'''
