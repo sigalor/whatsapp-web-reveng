@@ -34,3 +34,21 @@ def filterNone(obj):
 		return [filterNone(entry) for entry in obj];
 	else:
 		return obj;
+
+def getNumValidKeys(obj):
+	return len(filter(lambda x: obj[x] is not None, list(obj.keys())));
+
+def encodeUTF8(s):
+	if not isinstance(s, str):
+		s = strng.encode("utf-8");
+	return s;
+
+
+
+def ceil(n):											# from https://stackoverflow.com/a/32559239
+	res = int(n);
+	return res if res == n or n < 0 else res+1;
+
+def floor(n):
+	res = int(n);
+	return res if res == 0 or n >= 0 else res-1;

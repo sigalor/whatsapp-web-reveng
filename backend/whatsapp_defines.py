@@ -5,20 +5,22 @@ import whatsapp_protobuf_pb2;
 
 
 class WATags:
-	LIST_EMPTY   = 0;
-	STREAM_END   = 2;
-	DICTIONARY_0 = 236;
-	DICTIONARY_1 = 237;
-	DICTIONARY_2 = 238;
-	DICTIONARY_3 = 239;
-	LIST_8       = 248;
-	LIST_16      = 249;
-	JID_PAIR     = 250;
-	HEX_8        = 251;
-	BINARY_8     = 252;
-	BINARY_20    = 253;
-	BINARY_32    = 254;
-	NIBBLE_8     = 255;
+	LIST_EMPTY      = 0;
+	STREAM_END      = 2;
+	DICTIONARY_0    = 236;
+	DICTIONARY_1    = 237;
+	DICTIONARY_2    = 238;
+	DICTIONARY_3    = 239;
+	LIST_8          = 248;
+	LIST_16         = 249;
+	JID_PAIR        = 250;
+	HEX_8           = 251;
+	BINARY_8        = 252;
+	BINARY_20       = 253;
+	BINARY_32       = 254;
+	NIBBLE_8        = 255;
+	SINGLE_BYTE_MAX = 256;
+	PACKED_MAX      = 254;
 
 	@staticmethod
 	def get(str):

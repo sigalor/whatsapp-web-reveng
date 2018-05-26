@@ -156,7 +156,7 @@ class WhatsAppWebClient:
 						
 						decryptedMessage = AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]);
 						try:
-							processedData = whatsappReadBinary(decryptedMessage);
+							processedData = whatsappReadBinary(decryptedMessage, True);
 							messageType = "binary";
 						except:
 							processedData = { "traceback": traceback.format_exc().splitlines() };

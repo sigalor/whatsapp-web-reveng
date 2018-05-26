@@ -196,8 +196,8 @@ def whatsappReadMessageArray(msgs):
 		ret.append(WAWebMessageInfo.decode(x[2]) if isinstance(x, list) and x[0]=="message" else x);
 	return ret;
 
-def whatsappReadBinary(data):
+def whatsappReadBinary(data, withMessages=False):
 	node = WABinaryReader(data).readNode();
-	if node is not None and isinstance(node, list) and node[1] is not None:
+	if withMessages and node is not None and isinstance(node, list) and node[1] is not None:
 		node[2] = whatsappReadMessageArray(node[2]);
 	return node;
