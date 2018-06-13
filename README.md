@@ -255,6 +255,9 @@ After a binary message has been transformed into JSON, it is still rather hard t
 When a node has been read, the contents of messages that have been actually sent by the user (i.e. text, image, audio, video etc.) are still not directly visible or accessible via the JSON. Instead, they are kept in a protobuf message. See [here](https://github.com/sigalor/whatsapp-web-reveng/blob/master/doc/spec/def.proto) for the definitions. The "wrapper" message type is `WebMessageInfo`.
 
 ## WhatsApp Web API
+
+**WARNING:** There is some changes in the JS API and you need some tweak to access the JS API. See #45 for more information.
+
 WhatsApp Web itself has an interesting API as well. You can even try it out directly in your browser. Just log in at the normal [https://web.whatsapp.com/](https://web.whatsapp.com/), then open the browser development console. Now enter something like the following (see below for details on the chat identification):
 
 - `window.Store.Wap.profilePicFind("49123456789@c.us").then(res => console.log(res));`
