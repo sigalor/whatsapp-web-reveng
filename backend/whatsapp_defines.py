@@ -50,7 +50,8 @@ WASingleByteTokens = [
 	"search","media_message","security","call_log","profile","ciphertext",
 	"invite","gif","vcard","frequent","privacy","blacklist","whitelist",
 	"verify","location","document","elapsed","revoke_invite","expiration",
-	"unsubscribe","disable"
+	"unsubscribe","disable","vname","old_jid","new_jid","announcement",
+	"locked","prop","label","color","call","offer","call-id"
 ];
 
 WADoubleByteTokens = [];
