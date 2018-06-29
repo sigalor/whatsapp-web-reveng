@@ -22,11 +22,19 @@ Before starting the application for the first time, run `npm install` to install
 
 Lastly, to finally launch it, just run `npm start` on Linux based OS's and `npm run win` on Windows. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
 
-## Decryption routine reimplementations
+## Reimplementations
 
 ### JavaScript
 
 A recent addition is a version of the decryption routine translated to in-browser JavaScript. Run `node index_jsdemo.js` (just needed because browsers don't allow changing HTTP headers for WebSockets), then open `client/login-via-js-demo.html` as a normal file in any browser. The console output should show decrypted binary messages after scanning the QR code.
+
+### Rust
+
+With [whatsappweb-rs](https://github.com/wiomoc/whatsappweb-rs), @wiomoc created a WhatsApp Web client in Rust.
+
+### Go
+
+@Rhymen created [go-whatsapp](https://github.com/Rhymen/go-whatsapp), a Go package that implements the WhatsApp Web API.
 
 ## Application architecture
 The project is organized in the following way. Note the used ports and make sure that they are not in use elsewhere before starting the application.
