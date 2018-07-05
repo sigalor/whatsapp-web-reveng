@@ -284,7 +284,26 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 
 ## Dealing with E2E media
 ### Encryption
-TBD
+1. Generate your own `mediaKey`, which needs to be 32 bytes.
+2. Expand it to 112 bytes using HKDF with type-specific application info (see below). Call this value `mediaKeyExpanded`.
+3. Split `mediaKeyExpanded` into:
+	- `iv`: `mediaKeyExpanded[:16]`
+	- `cipherKey`: `mediaKeyExpanded[16:48]`
+	- `macKey`: `mediaKeyExpanded[48:80]`
+	- `refKey`: `mediaKeyExpanded[80:]` (not used)
+4. Encrypt the file with AES-CBC using `cipherKey` and `iv`, pad it and call it `enc`. 
+5. Sign `iv + enc` with `macKey` using HMAC SHA-256 and store the first 10 bytes of the hash as `mac`.
+6. Hash the file with SHA-256 and store it as `fileSha256`, hash the `enc + mac` with SHA-256 and store it as `fileEncSha256`.
+7. Encode the `fileEncSha256` with base64 and store it as `fileEncSha256B64`
+
+### Upload
+7. Retrieve the upload-url by sending `messageTag,["action", "encr_upload", filetype, fileEncSha256B64]`
+	- `filetype` can be one of `image`, `audio`, `document` or `video`
+8. Create a multipart-form with the following fields:
+	- fieldname: `hash`: `fileEncSha256B64`
+	- fieldname: `file`, filename: `blob`: `enc`
+9. Do a POST request to the url with the correct `content-type` and the multipart-form, WhatsApp will respond with the download url for the file.
+10. All relevant information to send the file are now generated, just build the proto and send it.
 
 ### Decryption
 1. Obtain `mediaKey` and decode it from Base64 if necessary.
