@@ -294,16 +294,17 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 4. Encrypt the file with AES-CBC using `cipherKey` and `iv`, pad it and call it `enc`. 
 5. Sign `iv + enc` with `macKey` using HMAC SHA-256 and store the first 10 bytes of the hash as `mac`.
 6. Hash the file with SHA-256 and store it as `fileSha256`, hash the `enc + mac` with SHA-256 and store it as `fileEncSha256`.
-7. Encode the `fileEncSha256` with base64 and store it as `fileEncSha256B64`
+7. Encode the `fileEncSha256` with base64 and store it as `fileEncSha256B64`.
+8. This step is required only for streamable media, e.g. video and audio. As CBC mode allows to decrypt a data from random offset (block-size aligned), it is possible to play and seek the media without the need to fully download it. That said, we need to generate a `sidecar`. Do it by signing every `[n*64K, (n+1)*64K+16]` chunk with `macKey`, truncating the result to the first 10 bytes. Then combine everything in one piece.
 
 ### Upload
-7. Retrieve the upload-url by sending `messageTag,["action", "encr_upload", filetype, fileEncSha256B64]`
+8. Retrieve the upload-url by sending `messageTag,["action", "encr_upload", filetype, fileEncSha256B64]`
 	- `filetype` can be one of `image`, `audio`, `document` or `video`
-8. Create a multipart-form with the following fields:
+9. Create a multipart-form with the following fields:
 	- fieldname: `hash`: `fileEncSha256B64`
 	- fieldname: `file`, filename: `blob`: `enc`
-9. Do a POST request to the url with the correct `content-type` and the multipart-form, WhatsApp will respond with the download url for the file.
-10. All relevant information to send the file are now generated, just build the proto and send it.
+10. Do a POST request to the url with query string `?f=j` and the correct `content-type` and the multipart-form, WhatsApp will respond with the download url for the file.
+11. All relevant information to send the file are now generated, just build the proto and send it.
 
 ### Decryption
 1. Obtain `mediaKey` and decode it from Base64 if necessary.
