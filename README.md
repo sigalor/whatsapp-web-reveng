@@ -271,11 +271,12 @@ WhatsApp Web itself has an interesting API as well. You can even try it out dire
 
 Using the amazing Chrome developer console, you can see that `window.Store.Wap` contains a lot of other very interesting functions. Many of them return JavaScript promises. When you click on the _Network_ tab and then on _WS_ (maybe you need to reload the site first), you can look at all the communication between WhatsApp Web and its servers.
 
-### Chat identification
+### Chat identification / JID
 The WhatsApp Web API uses the following formats to identify chats with individual users and groups of multiple users.
 
 - **Chats**: `[country code][number]@c.us`, e.g. **`49123456789@c.us`** when you are from Germany and your phone number is `0123 456789`.
 - **Groups**: `[phone number of group creator]-[timestamp of group creation]@g.us`, e.g. **`49123456789-1509911919@g.us`** for the group that `49123456789@c.us` created on November 5 2017.
+- **Broadcast Channels** `[timestamp of broadcast channel creation]@broadcast`, e.g. **`1509911919@broadcast`** for an broadcast channel created on November 5 2017.
 
 ### WebSocket messages
 There are two types of WebSocket messages that are exchanged between server and client. On the one hand, plain JSON that is rather unambiguous (especially for the API calls above), on the other hand encrypted binary messages.
