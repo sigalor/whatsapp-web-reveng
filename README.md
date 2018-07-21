@@ -30,11 +30,15 @@ A recent addition is a version of the decryption routine translated to in-browse
 
 ### Rust
 
-With [whatsappweb-rs](https://github.com/wiomoc/whatsappweb-rs), @wiomoc created a WhatsApp Web client in Rust.
+With [whatsappweb-rs](https://github.com/wiomoc/whatsappweb-rs), [wiomoc](https://github.com/wiomoc) created a WhatsApp Web client in Rust.
 
 ### Go
 
-@Rhymen created [go-whatsapp](https://github.com/Rhymen/go-whatsapp), a Go package that implements the WhatsApp Web API.
+[Rhymen](https://github.com/Rhymen) created [go-whatsapp](https://github.com/Rhymen/go-whatsapp), a Go package that implements the WhatsApp Web API.
+
+### Clojure
+
+[vzaramel](https://github.com/vzaramel) created [whatsappweb-clj](https://github.com/vzaramel/whatsappweb-clj), a Clojure library the implements the WhatsApp Web API.
 
 ## Application architecture
 The project is organized in the following way. Note the used ports and make sure that they are not in use elsewhere before starting the application.
