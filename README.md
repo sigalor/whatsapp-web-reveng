@@ -18,7 +18,7 @@ Before you can run the application, make sure that you have the following softwa
   - `protobuf` for reading and writing the binary conversation format.
 - Note: On Windows `curve25519-donna` requires [Microsoft Visual C++ 9.0](http://aka.ms/vcpython27) and you need to copy [`stdint.h`](windows) into `C:\Users\YOUR USERNAME\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0\VC\include`.
 
-Before starting the application for the first time, run `npm install` to install all Node and `pip install -r requirements.txt` for all Python dependencies.
+Before starting the application for the first time, run `npm install -f` to install all Node and `pip install -r requirements.txt` for all Python dependencies.
 
 Lastly, to finally launch it, just run `npm start` on Linux based OS's and `npm run win` on Windows. Using fancy `concurrently` and `nodemon` magic, all three local components will be started after each other and when you edit a file, the changed module will automatically restart to apply the changes.
 
