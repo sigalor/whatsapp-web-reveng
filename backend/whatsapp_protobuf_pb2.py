@@ -16,2774 +16,2834 @@ _sym_db = _symbol_database.Default()
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
-	name='def.proto',
-	package='proto',
-	syntax='proto2',
-	serialized_pb=_b('\n\tdef.proto\x12\x05proto\"8\n\x0f\x46ingerprintData\x12\x11\n\tpublicKey\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"\x8b\x01\n\x13\x43ombinedFingerprint\x12\x0f\n\x07version\x18\x01 \x01(\r\x12\x30\n\x10localFingerprint\x18\x02 \x01(\x0b\x32\x16.proto.FingerprintData\x12\x31\n\x11remoteFingerprint\x18\x03 \x01(\x0b\x32\x16.proto.FingerprintData\"P\n\nMessageKey\x12\x11\n\tremoteJid\x18\x01 \x01(\t\x12\x0e\n\x06\x66romMe\x18\x02 \x01(\x08\x12\n\n\x02id\x18\x03 \x01(\t\x12\x13\n\x0bparticipant\x18\x04 \x01(\t\"\\\n\x1cSenderKeyDistributionMessage\x12\x0f\n\x07groupId\x18\x01 \x01(\t\x12+\n#axolotlSenderKeyDistributionMessage\x18\x02 \x01(\x0c\"\xf3\x02\n\x0cImageMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x0f\n\x07\x63\x61ption\x18\x03 \x01(\t\x12\x12\n\nfileSha256\x18\x04 \x01(\x0c\x12\x12\n\nfileLength\x18\x05 \x01(\x04\x12\x0e\n\x06height\x18\x06 \x01(\r\x12\r\n\x05width\x18\x07 \x01(\r\x12\x10\n\x08mediaKey\x18\x08 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\t \x01(\x0c\x12<\n\x16interactiveAnnotations\x18\n \x03(\x0b\x32\x1c.proto.InteractiveAnnotation\x12\x12\n\ndirectPath\x18\x0b \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10\x66irstScanSidecar\x18\x12 \x01(\x0c\x12\x17\n\x0f\x66irstScanLength\x18\x13 \x01(\r\"]\n\x0e\x43ontactMessage\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\r\n\x05vcard\x18\x10 \x01(\t\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xb0\x01\n\x0fLocationMessage\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\x87\x03\n\x13\x45xtendedTextMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x13\n\x0bmatchedText\x18\x02 \x01(\t\x12\x14\n\x0c\x63\x61nonicalUrl\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05title\x18\x06 \x01(\t\x12\x10\n\x08textArgb\x18\x07 \x01(\x07\x12\x16\n\x0e\x62\x61\x63kgroundArgb\x18\x08 \x01(\x07\x12\x31\n\x04\x66ont\x18\t \x01(\x0e\x32#.proto.ExtendedTextMessage.FONTTYPE\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"v\n\x08\x46ONTTYPE\x12\x0e\n\nSANS_SERIF\x10\x00\x12\t\n\x05SERIF\x10\x01\x12\x13\n\x0fNORICAN_REGULAR\x10\x02\x12\x11\n\rBRYNDAN_WRITE\x10\x03\x12\x15\n\x11\x42\x45\x42\x41SNEUE_REGULAR\x10\x04\x12\x10\n\x0cOSWALD_HEAVY\x10\x05\"\x89\x02\n\x0f\x44ocumentMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x12\n\nfileSha256\x18\x04 \x01(\x0c\x12\x12\n\nfileLength\x18\x05 \x01(\x04\x12\x11\n\tpageCount\x18\x06 \x01(\r\x12\x10\n\x08mediaKey\x18\x07 \x01(\x0c\x12\x10\n\x08\x66ileName\x18\x08 \x01(\t\x12\x15\n\rfileEncSha256\x18\t \x01(\x0c\x12\x12\n\ndirectPath\x18\n \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xf3\x01\n\x0c\x41udioMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x12\n\nfileSha256\x18\x03 \x01(\x0c\x12\x12\n\nfileLength\x18\x04 \x01(\x04\x12\x0f\n\x07seconds\x18\x05 \x01(\r\x12\x0b\n\x03ptt\x18\x06 \x01(\x08\x12\x10\n\x08mediaKey\x18\x07 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\x08 \x01(\x0c\x12\x12\n\ndirectPath\x18\t \x01(\t\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10streamingSidecar\x18\x12 \x01(\x0c\"\xe8\x03\n\x0cVideoMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x12\n\nfileSha256\x18\x03 \x01(\x0c\x12\x12\n\nfileLength\x18\x04 \x01(\x04\x12\x0f\n\x07seconds\x18\x05 \x01(\r\x12\x10\n\x08mediaKey\x18\x06 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x07 \x01(\t\x12\x13\n\x0bgifPlayback\x18\x08 \x01(\x08\x12\x0e\n\x06height\x18\t \x01(\r\x12\r\n\x05width\x18\n \x01(\r\x12\x15\n\rfileEncSha256\x18\x0b \x01(\x0c\x12<\n\x16interactiveAnnotations\x18\x0c \x03(\x0b\x32\x1c.proto.InteractiveAnnotation\x12\x12\n\ndirectPath\x18\r \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10streamingSidecar\x18\x12 \x01(\x0c\x12\x37\n\x0egifAttribution\x18\x13 \x01(\x0e\x32\x1f.proto.VideoMessage.ATTRIBUTION\"-\n\x0b\x41TTRIBUTION\x12\x08\n\x04NONE\x10\x00\x12\t\n\x05GIPHY\x10\x01\x12\t\n\x05TENOR\x10\x02\"\x17\n\x04\x43\x61ll\x12\x0f\n\x07\x63\x61llKey\x18\x01 \x01(\x0c\"\'\n\x04\x43hat\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"p\n\x0fProtocolMessage\x12\x1e\n\x03key\x18\x01 \x01(\x0b\x32\x11.proto.MessageKey\x12)\n\x04type\x18\x02 \x01(\x0e\x32\x1b.proto.ProtocolMessage.TYPE\"\x12\n\x04TYPE\x12\n\n\x06REVOKE\x10\x00\"}\n\x14\x43ontactsArrayMessage\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\'\n\x08\x63ontacts\x18\x02 \x03(\x0b\x32\x15.proto.ContactMessage\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"7\n\x0bHSMCurrency\x12\x14\n\x0c\x63urrencyCode\x18\x01 \x01(\t\x12\x12\n\namount1000\x18\x02 \x01(\x03\"\xfc\x02\n\x14HSMDateTimeComponent\x12<\n\tdayOfWeek\x18\x01 \x01(\x0e\x32).proto.HSMDateTimeComponent.DAYOFWEEKTYPE\x12\x0c\n\x04year\x18\x02 \x01(\r\x12\r\n\x05month\x18\x03 \x01(\r\x12\x12\n\ndayOfMonth\x18\x04 \x01(\r\x12\x0c\n\x04hour\x18\x05 \x01(\r\x12\x0e\n\x06minute\x18\x06 \x01(\r\x12:\n\x08\x63\x61lendar\x18\x07 \x01(\x0e\x32(.proto.HSMDateTimeComponent.CALENDARTYPE\"k\n\rDAYOFWEEKTYPE\x12\n\n\x06MONDAY\x10\x01\x12\x0b\n\x07TUESDAY\x10\x02\x12\r\n\tWEDNESDAY\x10\x03\x12\x0c\n\x08THURSDAY\x10\x04\x12\n\n\x06\x46RIDAY\x10\x05\x12\x0c\n\x08SATURDAY\x10\x06\x12\n\n\x06SUNDAY\x10\x07\".\n\x0c\x43\x41LENDARTYPE\x12\r\n\tGREGORIAN\x10\x01\x12\x0f\n\x0bSOLAR_HIJRI\x10\x02\")\n\x14HSMDateTimeUnixEpoch\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\"\x82\x01\n\x0bHSMDateTime\x12\x30\n\tcomponent\x18\x01 \x01(\x0b\x32\x1b.proto.HSMDateTimeComponentH\x00\x12\x30\n\tunixEpoch\x18\x02 \x01(\x0b\x32\x1b.proto.HSMDateTimeUnixEpochH\x00\x42\x0f\n\rdatetimeOneof\"\x88\x01\n\x17HSMLocalizableParameter\x12\x0f\n\x07\x64\x65\x66\x61ult\x18\x01 \x01(\t\x12&\n\x08\x63urrency\x18\x02 \x01(\x0b\x32\x12.proto.HSMCurrencyH\x00\x12&\n\x08\x64\x61teTime\x18\x03 \x01(\x0b\x32\x12.proto.HSMDateTimeH\x00\x42\x0c\n\nparamOneof\"\xb4\x01\n\x17HighlyStructuredMessage\x12\x11\n\tnamespace\x18\x01 \x01(\t\x12\x13\n\x0b\x65lementName\x18\x02 \x01(\t\x12\x0e\n\x06params\x18\x03 \x03(\t\x12\x12\n\nfallbackLg\x18\x04 \x01(\t\x12\x12\n\nfallbackLc\x18\x05 \x01(\t\x12\x39\n\x11localizableParams\x18\x06 \x03(\x0b\x32\x1e.proto.HSMLocalizableParameter\"9\n\x12SendPaymentMessage\x12#\n\x0bnoteMessage\x18\x02 \x01(\x0b\x32\x0e.proto.Message\"\x82\x01\n\x15RequestPaymentMessage\x12\x1b\n\x13\x63urrencyCodeIso4217\x18\x01 \x01(\t\x12\x12\n\namount1000\x18\x02 \x01(\x04\x12\x13\n\x0brequestFrom\x18\x03 \x01(\t\x12#\n\x0bnoteMessage\x18\x04 \x01(\x0b\x32\x0e.proto.Message\"\x8a\x02\n\x13LiveLocationMessage\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x18\n\x10\x61\x63\x63uracyInMeters\x18\x03 \x01(\r\x12\x12\n\nspeedInMps\x18\x04 \x01(\x02\x12)\n!degreesClockwiseFromMagneticNorth\x18\x05 \x01(\r\x12\x0f\n\x07\x63\x61ption\x18\x06 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x07 \x01(\x03\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xf2\x01\n\x0eStickerMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x12\n\nfileSha256\x18\x02 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\x03 \x01(\x0c\x12\x10\n\x08mediaKey\x18\x04 \x01(\x0c\x12\x10\n\x08mimetype\x18\x05 \x01(\t\x12\x0e\n\x06height\x18\x06 \x01(\r\x12\r\n\x05width\x18\x07 \x01(\r\x12\x12\n\ndirectPath\x18\x08 \x01(\t\x12\x12\n\nfileLength\x18\t \x01(\x04\x12\x14\n\x0cpngThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xcd\x07\n\x07Message\x12\x14\n\x0c\x63onversation\x18\x01 \x01(\t\x12I\n\x1csenderKeyDistributionMessage\x18\x02 \x01(\x0b\x32#.proto.SenderKeyDistributionMessage\x12)\n\x0cimageMessage\x18\x03 \x01(\x0b\x32\x13.proto.ImageMessage\x12-\n\x0e\x63ontactMessage\x18\x04 \x01(\x0b\x32\x15.proto.ContactMessage\x12/\n\x0flocationMessage\x18\x05 \x01(\x0b\x32\x16.proto.LocationMessage\x12\x37\n\x13\x65xtendedTextMessage\x18\x06 \x01(\x0b\x32\x1a.proto.ExtendedTextMessage\x12/\n\x0f\x64ocumentMessage\x18\x07 \x01(\x0b\x32\x16.proto.DocumentMessage\x12)\n\x0c\x61udioMessage\x18\x08 \x01(\x0b\x32\x13.proto.AudioMessage\x12)\n\x0cvideoMessage\x18\t \x01(\x0b\x32\x13.proto.VideoMessage\x12\x19\n\x04\x63\x61ll\x18\n \x01(\x0b\x32\x0b.proto.Call\x12\x19\n\x04\x63hat\x18\x0b \x01(\x0b\x32\x0b.proto.Chat\x12/\n\x0fprotocolMessage\x18\x0c \x01(\x0b\x32\x16.proto.ProtocolMessage\x12\x39\n\x14\x63ontactsArrayMessage\x18\r \x01(\x0b\x32\x1b.proto.ContactsArrayMessage\x12?\n\x17highlyStructuredMessage\x18\x0e \x01(\x0b\x32\x1e.proto.HighlyStructuredMessage\x12W\n*fastRatchetKeySenderKeyDistributionMessage\x18\x0f \x01(\x0b\x32#.proto.SenderKeyDistributionMessage\x12\x35\n\x12sendPaymentMessage\x18\x10 \x01(\x0b\x32\x19.proto.SendPaymentMessage\x12;\n\x15requestPaymentMessage\x18\x11 \x01(\x0b\x32\x1c.proto.RequestPaymentMessage\x12\x37\n\x13liveLocationMessage\x18\x12 \x01(\x0b\x32\x1a.proto.LiveLocationMessage\x12-\n\x0estickerMessage\x18\x14 \x01(\x0b\x32\x15.proto.StickerMessage\"\xf7\x01\n\x0b\x43ontextInfo\x12\x10\n\x08stanzaId\x18\x01 \x01(\t\x12\x13\n\x0bparticipant\x18\x02 \x01(\t\x12%\n\rquotedMessage\x18\x03 \x03(\x0b\x32\x0e.proto.Message\x12\x11\n\tremoteJid\x18\x04 \x01(\t\x12\x14\n\x0cmentionedJid\x18\x0f \x03(\t\x12\x18\n\x10\x63onversionSource\x18\x12 \x01(\t\x12\x16\n\x0e\x63onversionData\x18\x13 \x01(\x0c\x12\x1e\n\x16\x63onversionDelaySeconds\x18\x14 \x01(\r\x12\x13\n\x0bisForwarded\x18\x16 \x01(\x08J\x04\x08\x10\x10\x11J\x04\x08\x11\x10\x12\"m\n\x15InteractiveAnnotation\x12%\n\x0fpolygonVertices\x18\x01 \x03(\x0b\x32\x0c.proto.Point\x12#\n\x08location\x18\x02 \x01(\x0b\x32\x0f.proto.LocationH\x00\x42\x08\n\x06\x61\x63tion\"\x1d\n\x05Point\x12\t\n\x01x\x18\x03 \x01(\x01\x12\t\n\x01y\x18\x04 \x01(\x01\"K\n\x08Location\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x0c\n\x04name\x18\x03 \x01(\t\"\xf8\r\n\x0eWebMessageInfo\x12\x1e\n\x03key\x18\x01 \x02(\x0b\x32\x11.proto.MessageKey\x12\x1f\n\x07message\x18\x02 \x01(\x0b\x32\x0e.proto.Message\x12\x18\n\x10messageTimestamp\x18\x03 \x01(\x04\x12\x35\n\x06status\x18\x04 \x01(\x0e\x32\x1c.proto.WebMessageInfo.STATUS:\x07PENDING\x12\x13\n\x0bparticipant\x18\x05 \x01(\t\x12\x0e\n\x06ignore\x18\x10 \x01(\x08\x12\x0f\n\x07starred\x18\x11 \x01(\x08\x12\x11\n\tbroadcast\x18\x12 \x01(\x08\x12\x10\n\x08pushName\x18\x13 \x01(\t\x12\x1d\n\x15mediaCiphertextSha256\x18\x14 \x01(\x0c\x12\x11\n\tmulticast\x18\x15 \x01(\x08\x12\x0f\n\x07urlText\x18\x16 \x01(\x08\x12\x11\n\turlNumber\x18\x17 \x01(\x08\x12\x37\n\x0fmessageStubType\x18\x18 \x01(\x0e\x32\x1e.proto.WebMessageInfo.STUBTYPE\x12\x12\n\nclearMedia\x18\x19 \x01(\x08\x12\x1d\n\x15messageStubParameters\x18\x1a \x03(\t\x12\x10\n\x08\x64uration\x18\x1b \x01(\r\x12\x0e\n\x06labels\x18\x1c \x03(\t\"X\n\x06STATUS\x12\t\n\x05\x45RROR\x10\x00\x12\x0b\n\x07PENDING\x10\x01\x12\x0e\n\nSERVER_ACK\x10\x02\x12\x10\n\x0c\x44\x45LIVERY_ACK\x10\x03\x12\x08\n\x04READ\x10\x04\x12\n\n\x06PLAYED\x10\x05\"\xba\t\n\x08STUBTYPE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06REVOKE\x10\x01\x12\x0e\n\nCIPHERTEXT\x10\x02\x12\x0f\n\x0b\x46UTUREPROOF\x10\x03\x12\x1b\n\x17NON_VERIFIED_TRANSITION\x10\x04\x12\x19\n\x15UNVERIFIED_TRANSITION\x10\x05\x12\x17\n\x13VERIFIED_TRANSITION\x10\x06\x12\x18\n\x14VERIFIED_LOW_UNKNOWN\x10\x07\x12\x11\n\rVERIFIED_HIGH\x10\x08\x12\x1c\n\x18VERIFIED_INITIAL_UNKNOWN\x10\t\x12\x18\n\x14VERIFIED_INITIAL_LOW\x10\n\x12\x19\n\x15VERIFIED_INITIAL_HIGH\x10\x0b\x12#\n\x1fVERIFIED_TRANSITION_ANY_TO_NONE\x10\x0c\x12#\n\x1fVERIFIED_TRANSITION_ANY_TO_HIGH\x10\r\x12#\n\x1fVERIFIED_TRANSITION_HIGH_TO_LOW\x10\x0e\x12\'\n#VERIFIED_TRANSITION_HIGH_TO_UNKNOWN\x10\x0f\x12&\n\"VERIFIED_TRANSITION_UNKNOWN_TO_LOW\x10\x10\x12&\n\"VERIFIED_TRANSITION_LOW_TO_UNKNOWN\x10\x11\x12#\n\x1fVERIFIED_TRANSITION_NONE_TO_LOW\x10\x12\x12\'\n#VERIFIED_TRANSITION_NONE_TO_UNKNOWN\x10\x13\x12\x10\n\x0cGROUP_CREATE\x10\x14\x12\x18\n\x14GROUP_CHANGE_SUBJECT\x10\x15\x12\x15\n\x11GROUP_CHANGE_ICON\x10\x16\x12\x1c\n\x18GROUP_CHANGE_INVITE_LINK\x10\x17\x12\x1c\n\x18GROUP_CHANGE_DESCRIPTION\x10\x18\x12\x19\n\x15GROUP_CHANGE_RESTRICT\x10\x19\x12\x19\n\x15GROUP_CHANGE_ANNOUNCE\x10\x1a\x12\x19\n\x15GROUP_PARTICIPANT_ADD\x10\x1b\x12\x1c\n\x18GROUP_PARTICIPANT_REMOVE\x10\x1c\x12\x1d\n\x19GROUP_PARTICIPANT_PROMOTE\x10\x1d\x12\x1c\n\x18GROUP_PARTICIPANT_DEMOTE\x10\x1e\x12\x1c\n\x18GROUP_PARTICIPANT_INVITE\x10\x1f\x12\x1b\n\x17GROUP_PARTICIPANT_LEAVE\x10 \x12#\n\x1fGROUP_PARTICIPANT_CHANGE_NUMBER\x10!\x12\x14\n\x10\x42ROADCAST_CREATE\x10\"\x12\x11\n\rBROADCAST_ADD\x10#\x12\x14\n\x10\x42ROADCAST_REMOVE\x10$\x12\x18\n\x14GENERIC_NOTIFICATION\x10%\x12\x18\n\x14\x45\x32\x45_IDENTITY_CHANGED\x10&\x12\x11\n\rE2E_ENCRYPTED\x10\'\x12\x15\n\x11\x43\x41LL_MISSED_VOICE\x10(\x12\x15\n\x11\x43\x41LL_MISSED_VIDEO\x10)\x12\x1c\n\x18INDIVIDUAL_CHANGE_NUMBER\x10*\x12\x10\n\x0cGROUP_DELETE\x10+\"\x82\x01\n\x14WebNotificationsInfo\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bunreadChats\x18\x03 \x01(\r\x12\x1a\n\x12notifyMessageCount\x18\x04 \x01(\r\x12&\n\x0enotifyMessages\x18\x05 \x03(\x0b\x32\x0e.proto.Message\"\x89\x01\n\x17NotificationMessageInfo\x12\x1e\n\x03key\x18\x01 \x01(\x0b\x32\x11.proto.MessageKey\x12\x1f\n\x07message\x18\x02 \x01(\x0b\x32\x0e.proto.Message\x12\x18\n\x10messageTimestamp\x18\x03 \x01(\x04\x12\x13\n\x0bparticipant\x18\x04 \x01(\t\"\x84\x01\n\x17TabletNotificationsInfo\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bunreadChats\x18\x03 \x01(\r\x12\x1a\n\x12notifyMessageCount\x18\x04 \x01(\r\x12%\n\rnotifyMessage\x18\x05 \x03(\x0b\x32\x0e.proto.Message\"\xc2\x04\n\x0bWebFeatures\x12.\n\rlabelsDisplay\x18\x01 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16voipIndividualOutgoing\x18\x02 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12)\n\x08groupsV3\x18\x03 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12/\n\x0egroupsV3Create\x18\x04 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12/\n\x0e\x63hangeNumberV2\x18\x05 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16queryStatusV3Thumbnail\x18\x06 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12.\n\rliveLocations\x18\x07 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12+\n\nqueryVname\x18\x08 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16voipIndividualIncoming\x18\t \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x32\n\x11quickRepliesQuery\x18\n \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\":\n\x04\x46LAG\x12\x13\n\x0fNOT_IMPLEMENTED\x10\x00\x12\x0f\n\x0bIMPLEMENTED\x10\x01\x12\x0c\n\x08OPTIONAL\x10\x02')
+  name='def.proto',
+  package='proto',
+  syntax='proto2',
+  serialized_pb=_b('\n\tdef.proto\x12\x05proto\"8\n\x0f\x46ingerprintData\x12\x11\n\tpublicKey\x18\x01 \x01(\t\x12\x12\n\nidentifier\x18\x02 \x01(\t\"\x8b\x01\n\x13\x43ombinedFingerprint\x12\x0f\n\x07version\x18\x01 \x01(\r\x12\x30\n\x10localFingerprint\x18\x02 \x01(\x0b\x32\x16.proto.FingerprintData\x12\x31\n\x11remoteFingerprint\x18\x03 \x01(\x0b\x32\x16.proto.FingerprintData\"P\n\nMessageKey\x12\x11\n\tremoteJid\x18\x01 \x01(\t\x12\x0e\n\x06\x66romMe\x18\x02 \x01(\x08\x12\n\n\x02id\x18\x03 \x01(\t\x12\x13\n\x0bparticipant\x18\x04 \x01(\t\"\\\n\x1cSenderKeyDistributionMessage\x12\x0f\n\x07groupId\x18\x01 \x01(\t\x12+\n#axolotlSenderKeyDistributionMessage\x18\x02 \x01(\x0c\"\xf3\x02\n\x0cImageMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x0f\n\x07\x63\x61ption\x18\x03 \x01(\t\x12\x12\n\nfileSha256\x18\x04 \x01(\x0c\x12\x12\n\nfileLength\x18\x05 \x01(\x04\x12\x0e\n\x06height\x18\x06 \x01(\r\x12\r\n\x05width\x18\x07 \x01(\r\x12\x10\n\x08mediaKey\x18\x08 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\t \x01(\x0c\x12<\n\x16interactiveAnnotations\x18\n \x03(\x0b\x32\x1c.proto.InteractiveAnnotation\x12\x12\n\ndirectPath\x18\x0b \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10\x66irstScanSidecar\x18\x12 \x01(\x0c\x12\x17\n\x0f\x66irstScanLength\x18\x13 \x01(\r\"]\n\x0e\x43ontactMessage\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\r\n\x05vcard\x18\x10 \x01(\t\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xb0\x01\n\x0fLocationMessage\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\x87\x03\n\x13\x45xtendedTextMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x13\n\x0bmatchedText\x18\x02 \x01(\t\x12\x14\n\x0c\x63\x61nonicalUrl\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05title\x18\x06 \x01(\t\x12\x10\n\x08textArgb\x18\x07 \x01(\x07\x12\x16\n\x0e\x62\x61\x63kgroundArgb\x18\x08 \x01(\x07\x12\x31\n\x04\x66ont\x18\t \x01(\x0e\x32#.proto.ExtendedTextMessage.FONTTYPE\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"v\n\x08\x46ONTTYPE\x12\x0e\n\nSANS_SERIF\x10\x00\x12\t\n\x05SERIF\x10\x01\x12\x13\n\x0fNORICAN_REGULAR\x10\x02\x12\x11\n\rBRYNDAN_WRITE\x10\x03\x12\x15\n\x11\x42\x45\x42\x41SNEUE_REGULAR\x10\x04\x12\x10\n\x0cOSWALD_HEAVY\x10\x05\"\x89\x02\n\x0f\x44ocumentMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x12\n\nfileSha256\x18\x04 \x01(\x0c\x12\x12\n\nfileLength\x18\x05 \x01(\x04\x12\x11\n\tpageCount\x18\x06 \x01(\r\x12\x10\n\x08mediaKey\x18\x07 \x01(\x0c\x12\x10\n\x08\x66ileName\x18\x08 \x01(\t\x12\x15\n\rfileEncSha256\x18\t \x01(\x0c\x12\x12\n\ndirectPath\x18\n \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xf3\x01\n\x0c\x41udioMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x12\n\nfileSha256\x18\x03 \x01(\x0c\x12\x12\n\nfileLength\x18\x04 \x01(\x04\x12\x0f\n\x07seconds\x18\x05 \x01(\r\x12\x0b\n\x03ptt\x18\x06 \x01(\x08\x12\x10\n\x08mediaKey\x18\x07 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\x08 \x01(\x0c\x12\x12\n\ndirectPath\x18\t \x01(\t\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10streamingSidecar\x18\x12 \x01(\x0c\"\xe8\x03\n\x0cVideoMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x10\n\x08mimetype\x18\x02 \x01(\t\x12\x12\n\nfileSha256\x18\x03 \x01(\x0c\x12\x12\n\nfileLength\x18\x04 \x01(\x04\x12\x0f\n\x07seconds\x18\x05 \x01(\r\x12\x10\n\x08mediaKey\x18\x06 \x01(\x0c\x12\x0f\n\x07\x63\x61ption\x18\x07 \x01(\t\x12\x13\n\x0bgifPlayback\x18\x08 \x01(\x08\x12\x0e\n\x06height\x18\t \x01(\r\x12\r\n\x05width\x18\n \x01(\r\x12\x15\n\rfileEncSha256\x18\x0b \x01(\x0c\x12<\n\x16interactiveAnnotations\x18\x0c \x03(\x0b\x32\x1c.proto.InteractiveAnnotation\x12\x12\n\ndirectPath\x18\r \x01(\t\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\x12\x18\n\x10streamingSidecar\x18\x12 \x01(\x0c\x12\x37\n\x0egifAttribution\x18\x13 \x01(\x0e\x32\x1f.proto.VideoMessage.ATTRIBUTION\"-\n\x0b\x41TTRIBUTION\x12\x08\n\x04NONE\x10\x00\x12\t\n\x05GIPHY\x10\x01\x12\t\n\x05TENOR\x10\x02\"\x17\n\x04\x43\x61ll\x12\x0f\n\x07\x63\x61llKey\x18\x01 \x01(\x0c\"\'\n\x04\x43hat\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"p\n\x0fProtocolMessage\x12\x1e\n\x03key\x18\x01 \x01(\x0b\x32\x11.proto.MessageKey\x12)\n\x04type\x18\x02 \x01(\x0e\x32\x1b.proto.ProtocolMessage.TYPE\"\x12\n\x04TYPE\x12\n\n\x06REVOKE\x10\x00\"}\n\x14\x43ontactsArrayMessage\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\'\n\x08\x63ontacts\x18\x02 \x03(\x0b\x32\x15.proto.ContactMessage\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"7\n\x0bHSMCurrency\x12\x14\n\x0c\x63urrencyCode\x18\x01 \x01(\t\x12\x12\n\namount1000\x18\x02 \x01(\x03\"\xfc\x02\n\x14HSMDateTimeComponent\x12<\n\tdayOfWeek\x18\x01 \x01(\x0e\x32).proto.HSMDateTimeComponent.DAYOFWEEKTYPE\x12\x0c\n\x04year\x18\x02 \x01(\r\x12\r\n\x05month\x18\x03 \x01(\r\x12\x12\n\ndayOfMonth\x18\x04 \x01(\r\x12\x0c\n\x04hour\x18\x05 \x01(\r\x12\x0e\n\x06minute\x18\x06 \x01(\r\x12:\n\x08\x63\x61lendar\x18\x07 \x01(\x0e\x32(.proto.HSMDateTimeComponent.CALENDARTYPE\"k\n\rDAYOFWEEKTYPE\x12\n\n\x06MONDAY\x10\x01\x12\x0b\n\x07TUESDAY\x10\x02\x12\r\n\tWEDNESDAY\x10\x03\x12\x0c\n\x08THURSDAY\x10\x04\x12\n\n\x06\x46RIDAY\x10\x05\x12\x0c\n\x08SATURDAY\x10\x06\x12\n\n\x06SUNDAY\x10\x07\".\n\x0c\x43\x41LENDARTYPE\x12\r\n\tGREGORIAN\x10\x01\x12\x0f\n\x0bSOLAR_HIJRI\x10\x02\")\n\x14HSMDateTimeUnixEpoch\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\"\x82\x01\n\x0bHSMDateTime\x12\x30\n\tcomponent\x18\x01 \x01(\x0b\x32\x1b.proto.HSMDateTimeComponentH\x00\x12\x30\n\tunixEpoch\x18\x02 \x01(\x0b\x32\x1b.proto.HSMDateTimeUnixEpochH\x00\x42\x0f\n\rdatetimeOneof\"\x88\x01\n\x17HSMLocalizableParameter\x12\x0f\n\x07\x64\x65\x66\x61ult\x18\x01 \x01(\t\x12&\n\x08\x63urrency\x18\x02 \x01(\x0b\x32\x12.proto.HSMCurrencyH\x00\x12&\n\x08\x64\x61teTime\x18\x03 \x01(\x0b\x32\x12.proto.HSMDateTimeH\x00\x42\x0c\n\nparamOneof\"\xb4\x01\n\x17HighlyStructuredMessage\x12\x11\n\tnamespace\x18\x01 \x01(\t\x12\x13\n\x0b\x65lementName\x18\x02 \x01(\t\x12\x0e\n\x06params\x18\x03 \x03(\t\x12\x12\n\nfallbackLg\x18\x04 \x01(\t\x12\x12\n\nfallbackLc\x18\x05 \x01(\t\x12\x39\n\x11localizableParams\x18\x06 \x03(\x0b\x32\x1e.proto.HSMLocalizableParameter\"9\n\x12SendPaymentMessage\x12#\n\x0bnoteMessage\x18\x02 \x01(\x0b\x32\x0e.proto.Message\"\x82\x01\n\x15RequestPaymentMessage\x12\x1b\n\x13\x63urrencyCodeIso4217\x18\x01 \x01(\t\x12\x12\n\namount1000\x18\x02 \x01(\x04\x12\x13\n\x0brequestFrom\x18\x03 \x01(\t\x12#\n\x0bnoteMessage\x18\x04 \x01(\x0b\x32\x0e.proto.Message\"\x8a\x02\n\x13LiveLocationMessage\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x18\n\x10\x61\x63\x63uracyInMeters\x18\x03 \x01(\r\x12\x12\n\nspeedInMps\x18\x04 \x01(\x02\x12)\n!degreesClockwiseFromMagneticNorth\x18\x05 \x01(\r\x12\x0f\n\x07\x63\x61ption\x18\x06 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x07 \x01(\x03\x12\x15\n\rjpegThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xf2\x01\n\x0eStickerMessage\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x12\n\nfileSha256\x18\x02 \x01(\x0c\x12\x15\n\rfileEncSha256\x18\x03 \x01(\x0c\x12\x10\n\x08mediaKey\x18\x04 \x01(\x0c\x12\x10\n\x08mimetype\x18\x05 \x01(\t\x12\x0e\n\x06height\x18\x06 \x01(\r\x12\r\n\x05width\x18\x07 \x01(\r\x12\x12\n\ndirectPath\x18\x08 \x01(\t\x12\x12\n\nfileLength\x18\t \x01(\x04\x12\x14\n\x0cpngThumbnail\x18\x10 \x01(\x0c\x12\'\n\x0b\x63ontextInfo\x18\x11 \x01(\x0b\x32\x12.proto.ContextInfo\"\xcd\x07\n\x07Message\x12\x14\n\x0c\x63onversation\x18\x01 \x01(\t\x12I\n\x1csenderKeyDistributionMessage\x18\x02 \x01(\x0b\x32#.proto.SenderKeyDistributionMessage\x12)\n\x0cimageMessage\x18\x03 \x01(\x0b\x32\x13.proto.ImageMessage\x12-\n\x0e\x63ontactMessage\x18\x04 \x01(\x0b\x32\x15.proto.ContactMessage\x12/\n\x0flocationMessage\x18\x05 \x01(\x0b\x32\x16.proto.LocationMessage\x12\x37\n\x13\x65xtendedTextMessage\x18\x06 \x01(\x0b\x32\x1a.proto.ExtendedTextMessage\x12/\n\x0f\x64ocumentMessage\x18\x07 \x01(\x0b\x32\x16.proto.DocumentMessage\x12)\n\x0c\x61udioMessage\x18\x08 \x01(\x0b\x32\x13.proto.AudioMessage\x12)\n\x0cvideoMessage\x18\t \x01(\x0b\x32\x13.proto.VideoMessage\x12\x19\n\x04\x63\x61ll\x18\n \x01(\x0b\x32\x0b.proto.Call\x12\x19\n\x04\x63hat\x18\x0b \x01(\x0b\x32\x0b.proto.Chat\x12/\n\x0fprotocolMessage\x18\x0c \x01(\x0b\x32\x16.proto.ProtocolMessage\x12\x39\n\x14\x63ontactsArrayMessage\x18\r \x01(\x0b\x32\x1b.proto.ContactsArrayMessage\x12?\n\x17highlyStructuredMessage\x18\x0e \x01(\x0b\x32\x1e.proto.HighlyStructuredMessage\x12W\n*fastRatchetKeySenderKeyDistributionMessage\x18\x0f \x01(\x0b\x32#.proto.SenderKeyDistributionMessage\x12\x35\n\x12sendPaymentMessage\x18\x10 \x01(\x0b\x32\x19.proto.SendPaymentMessage\x12;\n\x15requestPaymentMessage\x18\x11 \x01(\x0b\x32\x1c.proto.RequestPaymentMessage\x12\x37\n\x13liveLocationMessage\x18\x12 \x01(\x0b\x32\x1a.proto.LiveLocationMessage\x12-\n\x0estickerMessage\x18\x14 \x01(\x0b\x32\x15.proto.StickerMessage\"\xf7\x01\n\x0b\x43ontextInfo\x12\x10\n\x08stanzaId\x18\x01 \x01(\t\x12\x13\n\x0bparticipant\x18\x02 \x01(\t\x12%\n\rquotedMessage\x18\x03 \x03(\x0b\x32\x0e.proto.Message\x12\x11\n\tremoteJid\x18\x04 \x01(\t\x12\x14\n\x0cmentionedJid\x18\x0f \x03(\t\x12\x18\n\x10\x63onversionSource\x18\x12 \x01(\t\x12\x16\n\x0e\x63onversionData\x18\x13 \x01(\x0c\x12\x1e\n\x16\x63onversionDelaySeconds\x18\x14 \x01(\r\x12\x13\n\x0bisForwarded\x18\x16 \x01(\x08J\x04\x08\x10\x10\x11J\x04\x08\x11\x10\x12\"m\n\x15InteractiveAnnotation\x12%\n\x0fpolygonVertices\x18\x01 \x03(\x0b\x32\x0c.proto.Point\x12#\n\x08location\x18\x02 \x01(\x0b\x32\x0f.proto.LocationH\x00\x42\x08\n\x06\x61\x63tion\"\x1d\n\x05Point\x12\t\n\x01x\x18\x03 \x01(\x01\x12\t\n\x01y\x18\x04 \x01(\x01\"K\n\x08Location\x12\x17\n\x0f\x64\x65greesLatitude\x18\x01 \x01(\x01\x12\x18\n\x10\x64\x65greesLongitude\x18\x02 \x01(\x01\x12\x0c\n\x04name\x18\x03 \x01(\t\"\xdd\x12\n\x0eWebMessageInfo\x12\x1e\n\x03key\x18\x01 \x02(\x0b\x32\x11.proto.MessageKey\x12\x1f\n\x07message\x18\x02 \x01(\x0b\x32\x0e.proto.Message\x12\x18\n\x10messageTimestamp\x18\x03 \x01(\x04\x12\x35\n\x06status\x18\x04 \x01(\x0e\x32\x1c.proto.WebMessageInfo.STATUS:\x07PENDING\x12\x13\n\x0bparticipant\x18\x05 \x01(\t\x12\x0e\n\x06ignore\x18\x10 \x01(\x08\x12\x0f\n\x07starred\x18\x11 \x01(\x08\x12\x11\n\tbroadcast\x18\x12 \x01(\x08\x12\x10\n\x08pushName\x18\x13 \x01(\t\x12\x1d\n\x15mediaCiphertextSha256\x18\x14 \x01(\x0c\x12\x11\n\tmulticast\x18\x15 \x01(\x08\x12\x0f\n\x07urlText\x18\x16 \x01(\x08\x12\x11\n\turlNumber\x18\x17 \x01(\x08\x12\x37\n\x0fmessageStubType\x18\x18 \x01(\x0e\x32\x1e.proto.WebMessageInfo.STUBTYPE\x12\x12\n\nclearMedia\x18\x19 \x01(\x08\x12\x1d\n\x15messageStubParameters\x18\x1a \x03(\t\x12\x10\n\x08\x64uration\x18\x1b \x01(\r\x12\x0e\n\x06labels\x18\x1c \x03(\t\"X\n\x06STATUS\x12\t\n\x05\x45RROR\x10\x00\x12\x0b\n\x07PENDING\x10\x01\x12\x0e\n\nSERVER_ACK\x10\x02\x12\x10\n\x0c\x44\x45LIVERY_ACK\x10\x03\x12\x08\n\x04READ\x10\x04\x12\n\n\x06PLAYED\x10\x05\"\x9f\x0e\n\x08STUBTYPE\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06REVOKE\x10\x01\x12\x0e\n\nCIPHERTEXT\x10\x02\x12\x0f\n\x0b\x46UTUREPROOF\x10\x03\x12\x1b\n\x17NON_VERIFIED_TRANSITION\x10\x04\x12\x19\n\x15UNVERIFIED_TRANSITION\x10\x05\x12\x17\n\x13VERIFIED_TRANSITION\x10\x06\x12\x18\n\x14VERIFIED_LOW_UNKNOWN\x10\x07\x12\x11\n\rVERIFIED_HIGH\x10\x08\x12\x1c\n\x18VERIFIED_INITIAL_UNKNOWN\x10\t\x12\x18\n\x14VERIFIED_INITIAL_LOW\x10\n\x12\x19\n\x15VERIFIED_INITIAL_HIGH\x10\x0b\x12#\n\x1fVERIFIED_TRANSITION_ANY_TO_NONE\x10\x0c\x12#\n\x1fVERIFIED_TRANSITION_ANY_TO_HIGH\x10\r\x12#\n\x1fVERIFIED_TRANSITION_HIGH_TO_LOW\x10\x0e\x12\'\n#VERIFIED_TRANSITION_HIGH_TO_UNKNOWN\x10\x0f\x12&\n\"VERIFIED_TRANSITION_UNKNOWN_TO_LOW\x10\x10\x12&\n\"VERIFIED_TRANSITION_LOW_TO_UNKNOWN\x10\x11\x12#\n\x1fVERIFIED_TRANSITION_NONE_TO_LOW\x10\x12\x12\'\n#VERIFIED_TRANSITION_NONE_TO_UNKNOWN\x10\x13\x12\x10\n\x0cGROUP_CREATE\x10\x14\x12\x18\n\x14GROUP_CHANGE_SUBJECT\x10\x15\x12\x15\n\x11GROUP_CHANGE_ICON\x10\x16\x12\x1c\n\x18GROUP_CHANGE_INVITE_LINK\x10\x17\x12\x1c\n\x18GROUP_CHANGE_DESCRIPTION\x10\x18\x12\x19\n\x15GROUP_CHANGE_RESTRICT\x10\x19\x12\x19\n\x15GROUP_CHANGE_ANNOUNCE\x10\x1a\x12\x19\n\x15GROUP_PARTICIPANT_ADD\x10\x1b\x12\x1c\n\x18GROUP_PARTICIPANT_REMOVE\x10\x1c\x12\x1d\n\x19GROUP_PARTICIPANT_PROMOTE\x10\x1d\x12\x1c\n\x18GROUP_PARTICIPANT_DEMOTE\x10\x1e\x12\x1c\n\x18GROUP_PARTICIPANT_INVITE\x10\x1f\x12\x1b\n\x17GROUP_PARTICIPANT_LEAVE\x10 \x12#\n\x1fGROUP_PARTICIPANT_CHANGE_NUMBER\x10!\x12\x14\n\x10\x42ROADCAST_CREATE\x10\"\x12\x11\n\rBROADCAST_ADD\x10#\x12\x14\n\x10\x42ROADCAST_REMOVE\x10$\x12\x18\n\x14GENERIC_NOTIFICATION\x10%\x12\x18\n\x14\x45\x32\x45_IDENTITY_CHANGED\x10&\x12\x11\n\rE2E_ENCRYPTED\x10\'\x12\x15\n\x11\x43\x41LL_MISSED_VOICE\x10(\x12\x15\n\x11\x43\x41LL_MISSED_VIDEO\x10)\x12\x1c\n\x18INDIVIDUAL_CHANGE_NUMBER\x10*\x12\x10\n\x0cGROUP_DELETE\x10+\x12&\n\"GROUP_ANNOUNCE_MODE_MESSAGE_BOUNCE\x10,\x12\x1b\n\x17\x43\x41LL_MISSED_GROUP_VOICE\x10-\x12\x1b\n\x17\x43\x41LL_MISSED_GROUP_VIDEO\x10.\x12\x16\n\x12PAYMENT_CIPHERTEXT\x10/\x12\x17\n\x13PAYMENT_FUTUREPROOF\x10\x30\x12,\n(PAYMENT_TRANSACTION_STATUS_UPDATE_FAILED\x10\x31\x12.\n*PAYMENT_TRANSACTION_STATUS_UPDATE_REFUNDED\x10\x32\x12\x33\n/PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED\x10\x33\x12\x35\n1PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP\x10\x34\x12<\n8PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP\x10\x35\x12)\n%PAYMENT_ACTION_ACCOUNT_SETUP_REMINDER\x10\x36\x12(\n$PAYMENT_ACTION_SEND_PAYMENT_REMINDER\x10\x37\x12*\n&PAYMENT_ACTION_SEND_PAYMENT_INVITATION\x10\x38\x12#\n\x1fPAYMENT_ACTION_REQUEST_DECLINED\x10\x39\x12\"\n\x1ePAYMENT_ACTION_REQUEST_EXPIRED\x10:\"\x82\x01\n\x14WebNotificationsInfo\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bunreadChats\x18\x03 \x01(\r\x12\x1a\n\x12notifyMessageCount\x18\x04 \x01(\r\x12&\n\x0enotifyMessages\x18\x05 \x03(\x0b\x32\x0e.proto.Message\"\x89\x01\n\x17NotificationMessageInfo\x12\x1e\n\x03key\x18\x01 \x01(\x0b\x32\x11.proto.MessageKey\x12\x1f\n\x07message\x18\x02 \x01(\x0b\x32\x0e.proto.Message\x12\x18\n\x10messageTimestamp\x18\x03 \x01(\x04\x12\x13\n\x0bparticipant\x18\x04 \x01(\t\"\x84\x01\n\x17TabletNotificationsInfo\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bunreadChats\x18\x03 \x01(\r\x12\x1a\n\x12notifyMessageCount\x18\x04 \x01(\r\x12%\n\rnotifyMessage\x18\x05 \x03(\x0b\x32\x0e.proto.Message\"\xc2\x04\n\x0bWebFeatures\x12.\n\rlabelsDisplay\x18\x01 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16voipIndividualOutgoing\x18\x02 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12)\n\x08groupsV3\x18\x03 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12/\n\x0egroupsV3Create\x18\x04 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12/\n\x0e\x63hangeNumberV2\x18\x05 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16queryStatusV3Thumbnail\x18\x06 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12.\n\rliveLocations\x18\x07 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12+\n\nqueryVname\x18\x08 \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x37\n\x16voipIndividualIncoming\x18\t \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\x12\x32\n\x11quickRepliesQuery\x18\n \x01(\x0e\x32\x17.proto.WebFeatures.FLAG\":\n\x04\x46LAG\x12\x13\n\x0fNOT_IMPLEMENTED\x10\x00\x12\x0f\n\x0bIMPLEMENTED\x10\x01\x12\x0c\n\x08OPTIONAL\x10\x02')
 )
 
 
 
 _EXTENDEDTEXTMESSAGE_FONTTYPE = _descriptor.EnumDescriptor(
-	name='FONTTYPE',
-	full_name='proto.ExtendedTextMessage.FONTTYPE',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='SANS_SERIF', index=0, number=0,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='SERIF', index=1, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='NORICAN_REGULAR', index=2, number=2,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='BRYNDAN_WRITE', index=3, number=3,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='BEBASNEUE_REGULAR', index=4, number=4,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='OSWALD_HEAVY', index=5, number=5,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=1318,
-	serialized_end=1436,
+  name='FONTTYPE',
+  full_name='proto.ExtendedTextMessage.FONTTYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='SANS_SERIF', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SERIF', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NORICAN_REGULAR', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BRYNDAN_WRITE', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BEBASNEUE_REGULAR', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='OSWALD_HEAVY', index=5, number=5,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=1318,
+  serialized_end=1436,
 )
 _sym_db.RegisterEnumDescriptor(_EXTENDEDTEXTMESSAGE_FONTTYPE)
 
 _VIDEOMESSAGE_ATTRIBUTION = _descriptor.EnumDescriptor(
-	name='ATTRIBUTION',
-	full_name='proto.VideoMessage.ATTRIBUTION',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='NONE', index=0, number=0,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GIPHY', index=1, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='TENOR', index=2, number=2,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=2396,
-	serialized_end=2441,
+  name='ATTRIBUTION',
+  full_name='proto.VideoMessage.ATTRIBUTION',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NONE', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GIPHY', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TENOR', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=2396,
+  serialized_end=2441,
 )
 _sym_db.RegisterEnumDescriptor(_VIDEOMESSAGE_ATTRIBUTION)
 
 _PROTOCOLMESSAGE_TYPE = _descriptor.EnumDescriptor(
-	name='TYPE',
-	full_name='proto.ProtocolMessage.TYPE',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='REVOKE', index=0, number=0,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=2603,
-	serialized_end=2621,
+  name='TYPE',
+  full_name='proto.ProtocolMessage.TYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='REVOKE', index=0, number=0,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=2603,
+  serialized_end=2621,
 )
 _sym_db.RegisterEnumDescriptor(_PROTOCOLMESSAGE_TYPE)
 
 _HSMDATETIMECOMPONENT_DAYOFWEEKTYPE = _descriptor.EnumDescriptor(
-	name='DAYOFWEEKTYPE',
-	full_name='proto.HSMDateTimeComponent.DAYOFWEEKTYPE',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='MONDAY', index=0, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='TUESDAY', index=1, number=2,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='WEDNESDAY', index=2, number=3,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='THURSDAY', index=3, number=4,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='FRIDAY', index=4, number=5,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='SATURDAY', index=5, number=6,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='SUNDAY', index=6, number=7,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=3033,
-	serialized_end=3140,
+  name='DAYOFWEEKTYPE',
+  full_name='proto.HSMDateTimeComponent.DAYOFWEEKTYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='MONDAY', index=0, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TUESDAY', index=1, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='WEDNESDAY', index=2, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='THURSDAY', index=3, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FRIDAY', index=4, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SATURDAY', index=5, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SUNDAY', index=6, number=7,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=3033,
+  serialized_end=3140,
 )
 _sym_db.RegisterEnumDescriptor(_HSMDATETIMECOMPONENT_DAYOFWEEKTYPE)
 
 _HSMDATETIMECOMPONENT_CALENDARTYPE = _descriptor.EnumDescriptor(
-	name='CALENDARTYPE',
-	full_name='proto.HSMDateTimeComponent.CALENDARTYPE',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='GREGORIAN', index=0, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='SOLAR_HIJRI', index=1, number=2,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=3142,
-	serialized_end=3188,
+  name='CALENDARTYPE',
+  full_name='proto.HSMDateTimeComponent.CALENDARTYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='GREGORIAN', index=0, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SOLAR_HIJRI', index=1, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=3142,
+  serialized_end=3188,
 )
 _sym_db.RegisterEnumDescriptor(_HSMDATETIMECOMPONENT_CALENDARTYPE)
 
 _WEBMESSAGEINFO_STATUS = _descriptor.EnumDescriptor(
-	name='STATUS',
-	full_name='proto.WebMessageInfo.STATUS',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='ERROR', index=0, number=0,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='PENDING', index=1, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='SERVER_ACK', index=2, number=2,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='DELIVERY_ACK', index=3, number=3,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='READ', index=4, number=4,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='PLAYED', index=5, number=5,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=6323,
-	serialized_end=6411,
+  name='STATUS',
+  full_name='proto.WebMessageInfo.STATUS',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ERROR', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PENDING', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SERVER_ACK', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DELIVERY_ACK', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='READ', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PLAYED', index=5, number=5,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=6323,
+  serialized_end=6411,
 )
 _sym_db.RegisterEnumDescriptor(_WEBMESSAGEINFO_STATUS)
 
 _WEBMESSAGEINFO_STUBTYPE = _descriptor.EnumDescriptor(
-	name='STUBTYPE',
-	full_name='proto.WebMessageInfo.STUBTYPE',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='UNKNOWN', index=0, number=0,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='REVOKE', index=1, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='CIPHERTEXT', index=2, number=2,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='FUTUREPROOF', index=3, number=3,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='NON_VERIFIED_TRANSITION', index=4, number=4,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='UNVERIFIED_TRANSITION', index=5, number=5,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION', index=6, number=6,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_LOW_UNKNOWN', index=7, number=7,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_HIGH', index=8, number=8,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_INITIAL_UNKNOWN', index=9, number=9,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_INITIAL_LOW', index=10, number=10,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_INITIAL_HIGH', index=11, number=11,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_ANY_TO_NONE', index=12, number=12,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_ANY_TO_HIGH', index=13, number=13,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_HIGH_TO_LOW', index=14, number=14,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_HIGH_TO_UNKNOWN', index=15, number=15,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_UNKNOWN_TO_LOW', index=16, number=16,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_LOW_TO_UNKNOWN', index=17, number=17,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_NONE_TO_LOW', index=18, number=18,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='VERIFIED_TRANSITION_NONE_TO_UNKNOWN', index=19, number=19,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CREATE', index=20, number=20,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_SUBJECT', index=21, number=21,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_ICON', index=22, number=22,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_INVITE_LINK', index=23, number=23,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_DESCRIPTION', index=24, number=24,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_RESTRICT', index=25, number=25,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_CHANGE_ANNOUNCE', index=26, number=26,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_ADD', index=27, number=27,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_REMOVE', index=28, number=28,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_PROMOTE', index=29, number=29,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_DEMOTE', index=30, number=30,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_INVITE', index=31, number=31,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_LEAVE', index=32, number=32,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_PARTICIPANT_CHANGE_NUMBER', index=33, number=33,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='BROADCAST_CREATE', index=34, number=34,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='BROADCAST_ADD', index=35, number=35,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='BROADCAST_REMOVE', index=36, number=36,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GENERIC_NOTIFICATION', index=37, number=37,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='E2E_IDENTITY_CHANGED', index=38, number=38,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='E2E_ENCRYPTED', index=39, number=39,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='CALL_MISSED_VOICE', index=40, number=40,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='CALL_MISSED_VIDEO', index=41, number=41,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='INDIVIDUAL_CHANGE_NUMBER', index=42, number=42,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='GROUP_DELETE', index=43, number=43,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=6414,
-	serialized_end=7624,
+  name='STUBTYPE',
+  full_name='proto.WebMessageInfo.STUBTYPE',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='REVOKE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CIPHERTEXT', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUTUREPROOF', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NON_VERIFIED_TRANSITION', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNVERIFIED_TRANSITION', index=5, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION', index=6, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_LOW_UNKNOWN', index=7, number=7,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_HIGH', index=8, number=8,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_INITIAL_UNKNOWN', index=9, number=9,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_INITIAL_LOW', index=10, number=10,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_INITIAL_HIGH', index=11, number=11,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_ANY_TO_NONE', index=12, number=12,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_ANY_TO_HIGH', index=13, number=13,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_HIGH_TO_LOW', index=14, number=14,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_HIGH_TO_UNKNOWN', index=15, number=15,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_UNKNOWN_TO_LOW', index=16, number=16,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_LOW_TO_UNKNOWN', index=17, number=17,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_NONE_TO_LOW', index=18, number=18,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='VERIFIED_TRANSITION_NONE_TO_UNKNOWN', index=19, number=19,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CREATE', index=20, number=20,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_SUBJECT', index=21, number=21,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_ICON', index=22, number=22,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_INVITE_LINK', index=23, number=23,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_DESCRIPTION', index=24, number=24,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_RESTRICT', index=25, number=25,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_CHANGE_ANNOUNCE', index=26, number=26,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_ADD', index=27, number=27,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_REMOVE', index=28, number=28,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_PROMOTE', index=29, number=29,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_DEMOTE', index=30, number=30,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_INVITE', index=31, number=31,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_LEAVE', index=32, number=32,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_PARTICIPANT_CHANGE_NUMBER', index=33, number=33,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BROADCAST_CREATE', index=34, number=34,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BROADCAST_ADD', index=35, number=35,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BROADCAST_REMOVE', index=36, number=36,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GENERIC_NOTIFICATION', index=37, number=37,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='E2E_IDENTITY_CHANGED', index=38, number=38,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='E2E_ENCRYPTED', index=39, number=39,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CALL_MISSED_VOICE', index=40, number=40,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CALL_MISSED_VIDEO', index=41, number=41,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='INDIVIDUAL_CHANGE_NUMBER', index=42, number=42,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_DELETE', index=43, number=43,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='GROUP_ANNOUNCE_MODE_MESSAGE_BOUNCE', index=44, number=44,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CALL_MISSED_GROUP_VOICE', index=45, number=45,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CALL_MISSED_GROUP_VIDEO', index=46, number=46,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_CIPHERTEXT', index=47, number=47,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_FUTUREPROOF', index=48, number=48,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_TRANSACTION_STATUS_UPDATE_FAILED', index=49, number=49,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_TRANSACTION_STATUS_UPDATE_REFUNDED', index=50, number=50,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED', index=51, number=51,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP', index=52, number=52,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP', index=53, number=53,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_ACTION_ACCOUNT_SETUP_REMINDER', index=54, number=54,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_ACTION_SEND_PAYMENT_REMINDER', index=55, number=55,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_ACTION_SEND_PAYMENT_INVITATION', index=56, number=56,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_ACTION_REQUEST_DECLINED', index=57, number=57,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYMENT_ACTION_REQUEST_EXPIRED', index=58, number=58,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=6414,
+  serialized_end=8237,
 )
 _sym_db.RegisterEnumDescriptor(_WEBMESSAGEINFO_STUBTYPE)
 
 _WEBFEATURES_FLAG = _descriptor.EnumDescriptor(
-	name='FLAG',
-	full_name='proto.WebFeatures.FLAG',
-	filename=None,
-	file=DESCRIPTOR,
-	values=[
-		_descriptor.EnumValueDescriptor(
-			name='NOT_IMPLEMENTED', index=0, number=0,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='IMPLEMENTED', index=1, number=1,
-			options=None,
-			type=None),
-		_descriptor.EnumValueDescriptor(
-			name='OPTIONAL', index=2, number=2,
-			options=None,
-			type=None),
-	],
-	containing_type=None,
-	options=None,
-	serialized_start=8555,
-	serialized_end=8613,
+  name='FLAG',
+  full_name='proto.WebFeatures.FLAG',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NOT_IMPLEMENTED', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='IMPLEMENTED', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='OPTIONAL', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=9168,
+  serialized_end=9226,
 )
 _sym_db.RegisterEnumDescriptor(_WEBFEATURES_FLAG)
 
 
 _FINGERPRINTDATA = _descriptor.Descriptor(
-	name='FingerprintData',
-	full_name='proto.FingerprintData',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='publicKey', full_name='proto.FingerprintData.publicKey', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='identifier', full_name='proto.FingerprintData.identifier', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=20,
-	serialized_end=76,
+  name='FingerprintData',
+  full_name='proto.FingerprintData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='publicKey', full_name='proto.FingerprintData.publicKey', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='identifier', full_name='proto.FingerprintData.identifier', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=20,
+  serialized_end=76,
 )
 
 
 _COMBINEDFINGERPRINT = _descriptor.Descriptor(
-	name='CombinedFingerprint',
-	full_name='proto.CombinedFingerprint',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='version', full_name='proto.CombinedFingerprint.version', index=0,
-			number=1, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='localFingerprint', full_name='proto.CombinedFingerprint.localFingerprint', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='remoteFingerprint', full_name='proto.CombinedFingerprint.remoteFingerprint', index=2,
-			number=3, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=79,
-	serialized_end=218,
+  name='CombinedFingerprint',
+  full_name='proto.CombinedFingerprint',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='version', full_name='proto.CombinedFingerprint.version', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='localFingerprint', full_name='proto.CombinedFingerprint.localFingerprint', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='remoteFingerprint', full_name='proto.CombinedFingerprint.remoteFingerprint', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=79,
+  serialized_end=218,
 )
 
 
 _MESSAGEKEY = _descriptor.Descriptor(
-	name='MessageKey',
-	full_name='proto.MessageKey',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='remoteJid', full_name='proto.MessageKey.remoteJid', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fromMe', full_name='proto.MessageKey.fromMe', index=1,
-			number=2, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='id', full_name='proto.MessageKey.id', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='participant', full_name='proto.MessageKey.participant', index=3,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=220,
-	serialized_end=300,
+  name='MessageKey',
+  full_name='proto.MessageKey',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='remoteJid', full_name='proto.MessageKey.remoteJid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fromMe', full_name='proto.MessageKey.fromMe', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='proto.MessageKey.id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='participant', full_name='proto.MessageKey.participant', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=220,
+  serialized_end=300,
 )
 
 
 _SENDERKEYDISTRIBUTIONMESSAGE = _descriptor.Descriptor(
-	name='SenderKeyDistributionMessage',
-	full_name='proto.SenderKeyDistributionMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='groupId', full_name='proto.SenderKeyDistributionMessage.groupId', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='axolotlSenderKeyDistributionMessage', full_name='proto.SenderKeyDistributionMessage.axolotlSenderKeyDistributionMessage', index=1,
-			number=2, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=302,
-	serialized_end=394,
+  name='SenderKeyDistributionMessage',
+  full_name='proto.SenderKeyDistributionMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='groupId', full_name='proto.SenderKeyDistributionMessage.groupId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='axolotlSenderKeyDistributionMessage', full_name='proto.SenderKeyDistributionMessage.axolotlSenderKeyDistributionMessage', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=302,
+  serialized_end=394,
 )
 
 
 _IMAGEMESSAGE = _descriptor.Descriptor(
-	name='ImageMessage',
-	full_name='proto.ImageMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.ImageMessage.url', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mimetype', full_name='proto.ImageMessage.mimetype', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='caption', full_name='proto.ImageMessage.caption', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileSha256', full_name='proto.ImageMessage.fileSha256', index=3,
-			number=4, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileLength', full_name='proto.ImageMessage.fileLength', index=4,
-			number=5, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='height', full_name='proto.ImageMessage.height', index=5,
-			number=6, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='width', full_name='proto.ImageMessage.width', index=6,
-			number=7, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaKey', full_name='proto.ImageMessage.mediaKey', index=7,
-			number=8, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileEncSha256', full_name='proto.ImageMessage.fileEncSha256', index=8,
-			number=9, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='interactiveAnnotations', full_name='proto.ImageMessage.interactiveAnnotations', index=9,
-			number=10, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='directPath', full_name='proto.ImageMessage.directPath', index=10,
-			number=11, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.ImageMessage.jpegThumbnail', index=11,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.ImageMessage.contextInfo', index=12,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='firstScanSidecar', full_name='proto.ImageMessage.firstScanSidecar', index=13,
-			number=18, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='firstScanLength', full_name='proto.ImageMessage.firstScanLength', index=14,
-			number=19, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=397,
-	serialized_end=768,
+  name='ImageMessage',
+  full_name='proto.ImageMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.ImageMessage.url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mimetype', full_name='proto.ImageMessage.mimetype', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='caption', full_name='proto.ImageMessage.caption', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileSha256', full_name='proto.ImageMessage.fileSha256', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileLength', full_name='proto.ImageMessage.fileLength', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='proto.ImageMessage.height', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='proto.ImageMessage.width', index=6,
+      number=7, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaKey', full_name='proto.ImageMessage.mediaKey', index=7,
+      number=8, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileEncSha256', full_name='proto.ImageMessage.fileEncSha256', index=8,
+      number=9, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='interactiveAnnotations', full_name='proto.ImageMessage.interactiveAnnotations', index=9,
+      number=10, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='directPath', full_name='proto.ImageMessage.directPath', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.ImageMessage.jpegThumbnail', index=11,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.ImageMessage.contextInfo', index=12,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='firstScanSidecar', full_name='proto.ImageMessage.firstScanSidecar', index=13,
+      number=18, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='firstScanLength', full_name='proto.ImageMessage.firstScanLength', index=14,
+      number=19, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=397,
+  serialized_end=768,
 )
 
 
 _CONTACTMESSAGE = _descriptor.Descriptor(
-	name='ContactMessage',
-	full_name='proto.ContactMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='displayName', full_name='proto.ContactMessage.displayName', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='vcard', full_name='proto.ContactMessage.vcard', index=1,
-			number=16, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.ContactMessage.contextInfo', index=2,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=770,
-	serialized_end=863,
+  name='ContactMessage',
+  full_name='proto.ContactMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='displayName', full_name='proto.ContactMessage.displayName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='vcard', full_name='proto.ContactMessage.vcard', index=1,
+      number=16, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.ContactMessage.contextInfo', index=2,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=770,
+  serialized_end=863,
 )
 
 
 _LOCATIONMESSAGE = _descriptor.Descriptor(
-	name='LocationMessage',
-	full_name='proto.LocationMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='degreesLatitude', full_name='proto.LocationMessage.degreesLatitude', index=0,
-			number=1, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='degreesLongitude', full_name='proto.LocationMessage.degreesLongitude', index=1,
-			number=2, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='name', full_name='proto.LocationMessage.name', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='address', full_name='proto.LocationMessage.address', index=3,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.LocationMessage.url', index=4,
-			number=5, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.LocationMessage.jpegThumbnail', index=5,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.LocationMessage.contextInfo', index=6,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=866,
-	serialized_end=1042,
+  name='LocationMessage',
+  full_name='proto.LocationMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='degreesLatitude', full_name='proto.LocationMessage.degreesLatitude', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='degreesLongitude', full_name='proto.LocationMessage.degreesLongitude', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='proto.LocationMessage.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='address', full_name='proto.LocationMessage.address', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.LocationMessage.url', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.LocationMessage.jpegThumbnail', index=5,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.LocationMessage.contextInfo', index=6,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=866,
+  serialized_end=1042,
 )
 
 
 _EXTENDEDTEXTMESSAGE = _descriptor.Descriptor(
-	name='ExtendedTextMessage',
-	full_name='proto.ExtendedTextMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='text', full_name='proto.ExtendedTextMessage.text', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='matchedText', full_name='proto.ExtendedTextMessage.matchedText', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='canonicalUrl', full_name='proto.ExtendedTextMessage.canonicalUrl', index=2,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='description', full_name='proto.ExtendedTextMessage.description', index=3,
-			number=5, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='title', full_name='proto.ExtendedTextMessage.title', index=4,
-			number=6, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='textArgb', full_name='proto.ExtendedTextMessage.textArgb', index=5,
-			number=7, type=7, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='backgroundArgb', full_name='proto.ExtendedTextMessage.backgroundArgb', index=6,
-			number=8, type=7, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='font', full_name='proto.ExtendedTextMessage.font', index=7,
-			number=9, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.ExtendedTextMessage.jpegThumbnail', index=8,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.ExtendedTextMessage.contextInfo', index=9,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_EXTENDEDTEXTMESSAGE_FONTTYPE,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=1045,
-	serialized_end=1436,
+  name='ExtendedTextMessage',
+  full_name='proto.ExtendedTextMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='text', full_name='proto.ExtendedTextMessage.text', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='matchedText', full_name='proto.ExtendedTextMessage.matchedText', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='canonicalUrl', full_name='proto.ExtendedTextMessage.canonicalUrl', index=2,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='proto.ExtendedTextMessage.description', index=3,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='title', full_name='proto.ExtendedTextMessage.title', index=4,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='textArgb', full_name='proto.ExtendedTextMessage.textArgb', index=5,
+      number=7, type=7, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='backgroundArgb', full_name='proto.ExtendedTextMessage.backgroundArgb', index=6,
+      number=8, type=7, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='font', full_name='proto.ExtendedTextMessage.font', index=7,
+      number=9, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.ExtendedTextMessage.jpegThumbnail', index=8,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.ExtendedTextMessage.contextInfo', index=9,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _EXTENDEDTEXTMESSAGE_FONTTYPE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1045,
+  serialized_end=1436,
 )
 
 
 _DOCUMENTMESSAGE = _descriptor.Descriptor(
-	name='DocumentMessage',
-	full_name='proto.DocumentMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.DocumentMessage.url', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mimetype', full_name='proto.DocumentMessage.mimetype', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='title', full_name='proto.DocumentMessage.title', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileSha256', full_name='proto.DocumentMessage.fileSha256', index=3,
-			number=4, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileLength', full_name='proto.DocumentMessage.fileLength', index=4,
-			number=5, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='pageCount', full_name='proto.DocumentMessage.pageCount', index=5,
-			number=6, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaKey', full_name='proto.DocumentMessage.mediaKey', index=6,
-			number=7, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileName', full_name='proto.DocumentMessage.fileName', index=7,
-			number=8, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileEncSha256', full_name='proto.DocumentMessage.fileEncSha256', index=8,
-			number=9, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='directPath', full_name='proto.DocumentMessage.directPath', index=9,
-			number=10, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.DocumentMessage.jpegThumbnail', index=10,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.DocumentMessage.contextInfo', index=11,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=1439,
-	serialized_end=1704,
+  name='DocumentMessage',
+  full_name='proto.DocumentMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.DocumentMessage.url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mimetype', full_name='proto.DocumentMessage.mimetype', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='title', full_name='proto.DocumentMessage.title', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileSha256', full_name='proto.DocumentMessage.fileSha256', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileLength', full_name='proto.DocumentMessage.fileLength', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pageCount', full_name='proto.DocumentMessage.pageCount', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaKey', full_name='proto.DocumentMessage.mediaKey', index=6,
+      number=7, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileName', full_name='proto.DocumentMessage.fileName', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileEncSha256', full_name='proto.DocumentMessage.fileEncSha256', index=8,
+      number=9, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='directPath', full_name='proto.DocumentMessage.directPath', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.DocumentMessage.jpegThumbnail', index=10,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.DocumentMessage.contextInfo', index=11,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1439,
+  serialized_end=1704,
 )
 
 
 _AUDIOMESSAGE = _descriptor.Descriptor(
-	name='AudioMessage',
-	full_name='proto.AudioMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.AudioMessage.url', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mimetype', full_name='proto.AudioMessage.mimetype', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileSha256', full_name='proto.AudioMessage.fileSha256', index=2,
-			number=3, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileLength', full_name='proto.AudioMessage.fileLength', index=3,
-			number=4, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='seconds', full_name='proto.AudioMessage.seconds', index=4,
-			number=5, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='ptt', full_name='proto.AudioMessage.ptt', index=5,
-			number=6, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaKey', full_name='proto.AudioMessage.mediaKey', index=6,
-			number=7, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileEncSha256', full_name='proto.AudioMessage.fileEncSha256', index=7,
-			number=8, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='directPath', full_name='proto.AudioMessage.directPath', index=8,
-			number=9, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.AudioMessage.contextInfo', index=9,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='streamingSidecar', full_name='proto.AudioMessage.streamingSidecar', index=10,
-			number=18, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=1707,
-	serialized_end=1950,
+  name='AudioMessage',
+  full_name='proto.AudioMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.AudioMessage.url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mimetype', full_name='proto.AudioMessage.mimetype', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileSha256', full_name='proto.AudioMessage.fileSha256', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileLength', full_name='proto.AudioMessage.fileLength', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seconds', full_name='proto.AudioMessage.seconds', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ptt', full_name='proto.AudioMessage.ptt', index=5,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaKey', full_name='proto.AudioMessage.mediaKey', index=6,
+      number=7, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileEncSha256', full_name='proto.AudioMessage.fileEncSha256', index=7,
+      number=8, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='directPath', full_name='proto.AudioMessage.directPath', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.AudioMessage.contextInfo', index=9,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='streamingSidecar', full_name='proto.AudioMessage.streamingSidecar', index=10,
+      number=18, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1707,
+  serialized_end=1950,
 )
 
 
 _VIDEOMESSAGE = _descriptor.Descriptor(
-	name='VideoMessage',
-	full_name='proto.VideoMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.VideoMessage.url', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mimetype', full_name='proto.VideoMessage.mimetype', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileSha256', full_name='proto.VideoMessage.fileSha256', index=2,
-			number=3, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileLength', full_name='proto.VideoMessage.fileLength', index=3,
-			number=4, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='seconds', full_name='proto.VideoMessage.seconds', index=4,
-			number=5, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaKey', full_name='proto.VideoMessage.mediaKey', index=5,
-			number=6, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='caption', full_name='proto.VideoMessage.caption', index=6,
-			number=7, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='gifPlayback', full_name='proto.VideoMessage.gifPlayback', index=7,
-			number=8, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='height', full_name='proto.VideoMessage.height', index=8,
-			number=9, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='width', full_name='proto.VideoMessage.width', index=9,
-			number=10, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileEncSha256', full_name='proto.VideoMessage.fileEncSha256', index=10,
-			number=11, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='interactiveAnnotations', full_name='proto.VideoMessage.interactiveAnnotations', index=11,
-			number=12, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='directPath', full_name='proto.VideoMessage.directPath', index=12,
-			number=13, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.VideoMessage.jpegThumbnail', index=13,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.VideoMessage.contextInfo', index=14,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='streamingSidecar', full_name='proto.VideoMessage.streamingSidecar', index=15,
-			number=18, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='gifAttribution', full_name='proto.VideoMessage.gifAttribution', index=16,
-			number=19, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_VIDEOMESSAGE_ATTRIBUTION,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=1953,
-	serialized_end=2441,
+  name='VideoMessage',
+  full_name='proto.VideoMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.VideoMessage.url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mimetype', full_name='proto.VideoMessage.mimetype', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileSha256', full_name='proto.VideoMessage.fileSha256', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileLength', full_name='proto.VideoMessage.fileLength', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seconds', full_name='proto.VideoMessage.seconds', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaKey', full_name='proto.VideoMessage.mediaKey', index=5,
+      number=6, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='caption', full_name='proto.VideoMessage.caption', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gifPlayback', full_name='proto.VideoMessage.gifPlayback', index=7,
+      number=8, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='proto.VideoMessage.height', index=8,
+      number=9, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='proto.VideoMessage.width', index=9,
+      number=10, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileEncSha256', full_name='proto.VideoMessage.fileEncSha256', index=10,
+      number=11, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='interactiveAnnotations', full_name='proto.VideoMessage.interactiveAnnotations', index=11,
+      number=12, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='directPath', full_name='proto.VideoMessage.directPath', index=12,
+      number=13, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.VideoMessage.jpegThumbnail', index=13,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.VideoMessage.contextInfo', index=14,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='streamingSidecar', full_name='proto.VideoMessage.streamingSidecar', index=15,
+      number=18, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gifAttribution', full_name='proto.VideoMessage.gifAttribution', index=16,
+      number=19, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _VIDEOMESSAGE_ATTRIBUTION,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1953,
+  serialized_end=2441,
 )
 
 
 _CALL = _descriptor.Descriptor(
-	name='Call',
-	full_name='proto.Call',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='callKey', full_name='proto.Call.callKey', index=0,
-			number=1, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2443,
-	serialized_end=2466,
+  name='Call',
+  full_name='proto.Call',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='callKey', full_name='proto.Call.callKey', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2443,
+  serialized_end=2466,
 )
 
 
 _CHAT = _descriptor.Descriptor(
-	name='Chat',
-	full_name='proto.Chat',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='displayName', full_name='proto.Chat.displayName', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='id', full_name='proto.Chat.id', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2468,
-	serialized_end=2507,
+  name='Chat',
+  full_name='proto.Chat',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='displayName', full_name='proto.Chat.displayName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='proto.Chat.id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2468,
+  serialized_end=2507,
 )
 
 
 _PROTOCOLMESSAGE = _descriptor.Descriptor(
-	name='ProtocolMessage',
-	full_name='proto.ProtocolMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='key', full_name='proto.ProtocolMessage.key', index=0,
-			number=1, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='type', full_name='proto.ProtocolMessage.type', index=1,
-			number=2, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_PROTOCOLMESSAGE_TYPE,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2509,
-	serialized_end=2621,
+  name='ProtocolMessage',
+  full_name='proto.ProtocolMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='proto.ProtocolMessage.key', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='proto.ProtocolMessage.type', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _PROTOCOLMESSAGE_TYPE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2509,
+  serialized_end=2621,
 )
 
 
 _CONTACTSARRAYMESSAGE = _descriptor.Descriptor(
-	name='ContactsArrayMessage',
-	full_name='proto.ContactsArrayMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='displayName', full_name='proto.ContactsArrayMessage.displayName', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contacts', full_name='proto.ContactsArrayMessage.contacts', index=1,
-			number=2, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.ContactsArrayMessage.contextInfo', index=2,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2623,
-	serialized_end=2748,
+  name='ContactsArrayMessage',
+  full_name='proto.ContactsArrayMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='displayName', full_name='proto.ContactsArrayMessage.displayName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contacts', full_name='proto.ContactsArrayMessage.contacts', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.ContactsArrayMessage.contextInfo', index=2,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2623,
+  serialized_end=2748,
 )
 
 
 _HSMCURRENCY = _descriptor.Descriptor(
-	name='HSMCurrency',
-	full_name='proto.HSMCurrency',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='currencyCode', full_name='proto.HSMCurrency.currencyCode', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='amount1000', full_name='proto.HSMCurrency.amount1000', index=1,
-			number=2, type=3, cpp_type=2, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2750,
-	serialized_end=2805,
+  name='HSMCurrency',
+  full_name='proto.HSMCurrency',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='currencyCode', full_name='proto.HSMCurrency.currencyCode', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount1000', full_name='proto.HSMCurrency.amount1000', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2750,
+  serialized_end=2805,
 )
 
 
 _HSMDATETIMECOMPONENT = _descriptor.Descriptor(
-	name='HSMDateTimeComponent',
-	full_name='proto.HSMDateTimeComponent',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='dayOfWeek', full_name='proto.HSMDateTimeComponent.dayOfWeek', index=0,
-			number=1, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=1,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='year', full_name='proto.HSMDateTimeComponent.year', index=1,
-			number=2, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='month', full_name='proto.HSMDateTimeComponent.month', index=2,
-			number=3, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='dayOfMonth', full_name='proto.HSMDateTimeComponent.dayOfMonth', index=3,
-			number=4, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='hour', full_name='proto.HSMDateTimeComponent.hour', index=4,
-			number=5, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='minute', full_name='proto.HSMDateTimeComponent.minute', index=5,
-			number=6, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='calendar', full_name='proto.HSMDateTimeComponent.calendar', index=6,
-			number=7, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=1,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_HSMDATETIMECOMPONENT_DAYOFWEEKTYPE,
-		_HSMDATETIMECOMPONENT_CALENDARTYPE,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=2808,
-	serialized_end=3188,
+  name='HSMDateTimeComponent',
+  full_name='proto.HSMDateTimeComponent',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='dayOfWeek', full_name='proto.HSMDateTimeComponent.dayOfWeek', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='year', full_name='proto.HSMDateTimeComponent.year', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='month', full_name='proto.HSMDateTimeComponent.month', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dayOfMonth', full_name='proto.HSMDateTimeComponent.dayOfMonth', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hour', full_name='proto.HSMDateTimeComponent.hour', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minute', full_name='proto.HSMDateTimeComponent.minute', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='calendar', full_name='proto.HSMDateTimeComponent.calendar', index=6,
+      number=7, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _HSMDATETIMECOMPONENT_DAYOFWEEKTYPE,
+    _HSMDATETIMECOMPONENT_CALENDARTYPE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2808,
+  serialized_end=3188,
 )
 
 
 _HSMDATETIMEUNIXEPOCH = _descriptor.Descriptor(
-	name='HSMDateTimeUnixEpoch',
-	full_name='proto.HSMDateTimeUnixEpoch',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='timestamp', full_name='proto.HSMDateTimeUnixEpoch.timestamp', index=0,
-			number=1, type=3, cpp_type=2, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=3190,
-	serialized_end=3231,
+  name='HSMDateTimeUnixEpoch',
+  full_name='proto.HSMDateTimeUnixEpoch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='proto.HSMDateTimeUnixEpoch.timestamp', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3190,
+  serialized_end=3231,
 )
 
 
 _HSMDATETIME = _descriptor.Descriptor(
-	name='HSMDateTime',
-	full_name='proto.HSMDateTime',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='component', full_name='proto.HSMDateTime.component', index=0,
-			number=1, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='unixEpoch', full_name='proto.HSMDateTime.unixEpoch', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-		_descriptor.OneofDescriptor(
-			name='datetimeOneof', full_name='proto.HSMDateTime.datetimeOneof',
-			index=0, containing_type=None, fields=[]),
-	],
-	serialized_start=3234,
-	serialized_end=3364,
+  name='HSMDateTime',
+  full_name='proto.HSMDateTime',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='component', full_name='proto.HSMDateTime.component', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='unixEpoch', full_name='proto.HSMDateTime.unixEpoch', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='datetimeOneof', full_name='proto.HSMDateTime.datetimeOneof',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=3234,
+  serialized_end=3364,
 )
 
 
 _HSMLOCALIZABLEPARAMETER = _descriptor.Descriptor(
-	name='HSMLocalizableParameter',
-	full_name='proto.HSMLocalizableParameter',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='default', full_name='proto.HSMLocalizableParameter.default', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='currency', full_name='proto.HSMLocalizableParameter.currency', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='dateTime', full_name='proto.HSMLocalizableParameter.dateTime', index=2,
-			number=3, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-		_descriptor.OneofDescriptor(
-			name='paramOneof', full_name='proto.HSMLocalizableParameter.paramOneof',
-			index=0, containing_type=None, fields=[]),
-	],
-	serialized_start=3367,
-	serialized_end=3503,
+  name='HSMLocalizableParameter',
+  full_name='proto.HSMLocalizableParameter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='default', full_name='proto.HSMLocalizableParameter.default', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='currency', full_name='proto.HSMLocalizableParameter.currency', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dateTime', full_name='proto.HSMLocalizableParameter.dateTime', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='paramOneof', full_name='proto.HSMLocalizableParameter.paramOneof',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=3367,
+  serialized_end=3503,
 )
 
 
 _HIGHLYSTRUCTUREDMESSAGE = _descriptor.Descriptor(
-	name='HighlyStructuredMessage',
-	full_name='proto.HighlyStructuredMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='namespace', full_name='proto.HighlyStructuredMessage.namespace', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='elementName', full_name='proto.HighlyStructuredMessage.elementName', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='params', full_name='proto.HighlyStructuredMessage.params', index=2,
-			number=3, type=9, cpp_type=9, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fallbackLg', full_name='proto.HighlyStructuredMessage.fallbackLg', index=3,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fallbackLc', full_name='proto.HighlyStructuredMessage.fallbackLc', index=4,
-			number=5, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='localizableParams', full_name='proto.HighlyStructuredMessage.localizableParams', index=5,
-			number=6, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=3506,
-	serialized_end=3686,
+  name='HighlyStructuredMessage',
+  full_name='proto.HighlyStructuredMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='proto.HighlyStructuredMessage.namespace', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='elementName', full_name='proto.HighlyStructuredMessage.elementName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='params', full_name='proto.HighlyStructuredMessage.params', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fallbackLg', full_name='proto.HighlyStructuredMessage.fallbackLg', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fallbackLc', full_name='proto.HighlyStructuredMessage.fallbackLc', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='localizableParams', full_name='proto.HighlyStructuredMessage.localizableParams', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3506,
+  serialized_end=3686,
 )
 
 
 _SENDPAYMENTMESSAGE = _descriptor.Descriptor(
-	name='SendPaymentMessage',
-	full_name='proto.SendPaymentMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='noteMessage', full_name='proto.SendPaymentMessage.noteMessage', index=0,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=3688,
-	serialized_end=3745,
+  name='SendPaymentMessage',
+  full_name='proto.SendPaymentMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='noteMessage', full_name='proto.SendPaymentMessage.noteMessage', index=0,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3688,
+  serialized_end=3745,
 )
 
 
 _REQUESTPAYMENTMESSAGE = _descriptor.Descriptor(
-	name='RequestPaymentMessage',
-	full_name='proto.RequestPaymentMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='currencyCodeIso4217', full_name='proto.RequestPaymentMessage.currencyCodeIso4217', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='amount1000', full_name='proto.RequestPaymentMessage.amount1000', index=1,
-			number=2, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='requestFrom', full_name='proto.RequestPaymentMessage.requestFrom', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='noteMessage', full_name='proto.RequestPaymentMessage.noteMessage', index=3,
-			number=4, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=3748,
-	serialized_end=3878,
+  name='RequestPaymentMessage',
+  full_name='proto.RequestPaymentMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='currencyCodeIso4217', full_name='proto.RequestPaymentMessage.currencyCodeIso4217', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount1000', full_name='proto.RequestPaymentMessage.amount1000', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='requestFrom', full_name='proto.RequestPaymentMessage.requestFrom', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='noteMessage', full_name='proto.RequestPaymentMessage.noteMessage', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3748,
+  serialized_end=3878,
 )
 
 
 _LIVELOCATIONMESSAGE = _descriptor.Descriptor(
-	name='LiveLocationMessage',
-	full_name='proto.LiveLocationMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='degreesLatitude', full_name='proto.LiveLocationMessage.degreesLatitude', index=0,
-			number=1, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='degreesLongitude', full_name='proto.LiveLocationMessage.degreesLongitude', index=1,
-			number=2, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='accuracyInMeters', full_name='proto.LiveLocationMessage.accuracyInMeters', index=2,
-			number=3, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='speedInMps', full_name='proto.LiveLocationMessage.speedInMps', index=3,
-			number=4, type=2, cpp_type=6, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='degreesClockwiseFromMagneticNorth', full_name='proto.LiveLocationMessage.degreesClockwiseFromMagneticNorth', index=4,
-			number=5, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='caption', full_name='proto.LiveLocationMessage.caption', index=5,
-			number=6, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='sequenceNumber', full_name='proto.LiveLocationMessage.sequenceNumber', index=6,
-			number=7, type=3, cpp_type=2, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='jpegThumbnail', full_name='proto.LiveLocationMessage.jpegThumbnail', index=7,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.LiveLocationMessage.contextInfo', index=8,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=3881,
-	serialized_end=4147,
+  name='LiveLocationMessage',
+  full_name='proto.LiveLocationMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='degreesLatitude', full_name='proto.LiveLocationMessage.degreesLatitude', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='degreesLongitude', full_name='proto.LiveLocationMessage.degreesLongitude', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='accuracyInMeters', full_name='proto.LiveLocationMessage.accuracyInMeters', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='speedInMps', full_name='proto.LiveLocationMessage.speedInMps', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='degreesClockwiseFromMagneticNorth', full_name='proto.LiveLocationMessage.degreesClockwiseFromMagneticNorth', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='caption', full_name='proto.LiveLocationMessage.caption', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='proto.LiveLocationMessage.sequenceNumber', index=6,
+      number=7, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='jpegThumbnail', full_name='proto.LiveLocationMessage.jpegThumbnail', index=7,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.LiveLocationMessage.contextInfo', index=8,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3881,
+  serialized_end=4147,
 )
 
 
 _STICKERMESSAGE = _descriptor.Descriptor(
-	name='StickerMessage',
-	full_name='proto.StickerMessage',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='url', full_name='proto.StickerMessage.url', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileSha256', full_name='proto.StickerMessage.fileSha256', index=1,
-			number=2, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileEncSha256', full_name='proto.StickerMessage.fileEncSha256', index=2,
-			number=3, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaKey', full_name='proto.StickerMessage.mediaKey', index=3,
-			number=4, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mimetype', full_name='proto.StickerMessage.mimetype', index=4,
-			number=5, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='height', full_name='proto.StickerMessage.height', index=5,
-			number=6, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='width', full_name='proto.StickerMessage.width', index=6,
-			number=7, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='directPath', full_name='proto.StickerMessage.directPath', index=7,
-			number=8, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fileLength', full_name='proto.StickerMessage.fileLength', index=8,
-			number=9, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='pngThumbnail', full_name='proto.StickerMessage.pngThumbnail', index=9,
-			number=16, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contextInfo', full_name='proto.StickerMessage.contextInfo', index=10,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=4150,
-	serialized_end=4392,
+  name='StickerMessage',
+  full_name='proto.StickerMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='url', full_name='proto.StickerMessage.url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileSha256', full_name='proto.StickerMessage.fileSha256', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileEncSha256', full_name='proto.StickerMessage.fileEncSha256', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaKey', full_name='proto.StickerMessage.mediaKey', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mimetype', full_name='proto.StickerMessage.mimetype', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='proto.StickerMessage.height', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='proto.StickerMessage.width', index=6,
+      number=7, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='directPath', full_name='proto.StickerMessage.directPath', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileLength', full_name='proto.StickerMessage.fileLength', index=8,
+      number=9, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pngThumbnail', full_name='proto.StickerMessage.pngThumbnail', index=9,
+      number=16, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextInfo', full_name='proto.StickerMessage.contextInfo', index=10,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4150,
+  serialized_end=4392,
 )
 
 
 _MESSAGE = _descriptor.Descriptor(
-	name='Message',
-	full_name='proto.Message',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='conversation', full_name='proto.Message.conversation', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='senderKeyDistributionMessage', full_name='proto.Message.senderKeyDistributionMessage', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='imageMessage', full_name='proto.Message.imageMessage', index=2,
-			number=3, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contactMessage', full_name='proto.Message.contactMessage', index=3,
-			number=4, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='locationMessage', full_name='proto.Message.locationMessage', index=4,
-			number=5, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='extendedTextMessage', full_name='proto.Message.extendedTextMessage', index=5,
-			number=6, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='documentMessage', full_name='proto.Message.documentMessage', index=6,
-			number=7, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='audioMessage', full_name='proto.Message.audioMessage', index=7,
-			number=8, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='videoMessage', full_name='proto.Message.videoMessage', index=8,
-			number=9, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='call', full_name='proto.Message.call', index=9,
-			number=10, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='chat', full_name='proto.Message.chat', index=10,
-			number=11, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='protocolMessage', full_name='proto.Message.protocolMessage', index=11,
-			number=12, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='contactsArrayMessage', full_name='proto.Message.contactsArrayMessage', index=12,
-			number=13, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='highlyStructuredMessage', full_name='proto.Message.highlyStructuredMessage', index=13,
-			number=14, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='fastRatchetKeySenderKeyDistributionMessage', full_name='proto.Message.fastRatchetKeySenderKeyDistributionMessage', index=14,
-			number=15, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='sendPaymentMessage', full_name='proto.Message.sendPaymentMessage', index=15,
-			number=16, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='requestPaymentMessage', full_name='proto.Message.requestPaymentMessage', index=16,
-			number=17, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='liveLocationMessage', full_name='proto.Message.liveLocationMessage', index=17,
-			number=18, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='stickerMessage', full_name='proto.Message.stickerMessage', index=18,
-			number=20, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=4395,
-	serialized_end=5368,
+  name='Message',
+  full_name='proto.Message',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='conversation', full_name='proto.Message.conversation', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='senderKeyDistributionMessage', full_name='proto.Message.senderKeyDistributionMessage', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='imageMessage', full_name='proto.Message.imageMessage', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contactMessage', full_name='proto.Message.contactMessage', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='locationMessage', full_name='proto.Message.locationMessage', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extendedTextMessage', full_name='proto.Message.extendedTextMessage', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='documentMessage', full_name='proto.Message.documentMessage', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='audioMessage', full_name='proto.Message.audioMessage', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='videoMessage', full_name='proto.Message.videoMessage', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='call', full_name='proto.Message.call', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='chat', full_name='proto.Message.chat', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='protocolMessage', full_name='proto.Message.protocolMessage', index=11,
+      number=12, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contactsArrayMessage', full_name='proto.Message.contactsArrayMessage', index=12,
+      number=13, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='highlyStructuredMessage', full_name='proto.Message.highlyStructuredMessage', index=13,
+      number=14, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fastRatchetKeySenderKeyDistributionMessage', full_name='proto.Message.fastRatchetKeySenderKeyDistributionMessage', index=14,
+      number=15, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sendPaymentMessage', full_name='proto.Message.sendPaymentMessage', index=15,
+      number=16, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='requestPaymentMessage', full_name='proto.Message.requestPaymentMessage', index=16,
+      number=17, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='liveLocationMessage', full_name='proto.Message.liveLocationMessage', index=17,
+      number=18, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stickerMessage', full_name='proto.Message.stickerMessage', index=18,
+      number=20, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4395,
+  serialized_end=5368,
 )
 
 
 _CONTEXTINFO = _descriptor.Descriptor(
-	name='ContextInfo',
-	full_name='proto.ContextInfo',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='stanzaId', full_name='proto.ContextInfo.stanzaId', index=0,
-			number=1, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='participant', full_name='proto.ContextInfo.participant', index=1,
-			number=2, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='quotedMessage', full_name='proto.ContextInfo.quotedMessage', index=2,
-			number=3, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='remoteJid', full_name='proto.ContextInfo.remoteJid', index=3,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mentionedJid', full_name='proto.ContextInfo.mentionedJid', index=4,
-			number=15, type=9, cpp_type=9, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='conversionSource', full_name='proto.ContextInfo.conversionSource', index=5,
-			number=18, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='conversionData', full_name='proto.ContextInfo.conversionData', index=6,
-			number=19, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='conversionDelaySeconds', full_name='proto.ContextInfo.conversionDelaySeconds', index=7,
-			number=20, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='isForwarded', full_name='proto.ContextInfo.isForwarded', index=8,
-			number=22, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=5371,
-	serialized_end=5618,
+  name='ContextInfo',
+  full_name='proto.ContextInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='stanzaId', full_name='proto.ContextInfo.stanzaId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='participant', full_name='proto.ContextInfo.participant', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='quotedMessage', full_name='proto.ContextInfo.quotedMessage', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='remoteJid', full_name='proto.ContextInfo.remoteJid', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mentionedJid', full_name='proto.ContextInfo.mentionedJid', index=4,
+      number=15, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversionSource', full_name='proto.ContextInfo.conversionSource', index=5,
+      number=18, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversionData', full_name='proto.ContextInfo.conversionData', index=6,
+      number=19, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversionDelaySeconds', full_name='proto.ContextInfo.conversionDelaySeconds', index=7,
+      number=20, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='isForwarded', full_name='proto.ContextInfo.isForwarded', index=8,
+      number=22, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5371,
+  serialized_end=5618,
 )
 
 
 _INTERACTIVEANNOTATION = _descriptor.Descriptor(
-	name='InteractiveAnnotation',
-	full_name='proto.InteractiveAnnotation',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='polygonVertices', full_name='proto.InteractiveAnnotation.polygonVertices', index=0,
-			number=1, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='location', full_name='proto.InteractiveAnnotation.location', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-		_descriptor.OneofDescriptor(
-			name='action', full_name='proto.InteractiveAnnotation.action',
-			index=0, containing_type=None, fields=[]),
-	],
-	serialized_start=5620,
-	serialized_end=5729,
+  name='InteractiveAnnotation',
+  full_name='proto.InteractiveAnnotation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='polygonVertices', full_name='proto.InteractiveAnnotation.polygonVertices', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='location', full_name='proto.InteractiveAnnotation.location', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='action', full_name='proto.InteractiveAnnotation.action',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=5620,
+  serialized_end=5729,
 )
 
 
 _POINT = _descriptor.Descriptor(
-	name='Point',
-	full_name='proto.Point',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='x', full_name='proto.Point.x', index=0,
-			number=3, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='y', full_name='proto.Point.y', index=1,
-			number=4, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=5731,
-	serialized_end=5760,
+  name='Point',
+  full_name='proto.Point',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='proto.Point.x', index=0,
+      number=3, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='proto.Point.y', index=1,
+      number=4, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5731,
+  serialized_end=5760,
 )
 
 
 _LOCATION = _descriptor.Descriptor(
-	name='Location',
-	full_name='proto.Location',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='degreesLatitude', full_name='proto.Location.degreesLatitude', index=0,
-			number=1, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='degreesLongitude', full_name='proto.Location.degreesLongitude', index=1,
-			number=2, type=1, cpp_type=5, label=1,
-			has_default_value=False, default_value=float(0),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='name', full_name='proto.Location.name', index=2,
-			number=3, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=5762,
-	serialized_end=5837,
+  name='Location',
+  full_name='proto.Location',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='degreesLatitude', full_name='proto.Location.degreesLatitude', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='degreesLongitude', full_name='proto.Location.degreesLongitude', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='proto.Location.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5762,
+  serialized_end=5837,
 )
 
 
 _WEBMESSAGEINFO = _descriptor.Descriptor(
-	name='WebMessageInfo',
-	full_name='proto.WebMessageInfo',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='key', full_name='proto.WebMessageInfo.key', index=0,
-			number=1, type=11, cpp_type=10, label=2,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='message', full_name='proto.WebMessageInfo.message', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='messageTimestamp', full_name='proto.WebMessageInfo.messageTimestamp', index=2,
-			number=3, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='status', full_name='proto.WebMessageInfo.status', index=3,
-			number=4, type=14, cpp_type=8, label=1,
-			has_default_value=True, default_value=1,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='participant', full_name='proto.WebMessageInfo.participant', index=4,
-			number=5, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='ignore', full_name='proto.WebMessageInfo.ignore', index=5,
-			number=16, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='starred', full_name='proto.WebMessageInfo.starred', index=6,
-			number=17, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='broadcast', full_name='proto.WebMessageInfo.broadcast', index=7,
-			number=18, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='pushName', full_name='proto.WebMessageInfo.pushName', index=8,
-			number=19, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='mediaCiphertextSha256', full_name='proto.WebMessageInfo.mediaCiphertextSha256', index=9,
-			number=20, type=12, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b(""),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='multicast', full_name='proto.WebMessageInfo.multicast', index=10,
-			number=21, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='urlText', full_name='proto.WebMessageInfo.urlText', index=11,
-			number=22, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='urlNumber', full_name='proto.WebMessageInfo.urlNumber', index=12,
-			number=23, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='messageStubType', full_name='proto.WebMessageInfo.messageStubType', index=13,
-			number=24, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='clearMedia', full_name='proto.WebMessageInfo.clearMedia', index=14,
-			number=25, type=8, cpp_type=7, label=1,
-			has_default_value=False, default_value=False,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='messageStubParameters', full_name='proto.WebMessageInfo.messageStubParameters', index=15,
-			number=26, type=9, cpp_type=9, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='duration', full_name='proto.WebMessageInfo.duration', index=16,
-			number=27, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='labels', full_name='proto.WebMessageInfo.labels', index=17,
-			number=28, type=9, cpp_type=9, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_WEBMESSAGEINFO_STATUS,
-		_WEBMESSAGEINFO_STUBTYPE,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=5840,
-	serialized_end=7624,
+  name='WebMessageInfo',
+  full_name='proto.WebMessageInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='proto.WebMessageInfo.key', index=0,
+      number=1, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='proto.WebMessageInfo.message', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messageTimestamp', full_name='proto.WebMessageInfo.messageTimestamp', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='proto.WebMessageInfo.status', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=True, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='participant', full_name='proto.WebMessageInfo.participant', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ignore', full_name='proto.WebMessageInfo.ignore', index=5,
+      number=16, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='starred', full_name='proto.WebMessageInfo.starred', index=6,
+      number=17, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='broadcast', full_name='proto.WebMessageInfo.broadcast', index=7,
+      number=18, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pushName', full_name='proto.WebMessageInfo.pushName', index=8,
+      number=19, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mediaCiphertextSha256', full_name='proto.WebMessageInfo.mediaCiphertextSha256', index=9,
+      number=20, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='multicast', full_name='proto.WebMessageInfo.multicast', index=10,
+      number=21, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='urlText', full_name='proto.WebMessageInfo.urlText', index=11,
+      number=22, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='urlNumber', full_name='proto.WebMessageInfo.urlNumber', index=12,
+      number=23, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messageStubType', full_name='proto.WebMessageInfo.messageStubType', index=13,
+      number=24, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='clearMedia', full_name='proto.WebMessageInfo.clearMedia', index=14,
+      number=25, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messageStubParameters', full_name='proto.WebMessageInfo.messageStubParameters', index=15,
+      number=26, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='duration', full_name='proto.WebMessageInfo.duration', index=16,
+      number=27, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='labels', full_name='proto.WebMessageInfo.labels', index=17,
+      number=28, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _WEBMESSAGEINFO_STATUS,
+    _WEBMESSAGEINFO_STUBTYPE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5840,
+  serialized_end=8237,
 )
 
 
 _WEBNOTIFICATIONSINFO = _descriptor.Descriptor(
-	name='WebNotificationsInfo',
-	full_name='proto.WebNotificationsInfo',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='timestamp', full_name='proto.WebNotificationsInfo.timestamp', index=0,
-			number=2, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='unreadChats', full_name='proto.WebNotificationsInfo.unreadChats', index=1,
-			number=3, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='notifyMessageCount', full_name='proto.WebNotificationsInfo.notifyMessageCount', index=2,
-			number=4, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='notifyMessages', full_name='proto.WebNotificationsInfo.notifyMessages', index=3,
-			number=5, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=7627,
-	serialized_end=7757,
+  name='WebNotificationsInfo',
+  full_name='proto.WebNotificationsInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='proto.WebNotificationsInfo.timestamp', index=0,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='unreadChats', full_name='proto.WebNotificationsInfo.unreadChats', index=1,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='notifyMessageCount', full_name='proto.WebNotificationsInfo.notifyMessageCount', index=2,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='notifyMessages', full_name='proto.WebNotificationsInfo.notifyMessages', index=3,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=8240,
+  serialized_end=8370,
 )
 
 
 _NOTIFICATIONMESSAGEINFO = _descriptor.Descriptor(
-	name='NotificationMessageInfo',
-	full_name='proto.NotificationMessageInfo',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='key', full_name='proto.NotificationMessageInfo.key', index=0,
-			number=1, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='message', full_name='proto.NotificationMessageInfo.message', index=1,
-			number=2, type=11, cpp_type=10, label=1,
-			has_default_value=False, default_value=None,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='messageTimestamp', full_name='proto.NotificationMessageInfo.messageTimestamp', index=2,
-			number=3, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='participant', full_name='proto.NotificationMessageInfo.participant', index=3,
-			number=4, type=9, cpp_type=9, label=1,
-			has_default_value=False, default_value=_b("").decode('utf-8'),
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=7760,
-	serialized_end=7897,
+  name='NotificationMessageInfo',
+  full_name='proto.NotificationMessageInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='proto.NotificationMessageInfo.key', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='proto.NotificationMessageInfo.message', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messageTimestamp', full_name='proto.NotificationMessageInfo.messageTimestamp', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='participant', full_name='proto.NotificationMessageInfo.participant', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=8373,
+  serialized_end=8510,
 )
 
 
 _TABLETNOTIFICATIONSINFO = _descriptor.Descriptor(
-	name='TabletNotificationsInfo',
-	full_name='proto.TabletNotificationsInfo',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='timestamp', full_name='proto.TabletNotificationsInfo.timestamp', index=0,
-			number=2, type=4, cpp_type=4, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='unreadChats', full_name='proto.TabletNotificationsInfo.unreadChats', index=1,
-			number=3, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='notifyMessageCount', full_name='proto.TabletNotificationsInfo.notifyMessageCount', index=2,
-			number=4, type=13, cpp_type=3, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='notifyMessage', full_name='proto.TabletNotificationsInfo.notifyMessage', index=3,
-			number=5, type=11, cpp_type=10, label=3,
-			has_default_value=False, default_value=[],
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=7900,
-	serialized_end=8032,
+  name='TabletNotificationsInfo',
+  full_name='proto.TabletNotificationsInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='proto.TabletNotificationsInfo.timestamp', index=0,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='unreadChats', full_name='proto.TabletNotificationsInfo.unreadChats', index=1,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='notifyMessageCount', full_name='proto.TabletNotificationsInfo.notifyMessageCount', index=2,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='notifyMessage', full_name='proto.TabletNotificationsInfo.notifyMessage', index=3,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=8513,
+  serialized_end=8645,
 )
 
 
 _WEBFEATURES = _descriptor.Descriptor(
-	name='WebFeatures',
-	full_name='proto.WebFeatures',
-	filename=None,
-	file=DESCRIPTOR,
-	containing_type=None,
-	fields=[
-		_descriptor.FieldDescriptor(
-			name='labelsDisplay', full_name='proto.WebFeatures.labelsDisplay', index=0,
-			number=1, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='voipIndividualOutgoing', full_name='proto.WebFeatures.voipIndividualOutgoing', index=1,
-			number=2, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='groupsV3', full_name='proto.WebFeatures.groupsV3', index=2,
-			number=3, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='groupsV3Create', full_name='proto.WebFeatures.groupsV3Create', index=3,
-			number=4, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='changeNumberV2', full_name='proto.WebFeatures.changeNumberV2', index=4,
-			number=5, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='queryStatusV3Thumbnail', full_name='proto.WebFeatures.queryStatusV3Thumbnail', index=5,
-			number=6, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='liveLocations', full_name='proto.WebFeatures.liveLocations', index=6,
-			number=7, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='queryVname', full_name='proto.WebFeatures.queryVname', index=7,
-			number=8, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='voipIndividualIncoming', full_name='proto.WebFeatures.voipIndividualIncoming', index=8,
-			number=9, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-		_descriptor.FieldDescriptor(
-			name='quickRepliesQuery', full_name='proto.WebFeatures.quickRepliesQuery', index=9,
-			number=10, type=14, cpp_type=8, label=1,
-			has_default_value=False, default_value=0,
-			message_type=None, enum_type=None, containing_type=None,
-			is_extension=False, extension_scope=None,
-			options=None, file=DESCRIPTOR),
-	],
-	extensions=[
-	],
-	nested_types=[],
-	enum_types=[
-		_WEBFEATURES_FLAG,
-	],
-	options=None,
-	is_extendable=False,
-	syntax='proto2',
-	extension_ranges=[],
-	oneofs=[
-	],
-	serialized_start=8035,
-	serialized_end=8613,
+  name='WebFeatures',
+  full_name='proto.WebFeatures',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='labelsDisplay', full_name='proto.WebFeatures.labelsDisplay', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='voipIndividualOutgoing', full_name='proto.WebFeatures.voipIndividualOutgoing', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='groupsV3', full_name='proto.WebFeatures.groupsV3', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='groupsV3Create', full_name='proto.WebFeatures.groupsV3Create', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='changeNumberV2', full_name='proto.WebFeatures.changeNumberV2', index=4,
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='queryStatusV3Thumbnail', full_name='proto.WebFeatures.queryStatusV3Thumbnail', index=5,
+      number=6, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='liveLocations', full_name='proto.WebFeatures.liveLocations', index=6,
+      number=7, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='queryVname', full_name='proto.WebFeatures.queryVname', index=7,
+      number=8, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='voipIndividualIncoming', full_name='proto.WebFeatures.voipIndividualIncoming', index=8,
+      number=9, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='quickRepliesQuery', full_name='proto.WebFeatures.quickRepliesQuery', index=9,
+      number=10, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _WEBFEATURES_FLAG,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=8648,
+  serialized_end=9226,
 )
 
 _COMBINEDFINGERPRINT.fields_by_name['localFingerprint'].message_type = _FINGERPRINTDATA
@@ -2813,18 +2873,18 @@ _HSMDATETIMECOMPONENT_CALENDARTYPE.containing_type = _HSMDATETIMECOMPONENT
 _HSMDATETIME.fields_by_name['component'].message_type = _HSMDATETIMECOMPONENT
 _HSMDATETIME.fields_by_name['unixEpoch'].message_type = _HSMDATETIMEUNIXEPOCH
 _HSMDATETIME.oneofs_by_name['datetimeOneof'].fields.append(
-	_HSMDATETIME.fields_by_name['component'])
+  _HSMDATETIME.fields_by_name['component'])
 _HSMDATETIME.fields_by_name['component'].containing_oneof = _HSMDATETIME.oneofs_by_name['datetimeOneof']
 _HSMDATETIME.oneofs_by_name['datetimeOneof'].fields.append(
-	_HSMDATETIME.fields_by_name['unixEpoch'])
+  _HSMDATETIME.fields_by_name['unixEpoch'])
 _HSMDATETIME.fields_by_name['unixEpoch'].containing_oneof = _HSMDATETIME.oneofs_by_name['datetimeOneof']
 _HSMLOCALIZABLEPARAMETER.fields_by_name['currency'].message_type = _HSMCURRENCY
 _HSMLOCALIZABLEPARAMETER.fields_by_name['dateTime'].message_type = _HSMDATETIME
 _HSMLOCALIZABLEPARAMETER.oneofs_by_name['paramOneof'].fields.append(
-	_HSMLOCALIZABLEPARAMETER.fields_by_name['currency'])
+  _HSMLOCALIZABLEPARAMETER.fields_by_name['currency'])
 _HSMLOCALIZABLEPARAMETER.fields_by_name['currency'].containing_oneof = _HSMLOCALIZABLEPARAMETER.oneofs_by_name['paramOneof']
 _HSMLOCALIZABLEPARAMETER.oneofs_by_name['paramOneof'].fields.append(
-	_HSMLOCALIZABLEPARAMETER.fields_by_name['dateTime'])
+  _HSMLOCALIZABLEPARAMETER.fields_by_name['dateTime'])
 _HSMLOCALIZABLEPARAMETER.fields_by_name['dateTime'].containing_oneof = _HSMLOCALIZABLEPARAMETER.oneofs_by_name['paramOneof']
 _HIGHLYSTRUCTUREDMESSAGE.fields_by_name['localizableParams'].message_type = _HSMLOCALIZABLEPARAMETER
 _SENDPAYMENTMESSAGE.fields_by_name['noteMessage'].message_type = _MESSAGE
@@ -2853,7 +2913,7 @@ _CONTEXTINFO.fields_by_name['quotedMessage'].message_type = _MESSAGE
 _INTERACTIVEANNOTATION.fields_by_name['polygonVertices'].message_type = _POINT
 _INTERACTIVEANNOTATION.fields_by_name['location'].message_type = _LOCATION
 _INTERACTIVEANNOTATION.oneofs_by_name['action'].fields.append(
-	_INTERACTIVEANNOTATION.fields_by_name['location'])
+  _INTERACTIVEANNOTATION.fields_by_name['location'])
 _INTERACTIVEANNOTATION.fields_by_name['location'].containing_oneof = _INTERACTIVEANNOTATION.oneofs_by_name['action']
 _WEBMESSAGEINFO.fields_by_name['key'].message_type = _MESSAGEKEY
 _WEBMESSAGEINFO.fields_by_name['message'].message_type = _MESSAGE
@@ -2914,248 +2974,248 @@ DESCRIPTOR.message_types_by_name['WebFeatures'] = _WEBFEATURES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 FingerprintData = _reflection.GeneratedProtocolMessageType('FingerprintData', (_message.Message,), dict(
-	DESCRIPTOR = _FINGERPRINTDATA,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.FingerprintData)
-	))
+  DESCRIPTOR = _FINGERPRINTDATA,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.FingerprintData)
+  ))
 _sym_db.RegisterMessage(FingerprintData)
 
 CombinedFingerprint = _reflection.GeneratedProtocolMessageType('CombinedFingerprint', (_message.Message,), dict(
-	DESCRIPTOR = _COMBINEDFINGERPRINT,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.CombinedFingerprint)
-	))
+  DESCRIPTOR = _COMBINEDFINGERPRINT,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.CombinedFingerprint)
+  ))
 _sym_db.RegisterMessage(CombinedFingerprint)
 
 MessageKey = _reflection.GeneratedProtocolMessageType('MessageKey', (_message.Message,), dict(
-	DESCRIPTOR = _MESSAGEKEY,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.MessageKey)
-	))
+  DESCRIPTOR = _MESSAGEKEY,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.MessageKey)
+  ))
 _sym_db.RegisterMessage(MessageKey)
 
 SenderKeyDistributionMessage = _reflection.GeneratedProtocolMessageType('SenderKeyDistributionMessage', (_message.Message,), dict(
-	DESCRIPTOR = _SENDERKEYDISTRIBUTIONMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.SenderKeyDistributionMessage)
-	))
+  DESCRIPTOR = _SENDERKEYDISTRIBUTIONMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.SenderKeyDistributionMessage)
+  ))
 _sym_db.RegisterMessage(SenderKeyDistributionMessage)
 
 ImageMessage = _reflection.GeneratedProtocolMessageType('ImageMessage', (_message.Message,), dict(
-	DESCRIPTOR = _IMAGEMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ImageMessage)
-	))
+  DESCRIPTOR = _IMAGEMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ImageMessage)
+  ))
 _sym_db.RegisterMessage(ImageMessage)
 
 ContactMessage = _reflection.GeneratedProtocolMessageType('ContactMessage', (_message.Message,), dict(
-	DESCRIPTOR = _CONTACTMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ContactMessage)
-	))
+  DESCRIPTOR = _CONTACTMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ContactMessage)
+  ))
 _sym_db.RegisterMessage(ContactMessage)
 
 LocationMessage = _reflection.GeneratedProtocolMessageType('LocationMessage', (_message.Message,), dict(
-	DESCRIPTOR = _LOCATIONMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.LocationMessage)
-	))
+  DESCRIPTOR = _LOCATIONMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.LocationMessage)
+  ))
 _sym_db.RegisterMessage(LocationMessage)
 
 ExtendedTextMessage = _reflection.GeneratedProtocolMessageType('ExtendedTextMessage', (_message.Message,), dict(
-	DESCRIPTOR = _EXTENDEDTEXTMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ExtendedTextMessage)
-	))
+  DESCRIPTOR = _EXTENDEDTEXTMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ExtendedTextMessage)
+  ))
 _sym_db.RegisterMessage(ExtendedTextMessage)
 
 DocumentMessage = _reflection.GeneratedProtocolMessageType('DocumentMessage', (_message.Message,), dict(
-	DESCRIPTOR = _DOCUMENTMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.DocumentMessage)
-	))
+  DESCRIPTOR = _DOCUMENTMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.DocumentMessage)
+  ))
 _sym_db.RegisterMessage(DocumentMessage)
 
 AudioMessage = _reflection.GeneratedProtocolMessageType('AudioMessage', (_message.Message,), dict(
-	DESCRIPTOR = _AUDIOMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.AudioMessage)
-	))
+  DESCRIPTOR = _AUDIOMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.AudioMessage)
+  ))
 _sym_db.RegisterMessage(AudioMessage)
 
 VideoMessage = _reflection.GeneratedProtocolMessageType('VideoMessage', (_message.Message,), dict(
-	DESCRIPTOR = _VIDEOMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.VideoMessage)
-	))
+  DESCRIPTOR = _VIDEOMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.VideoMessage)
+  ))
 _sym_db.RegisterMessage(VideoMessage)
 
 Call = _reflection.GeneratedProtocolMessageType('Call', (_message.Message,), dict(
-	DESCRIPTOR = _CALL,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.Call)
-	))
+  DESCRIPTOR = _CALL,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.Call)
+  ))
 _sym_db.RegisterMessage(Call)
 
 Chat = _reflection.GeneratedProtocolMessageType('Chat', (_message.Message,), dict(
-	DESCRIPTOR = _CHAT,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.Chat)
-	))
+  DESCRIPTOR = _CHAT,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.Chat)
+  ))
 _sym_db.RegisterMessage(Chat)
 
 ProtocolMessage = _reflection.GeneratedProtocolMessageType('ProtocolMessage', (_message.Message,), dict(
-	DESCRIPTOR = _PROTOCOLMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ProtocolMessage)
-	))
+  DESCRIPTOR = _PROTOCOLMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ProtocolMessage)
+  ))
 _sym_db.RegisterMessage(ProtocolMessage)
 
 ContactsArrayMessage = _reflection.GeneratedProtocolMessageType('ContactsArrayMessage', (_message.Message,), dict(
-	DESCRIPTOR = _CONTACTSARRAYMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ContactsArrayMessage)
-	))
+  DESCRIPTOR = _CONTACTSARRAYMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ContactsArrayMessage)
+  ))
 _sym_db.RegisterMessage(ContactsArrayMessage)
 
 HSMCurrency = _reflection.GeneratedProtocolMessageType('HSMCurrency', (_message.Message,), dict(
-	DESCRIPTOR = _HSMCURRENCY,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HSMCurrency)
-	))
+  DESCRIPTOR = _HSMCURRENCY,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HSMCurrency)
+  ))
 _sym_db.RegisterMessage(HSMCurrency)
 
 HSMDateTimeComponent = _reflection.GeneratedProtocolMessageType('HSMDateTimeComponent', (_message.Message,), dict(
-	DESCRIPTOR = _HSMDATETIMECOMPONENT,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HSMDateTimeComponent)
-	))
+  DESCRIPTOR = _HSMDATETIMECOMPONENT,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HSMDateTimeComponent)
+  ))
 _sym_db.RegisterMessage(HSMDateTimeComponent)
 
 HSMDateTimeUnixEpoch = _reflection.GeneratedProtocolMessageType('HSMDateTimeUnixEpoch', (_message.Message,), dict(
-	DESCRIPTOR = _HSMDATETIMEUNIXEPOCH,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HSMDateTimeUnixEpoch)
-	))
+  DESCRIPTOR = _HSMDATETIMEUNIXEPOCH,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HSMDateTimeUnixEpoch)
+  ))
 _sym_db.RegisterMessage(HSMDateTimeUnixEpoch)
 
 HSMDateTime = _reflection.GeneratedProtocolMessageType('HSMDateTime', (_message.Message,), dict(
-	DESCRIPTOR = _HSMDATETIME,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HSMDateTime)
-	))
+  DESCRIPTOR = _HSMDATETIME,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HSMDateTime)
+  ))
 _sym_db.RegisterMessage(HSMDateTime)
 
 HSMLocalizableParameter = _reflection.GeneratedProtocolMessageType('HSMLocalizableParameter', (_message.Message,), dict(
-	DESCRIPTOR = _HSMLOCALIZABLEPARAMETER,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HSMLocalizableParameter)
-	))
+  DESCRIPTOR = _HSMLOCALIZABLEPARAMETER,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HSMLocalizableParameter)
+  ))
 _sym_db.RegisterMessage(HSMLocalizableParameter)
 
 HighlyStructuredMessage = _reflection.GeneratedProtocolMessageType('HighlyStructuredMessage', (_message.Message,), dict(
-	DESCRIPTOR = _HIGHLYSTRUCTUREDMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.HighlyStructuredMessage)
-	))
+  DESCRIPTOR = _HIGHLYSTRUCTUREDMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.HighlyStructuredMessage)
+  ))
 _sym_db.RegisterMessage(HighlyStructuredMessage)
 
 SendPaymentMessage = _reflection.GeneratedProtocolMessageType('SendPaymentMessage', (_message.Message,), dict(
-	DESCRIPTOR = _SENDPAYMENTMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.SendPaymentMessage)
-	))
+  DESCRIPTOR = _SENDPAYMENTMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.SendPaymentMessage)
+  ))
 _sym_db.RegisterMessage(SendPaymentMessage)
 
 RequestPaymentMessage = _reflection.GeneratedProtocolMessageType('RequestPaymentMessage', (_message.Message,), dict(
-	DESCRIPTOR = _REQUESTPAYMENTMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.RequestPaymentMessage)
-	))
+  DESCRIPTOR = _REQUESTPAYMENTMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.RequestPaymentMessage)
+  ))
 _sym_db.RegisterMessage(RequestPaymentMessage)
 
 LiveLocationMessage = _reflection.GeneratedProtocolMessageType('LiveLocationMessage', (_message.Message,), dict(
-	DESCRIPTOR = _LIVELOCATIONMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.LiveLocationMessage)
-	))
+  DESCRIPTOR = _LIVELOCATIONMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.LiveLocationMessage)
+  ))
 _sym_db.RegisterMessage(LiveLocationMessage)
 
 StickerMessage = _reflection.GeneratedProtocolMessageType('StickerMessage', (_message.Message,), dict(
-	DESCRIPTOR = _STICKERMESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.StickerMessage)
-	))
+  DESCRIPTOR = _STICKERMESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.StickerMessage)
+  ))
 _sym_db.RegisterMessage(StickerMessage)
 
 Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), dict(
-	DESCRIPTOR = _MESSAGE,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.Message)
-	))
+  DESCRIPTOR = _MESSAGE,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.Message)
+  ))
 _sym_db.RegisterMessage(Message)
 
 ContextInfo = _reflection.GeneratedProtocolMessageType('ContextInfo', (_message.Message,), dict(
-	DESCRIPTOR = _CONTEXTINFO,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.ContextInfo)
-	))
+  DESCRIPTOR = _CONTEXTINFO,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.ContextInfo)
+  ))
 _sym_db.RegisterMessage(ContextInfo)
 
 InteractiveAnnotation = _reflection.GeneratedProtocolMessageType('InteractiveAnnotation', (_message.Message,), dict(
-	DESCRIPTOR = _INTERACTIVEANNOTATION,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.InteractiveAnnotation)
-	))
+  DESCRIPTOR = _INTERACTIVEANNOTATION,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.InteractiveAnnotation)
+  ))
 _sym_db.RegisterMessage(InteractiveAnnotation)
 
 Point = _reflection.GeneratedProtocolMessageType('Point', (_message.Message,), dict(
-	DESCRIPTOR = _POINT,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.Point)
-	))
+  DESCRIPTOR = _POINT,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.Point)
+  ))
 _sym_db.RegisterMessage(Point)
 
 Location = _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), dict(
-	DESCRIPTOR = _LOCATION,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.Location)
-	))
+  DESCRIPTOR = _LOCATION,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.Location)
+  ))
 _sym_db.RegisterMessage(Location)
 
 WebMessageInfo = _reflection.GeneratedProtocolMessageType('WebMessageInfo', (_message.Message,), dict(
-	DESCRIPTOR = _WEBMESSAGEINFO,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.WebMessageInfo)
-	))
+  DESCRIPTOR = _WEBMESSAGEINFO,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.WebMessageInfo)
+  ))
 _sym_db.RegisterMessage(WebMessageInfo)
 
 WebNotificationsInfo = _reflection.GeneratedProtocolMessageType('WebNotificationsInfo', (_message.Message,), dict(
-	DESCRIPTOR = _WEBNOTIFICATIONSINFO,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.WebNotificationsInfo)
-	))
+  DESCRIPTOR = _WEBNOTIFICATIONSINFO,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.WebNotificationsInfo)
+  ))
 _sym_db.RegisterMessage(WebNotificationsInfo)
 
 NotificationMessageInfo = _reflection.GeneratedProtocolMessageType('NotificationMessageInfo', (_message.Message,), dict(
-	DESCRIPTOR = _NOTIFICATIONMESSAGEINFO,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.NotificationMessageInfo)
-	))
+  DESCRIPTOR = _NOTIFICATIONMESSAGEINFO,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.NotificationMessageInfo)
+  ))
 _sym_db.RegisterMessage(NotificationMessageInfo)
 
 TabletNotificationsInfo = _reflection.GeneratedProtocolMessageType('TabletNotificationsInfo', (_message.Message,), dict(
-	DESCRIPTOR = _TABLETNOTIFICATIONSINFO,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.TabletNotificationsInfo)
-	))
+  DESCRIPTOR = _TABLETNOTIFICATIONSINFO,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.TabletNotificationsInfo)
+  ))
 _sym_db.RegisterMessage(TabletNotificationsInfo)
 
 WebFeatures = _reflection.GeneratedProtocolMessageType('WebFeatures', (_message.Message,), dict(
-	DESCRIPTOR = _WEBFEATURES,
-	__module__ = 'def_pb2'
-	# @@protoc_insertion_point(class_scope:proto.WebFeatures)
-	))
+  DESCRIPTOR = _WEBFEATURES,
+  __module__ = 'def_pb2'
+  # @@protoc_insertion_point(class_scope:proto.WebFeatures)
+  ))
 _sym_db.RegisterMessage(WebFeatures)
 
 
