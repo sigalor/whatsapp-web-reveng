@@ -27,7 +27,7 @@ class WABinaryReader:
 		return ret;
 
 	def readInt16(self, littleEndian=False):
-		return readIntN(2, littleEndian);
+		return self.readIntN(2, littleEndian);
 
 	def readInt20(self):
 		self.checkEOS(3);
@@ -36,10 +36,10 @@ class WABinaryReader:
 		return ret;
 
 	def readInt32(self, littleEndian=False):
-		return readIntN(4, littleEndian);
+		return self.readIntN(4, littleEndian);
 
 	def readInt64(self, littleEndian=False):
-		return readIntN(8, littleEndian);
+		return self.readIntN(8, littleEndian);
 
 	def readPacked8(self, tag):
 		startByte = self.readByte();
