@@ -73,6 +73,7 @@ def AESDecrypt(key, ciphertext):						# from https://stackoverflow.com/a/2086826
 class WhatsAppWebClient:
 	websocketIsOpened = False;
 	onOpenCallback = None;
+	messageSentCount=0
 	onMessageCallback = None;
 	onCloseCallback = None;
 	activeWs = None;
@@ -228,7 +229,18 @@ class WhatsAppWebClient:
 	
 	def getConnectionInfo(self, callback):
 		callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
-
+		
+	def sendTextMessage(self, number, text):
+		messageId = binascii.hexlify(Random.get_random_bytes(10)).upper()
+		messageTag = str(getTimestamp())
+		messageParams = {"key": {"fromMe": True, "remoteJid": number + "@s.whatsapp.net", "id": messageId},"messageTimestamp": getTimestamp(), "status": 1, "message": {"conversation": text}}
+		msgData = ["action", {"type": "relay", "epoch": str(self.messageSentCount)},[["message", None, WAWebMessageInfo.encode(messageParams)]]]
+		encryptedMessage = WhatsAppEncrypt(self.loginInfo["key"]["encKey"], self.loginInfo["key"]["macKey"],whatsappWriteBinary(msgData))
+		payload = bytearray(messageId) + bytearray(",") + bytearray(to_bytes(WAMetrics.MESSAGE, 1)) + bytearray([0x80]) + encryptedMessage
+		self.messageSentCount = self.messageSentCount + 1
+		self.messageQueue[messageId] = {"desc": "__sending"}
+		self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
+	
 	def disconnect(self):
 		self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
 		#time.sleep(0.5);
