@@ -132,6 +132,9 @@ class WhatsAppWebClient:
 			
 			if messageTag in self.messageQueue:											# when the server responds to a client's message
 				pend = self.messageQueue[messageTag];
+				if pend["desc"] == "_status":
+					if messageContent[0] == 'Pong' and messageContent[1] == True:
+						pend["callback"]({"Connected": True,"user":self.connInfo["me"],"pushname":self.connInfo["pushname"]})
 				if pend["desc"] == "_login":
 					eprint("Message after login: ", message);
 					self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
@@ -228,6 +231,13 @@ class WhatsAppWebClient:
 	
 	def getConnectionInfo(self, callback):
 		callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
+		
+	def status(self, callback=None):
+		if self.activeWs is not None:
+			messageTag = str(getTimestamp())
+			self.messageQueue[messageTag] = {"desc": "_status", "callback": callback}
+			message = messageTag + ',["admin", "test"]'
+			self.activeWs.send(message)
 
 	def disconnect(self):
 		self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
