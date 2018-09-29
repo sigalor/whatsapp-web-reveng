@@ -49,6 +49,11 @@ def AESPad(s):
 	bs = AES.block_size;
 	return s + (bs - len(s) % bs) * chr(bs - len(s) % bs);
 
+def to_bytes(n, length, endianess='big'):
+    h = '%x' % n
+    s = ('0'*(len(h) % 2) + h).zfill(length*2).decode('hex')
+    return s if endianess == 'big' else s[::-1]
+
 def AESUnpad(s):
 	return s[:-ord(s[len(s)-1:])];
 
@@ -60,7 +65,7 @@ def AESEncrypt(key, plaintext):							# like "AESPad"/"AESUnpad" from https://st
 
 def WhatsAppEncrypt(encKey, macKey, plaintext):
 	enc = AESEncrypt(encKey, plaintext)
-	return enc + HmacSha256(macKey, enc);				# this may need padding to 64 byte boundary
+	return HmacSha256(macKey, enc) + enc;				# this may need padding to 64 byte boundary
 
 def AESDecrypt(key, ciphertext):						# from https://stackoverflow.com/a/20868265
 	iv = ciphertext[:AES.block_size];
@@ -76,6 +81,7 @@ class WhatsAppWebClient:
 	onMessageCallback = None;
 	onCloseCallback = None;
 	activeWs = None;
+	messageSentCount = 0;
 	websocketThread = None;
 	messageQueue = {};																# maps message tags (provided by WhatsApp) to more information (description and callback)
 	loginInfo = {
@@ -228,7 +234,18 @@ class WhatsAppWebClient:
 	
 	def getConnectionInfo(self, callback):
 		callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
-
+		
+	def sendTextMessage(self, number, text):
+		messageId = binascii.hexlify(Random.get_random_bytes(10)).upper()
+		messageTag = str(getTimestamp())
+		messageParams = {"key": {"fromMe": True, "remoteJid": number + "@s.whatsapp.net", "id": messageId},"messageTimestamp": getTimestamp(), "status": 1, "message": {"conversation": text}}
+		msgData = ["action", {"type": "relay", "epoch": str(self.messageSentCount)},[["message", None, WAWebMessageInfo.encode(messageParams)]]]
+		encryptedMessage = WhatsAppEncrypt(self.loginInfo["key"]["encKey"], self.loginInfo["key"]["macKey"],whatsappWriteBinary(msgData))
+		payload = bytearray(messageId) + bytearray(",") + bytearray(to_bytes(WAMetrics.MESSAGE, 1)) + bytearray([0x80]) + encryptedMessage
+		self.messageSentCount = self.messageSentCount + 1
+		self.messageQueue[messageId] = {"desc": "__sending"}
+		self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
+		
 	def disconnect(self):
 		self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
 		#time.sleep(0.5);
