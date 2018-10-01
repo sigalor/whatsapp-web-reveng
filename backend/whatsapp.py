@@ -236,7 +236,7 @@ class WhatsAppWebClient:
 		callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
 		
 	def sendTextMessage(self, number, text):
-		messageId = binascii.hexlify(Random.get_random_bytes(10)).upper()
+		messageId = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
 		messageTag = str(getTimestamp())
 		messageParams = {"key": {"fromMe": True, "remoteJid": number + "@s.whatsapp.net", "id": messageId},"messageTimestamp": getTimestamp(), "status": 1, "message": {"conversation": text}}
 		msgData = ["action", {"type": "relay", "epoch": str(self.messageSentCount)},[["message", None, WAWebMessageInfo.encode(messageParams)]]]
