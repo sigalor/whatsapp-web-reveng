@@ -132,7 +132,9 @@ class WhatsAppWebClient:
 			
 			if messageTag in self.messageQueue:											# when the server responds to a client's message
 				pend = self.messageQueue[messageTag];
-				if pend["desc"] == "_login":
+				if pend["desc"] == "_restoresession":
+					eprint("")  # TODO implement Challenge Solving
+ 				elif pend["desc"] == "_login":
 					eprint("Message after login: ", message);
 					self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
 					eprint("set server id: " + self.loginInfo["serverRef"]);
@@ -222,7 +224,19 @@ class WhatsAppWebClient:
 		self.messageQueue[messageTag] = { "desc": "_login", "callback": callback };
 		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
 		self.activeWs.send(message);
-	
+		
+	def restoreSession(self, callback=None):
+		messageTag = str(getTimestamp())
+		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]'
+		self.activeWs.send(message)
+
+		messageTag = str(getTimestamp())
+		self.messageQueue[messageTag] = {"desc": "_restoresession"}
+		message = messageTag + ',["admin","login","' + self.connInfo["clientToken"] + '", "' + self.connInfo[
+		    "serverToken"] + '", "' + self.loginInfo["clientId"] + '", "takeover"]'
+
+		self.activeWs.send(message)
+		
 	def getLoginInfo(self, callback):
 		callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
 	
