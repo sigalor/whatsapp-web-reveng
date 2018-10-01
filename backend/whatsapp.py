@@ -138,7 +138,12 @@ class WhatsAppWebClient:
 			
 			if messageTag in self.messageQueue:											# when the server responds to a client's message
 				pend = self.messageQueue[messageTag];
-				if pend["desc"] == "_login":
+				if pend["desc"] == "_status":
+					if messageContent[0] == 'Pong' and messageContent[1] == True:
+						pend["callback"]({"Connected": True,"user":self.connInfo["me"],"pushname":self.connInfo["pushname"]})
+				elif pend["desc"] == "_restoresession":
+					eprint("")  # TODO implement Challenge Solving
+ 				elif pend["desc"] == "_login":
 					eprint("Message after login: ", message);
 					self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
 					eprint("set server id: " + self.loginInfo["serverRef"]);
@@ -228,13 +233,25 @@ class WhatsAppWebClient:
 		self.messageQueue[messageTag] = { "desc": "_login", "callback": callback };
 		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
 		self.activeWs.send(message);
-	
+		
+	def restoreSession(self, callback=None):
+		messageTag = str(getTimestamp())
+		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]'
+		self.activeWs.send(message)
+
+		messageTag = str(getTimestamp())
+		self.messageQueue[messageTag] = {"desc": "_restoresession"}
+		message = messageTag + ',["admin","login","' + self.connInfo["clientToken"] + '", "' + self.connInfo[
+		    "serverToken"] + '", "' + self.loginInfo["clientId"] + '", "takeover"]'
+
+		self.activeWs.send(message)
+		
 	def getLoginInfo(self, callback):
 		callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
 	
 	def getConnectionInfo(self, callback):
 		callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
-		
+    
 	def sendTextMessage(self, number, text):
 		messageId = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
 		messageTag = str(getTimestamp())
@@ -246,6 +263,13 @@ class WhatsAppWebClient:
 		self.messageQueue[messageId] = {"desc": "__sending"}
 		self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
 		
+	def status(self, callback=None):
+		if self.activeWs is not None:
+			messageTag = str(getTimestamp())
+			self.messageQueue[messageTag] = {"desc": "_status", "callback": callback}
+			message = messageTag + ',["admin", "test"]'
+			self.activeWs.send(message)
+
 	def disconnect(self):
 		self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
 		#time.sleep(0.5);
