@@ -7,6 +7,7 @@ sys.dont_write_bytecode = True;
 import os;
 import signal;
 import base64;
+from threading import Thread, Timer
 import math;
 import time;
 import datetime;
@@ -179,6 +180,7 @@ class WhatsAppWebClient:
 					if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
 						eprint(json.dumps(jsonObj));
 						if jsonObj[0] == "Conn":
+							Timer(25, lambda: self.activeWs.send('?,,')).start() # Keepalive Request
 							self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
 							self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
 							self.connInfo["browserToken"] = jsonObj[1]["browserToken"];
