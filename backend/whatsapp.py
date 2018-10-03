@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import binascii
 import sys;
+
+from axolotl.kdf.hkdfv3 import HKDFv3
+from axolotl.util.byteutil import ByteUtil
+
 sys.dont_write_bytecode = True;
 
 import os;
@@ -20,7 +24,7 @@ from Crypto.Hash import SHA256;
 import hashlib;
 import hmac;
 import traceback;
-
+import urllib2
 import websocket;
 import curve25519;
 import pyqrcode;
@@ -264,7 +268,34 @@ class WhatsAppWebClient:
 		self.messageSentCount = self.messageSentCount + 1
 		self.messageQueue[messageId] = {"desc": "__sending"}
 		self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
-		
+
+	def decryptImage(self, url, mediaKey):
+		try:
+			response = urllib2.urlopen(url)
+			encimg = response.read()
+			cryptKeys = "576861747341707020496d616765204b657973"
+			refkey = base64.b64decode(mediaKey)
+			derivative = HKDFv3().deriveSecrets(refkey, binascii.unhexlify(cryptKeys), 112)
+			parts = ByteUtil.split(derivative, 16, 32)
+			iv = parts[0]
+			cipherKey = parts[1]
+			e_img = encimg[:-10]
+			AES.key_size = 128
+			cr_obj = AES.new(key=cipherKey, mode=AES.MODE_CBC, IV=iv)
+			return cr_obj.decrypt(e_img)
+		except urllib2.HTTPError as err:
+			return False
+
+	def saveImage(self, message):
+		mediaKey = message['message']['imageMessage']['mediaKey']
+		url = message['message']['imageMessage']['url']
+		messageId = message['key']['id']
+		decryptedImage = self.decryptImage(url, mediaKey)
+		if decryptedImage:
+			with open("images/" + messageId + ".jpg", "wb") as f:
+				f.write(bytearray(decryptedImage))
+				f.close()
+
 	def status(self, callback=None):
 		if self.activeWs is not None:
 			messageTag = str(getTimestamp())
