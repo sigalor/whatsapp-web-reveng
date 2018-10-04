@@ -1,10 +1,11 @@
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 body {
-  font-family: 'Josefin Sans', Arial, sans-serif;
+  font-family: "Josefin Sans", Arial, sans-serif;
   padding: 0;
   margin: 0;
   width: 100vw;
@@ -15,82 +16,104 @@ body {
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+}
 
 .hidden {
-  display: none; }
+  display: none;
+}
 
 #bootstrap-container {
   height: 350px;
-  text-align: center; }
-  #bootstrap-container img {
-    padding-top: 1.5vh; }
+  text-align: center;
+}
+#bootstrap-container img {
+  padding-top: 1.5vh;
+}
 
 #main-container {
   position: absolute;
   top: 0%;
   left: 0%;
   width: 100%;
-  height: 100%; }
-  #main-container > #main-container-heading {
-    position: absolute;
-    top: 0%;
-    left: 1.5%;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline; }
-    #main-container > #main-container-heading > h1 {
-      position: relative;
-      top: 1.5vh;
-      font-weight: 100;
-      font-size: 8vh;
-      text-transform: uppercase;
-      padding-bottom: -10px;
-      margin-right: 3vh; }
-  #main-container > #main-container-content {
-    position: absolute;
-    top: 15%;
-    left: 1.5%;
-    width: 97%;
-    height: 85%; }
-    #main-container > #main-container-content > #messages-list-table {
-      border-collapse: collapse; }
-      #main-container > #main-container-content > #messages-list-table th, #main-container > #main-container-content > #messages-list-table td {
-        vertical-align: middle; }
-      #main-container > #main-container-content > #messages-list-table td:not(.no-monospace) {
-        font-family: monospace; }
-      #main-container > #main-container-content > #messages-list-table th:not(.fill), #main-container > #main-container-content > #messages-list-table td:not(.fill) {
-        width: 1px;
-        white-space: nowrap;
-        padding: 0px 25px;
-        text-align: center; }
+  height: 100%;
+}
+#main-container > #main-container-heading {
+  position: absolute;
+  top: 0%;
+  left: 1.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+#main-container > #main-container-heading > h1 {
+  position: relative;
+  top: 1.5vh;
+  font-weight: 100;
+  font-size: 8vh;
+  text-transform: uppercase;
+  padding-bottom: -10px;
+  margin-right: 3vh;
+}
+#main-container > #main-container-content {
+  position: absolute;
+  top: 15%;
+  left: 1.5%;
+  width: 97%;
+  height: 85%;
+}
+#main-container > #main-container-content > #messages-list-table {
+  border-collapse: collapse;
+}
+#main-container > #main-container-content > #messages-list-table th, #main-container > #main-container-content > #messages-list-table td {
+  vertical-align: middle;
+}
+#main-container > #main-container-content > #messages-list-table td:not(.no-monospace) {
+  font-family: monospace;
+}
+#main-container > #main-container-content > #messages-list-table th:not(.fill), #main-container > #main-container-content > #messages-list-table td:not(.fill) {
+  width: 1px;
+  white-space: nowrap;
+  padding: 0px 25px;
+  text-align: center;
+}
 
 .bootbox.modal {
-  line-height: 0.8; }
-  .bootbox.modal ul {
-    list-style-type: none; }
-  .bootbox.modal li {
-    line-height: 1.5; }
-  .bootbox.modal .jsontree_tree {
-    margin-left: 0;
-    padding-left: 0; }
-  .bootbox.modal .jsontree_child-nodes {
-    margin-left: 0; }
-  .bootbox.modal .modal-dialog {
-    width: 100vw; }
-    .bootbox.modal .modal-dialog .modal-content {
-      width: 90vw;
-      left: 5vw; }
+  line-height: 0.8;
+}
+.bootbox.modal ul {
+  list-style-type: none;
+}
+.bootbox.modal li {
+  line-height: 1.5;
+}
+.bootbox.modal .jsontree_tree {
+  margin-left: 0;
+  padding-left: 0;
+}
+.bootbox.modal .jsontree_child-nodes {
+  margin-left: 0;
+}
+.bootbox.modal .modal-dialog {
+  width: 100vw;
+}
+.bootbox.modal .modal-dialog .modal-content {
+  width: 90vw;
+  left: 5vw;
+}
 
 #console-arrow {
   position: absolute;
   top: 2.5vh;
   right: 0vw;
-  transition: right 0.2s; }
-  #console-arrow > button {
-    font-size: 2.5vh; }
-  #console-arrow.extended {
-    right: 20vw; }
+  transition: right 0.2s;
+}
+#console-arrow > button {
+  font-size: 2.5vh;
+}
+#console-arrow.extended {
+  right: 20vw;
+}
 
 #console {
   position: absolute;
@@ -102,8 +125,8 @@ body {
   transition: left 0.2s;
   font-size: 10pt;
   font-family: monospace;
-  background-color: rgba(200, 200, 200, 0.5); }
-  #console.extended {
-    left: 80vw; }
-
-/*# sourceMappingURL=main.css.map */
+  background-color: rgba(200, 200, 200, 0.5);
+}
+#console.extended {
+  left: 80vw;
+}
