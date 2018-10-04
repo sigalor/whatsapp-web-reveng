@@ -307,7 +307,7 @@ Unfortunately, these binary ones cannot be looked at using the Chrome developer 
 	- `filetype` can be one of `image`, `audio`, `document` or `video`
 9. Create a multipart-form with the following fields:
 	- fieldname: `hash`: `fileEncSha256B64`
-	- fieldname: `file`, filename: `blob`: `enc`
+	- fieldname: `file`, filename: `blob`: `enc+mac`  
 10. Do a POST request to the url with query string `?f=j` and the correct `content-type` and the multipart-form, WhatsApp will respond with the download url for the file.
 11. All relevant information to send the file are now generated, just build the proto and send it.
 
