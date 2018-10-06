@@ -9,8 +9,6 @@ This project intends to provide a complete description and re-implementation of 
 Before you can run the application, make sure that you have the following software installed:
 
 - Node.js (at least version 8, as the `async` `await` syntax is used)
-- the CSS preprocessor [Ruby Sass](http://sass-lang.com/ruby-sass/) (which in turn you need [Ruby](https://www.ruby-lang.org/) for)
-  - `gem install sass` for Windows and `sudo gem install sass` for Linux and OSX.
 - Python 2.7 with the following `pip` packages installed:
   - `websocket-client` and `git+https://github.com/dpallot/simple-websocket-server.git` for acting as WebSocket server and client.
   - `curve25519-donna` and `pycrypto` for the encryption stuff.
