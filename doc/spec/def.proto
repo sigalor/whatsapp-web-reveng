@@ -1,3 +1,6 @@
+syntax = "proto2";
+package proto;
+
 message Location {
     optional double degreesLatitude = 1;
     optional double degreesLongitude = 2;
@@ -324,12 +327,18 @@ message Message {
     optional StickerMessage stickerMessage = 26;
 }
 
+syntax = "proto2";
+package proto;
+
 message MessageKey {
     optional string remoteJid = 1;
     optional bool fromMe = 2;
     optional string id = 3;
     optional string participant = 4;
 }
+
+syntax = "proto2";
+package proto;
 
 message WebFeatures {
     enum WEB_FEATURES_FLAG {

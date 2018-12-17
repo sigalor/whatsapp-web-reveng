@@ -208,7 +208,7 @@ async function findAppModules(mods) {
                 ["}", ""]
             );
         
-        let lines = [].concat(...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
+        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
         console.log(lines.join("\n"));
     }
     
