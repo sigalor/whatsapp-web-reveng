@@ -233,12 +233,12 @@ class WhatsAppWebClient:
 		self.loginInfo["clientId"] = base64.b64encode(os.urandom(16));
 		messageTag = str(getTimestamp());
 		self.messageQueue[messageTag] = { "desc": "_login", "callback": callback };
-		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
+		message = messageTag + ',["admin","init",[0,3,1649],["Chromium at ' + datetime.datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]';
 		self.activeWs.send(message);
 		
 	def restoreSession(self, callback=None):
 		messageTag = str(getTimestamp())
-		message = messageTag + ',["admin","init",[0,3,416],["Chromium at ' + datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]'
+		message = messageTag + ',["admin","init",[0,3,1649],["Chromium at ' + datetime.now().isoformat() + '","Chromium"],"' + self.loginInfo["clientId"] + '",true]'
 		self.activeWs.send(message)
 
 		messageTag = str(getTimestamp())

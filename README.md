@@ -56,9 +56,9 @@ To log in at an open websocket, follow these steps:
 
 1. Generate your own `clientId`, which needs to be 16 base64-encoded bytes (i.e. 25 characters). This application just uses 16 random bytes, i.e. `base64.b64encode(os.urandom(16))` in Python.
 2. Decide for a tag for your message, which is more or less arbitrary (see above). This application uses the current timestamp (in seconds) for that. Remember this tag for later.
-3. The message you send to the websocket looks like this: `messageTag,["admin","init",[0,3,416],["Long browser description","ShortBrowserDesc"],"clientId",true]`.
+3. The message you send to the websocket looks like this: `messageTag,["admin","init",[0,3,1649],["Long browser description","ShortBrowserDesc"],"clientId",true]`.
 	- Obviously, you need to replace `messageTag` and `clientId` by the values you chose before
-	- The `[0,3,416]` part specifies the current WhatsApp Web version. The last value changes frequently. It should be quite backwards-compatible though.
+	- The `[0,3,1649]` part specifies the current WhatsApp Web version. The last value changes frequently. It should be quite backwards-compatible though.
 	- `"Long browser description"` is an arbitrary string that will be shown in the WhatsApp app in the list of registered WhatsApp Web clients after you scan the QR code.
 	- `"ShortBrowserDesc"` has not been observed anywhere yet but is arbitrary as well.
 4. After a few moments, your websocket will receive a message in the specified format with the message tag _you chose in step 2_. The JSON object of this message has the following attributes:
