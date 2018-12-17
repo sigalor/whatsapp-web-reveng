@@ -6,8 +6,8 @@
   "scripts": {
     "test": "concurrently --kill-others \"node index.js\" \"./backend/whatsapp-web-backend.py\"",
     "start": "npm run dev",
-    "dev": "concurrently --kill-others \"./node_modules/.bin/nodemon index.js -i client -e js\" \"./node_modules/.bin/nodemon --exec python ./backend/whatsapp_web_backend.py -i client -e py\" \"sass --no-source-map --watch client/css/main.scss:client/css/main.css\"",
-    "win": "concurrently --kill-others \"node_modules\\.bin\\nodemon index.js -i client -e js\" \"node_modules\\.bin\\nodemon --exec python ./backend/whatsapp_web_backend.py -i client -e py\" \"sass --no-source-map --watch client/css/main.scss:client/css/main.css\""
+    "dev": "concurrently --kill-others \"./node_modules/.bin/nodemon index.js -i client -e js\" \"./node_modules/.bin/nodemon --exec python ./backend/whatsapp_web_backend.py -i client -e py\" \"sass --watch client/css/main.scss:client/css/main.css\"",
+    "win": "concurrently --kill-others \"node_modules\\.bin\\nodemon index.js -i client -e js\" \"node_modules\\.bin\\nodemon --exec python ./backend/whatsapp_web_backend.py -i client -e py\" \"sass --watch client/css/main.scss:client/css/main.css\""
   },
   "author": "sigalor",
   "license": "MIT",
