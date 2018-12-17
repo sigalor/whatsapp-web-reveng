@@ -20,7 +20,8 @@ from Crypto.Hash import SHA256;
 import hashlib;
 import hmac;
 import traceback;
-
+import urllib2;
+import mimetypes;
 import websocket;
 import curve25519;
 import pyqrcode;
@@ -82,6 +83,7 @@ class WhatsAppWebClient:
 	onMessageCallback = None;
 	onCloseCallback = None;
 	activeWs = None;
+	location = r'''/usr/src/app/media/'''; ## Change Location of media as per requirement
 	messageSentCount = 0;
 	websocketThread = None;
 	messageQueue = {};																# maps message tags (provided by WhatsApp) to more information (description and callback)
@@ -111,7 +113,35 @@ class WhatsAppWebClient:
 		websocket.enableTrace(True);
 		self.connect();
 
+	def decodeMedia(self, mediaMessage):
+		info = media = ''
+		if 'imageMessage' in mediaMessage:
+		    media = mediaMessage.get('imageMessage')
+		    info = 'Image'
+		elif 'videoMessage' in mediaMessage:
+		    media = mediaMessage.get('videoMessage')
+		    info = 'Video'
+		elif 'audioMessage' in mediaMessage:
+		    media = mediaMessage.get('audioMessage')
+		    info = 'Audio'
+		elif 'documentMessage' in mediaMessage:
+		    media = mediaMessage.get('documentMessage')
+		    info = 'Document'
+		extension = mimetypes.guess_extension(type=media.get('mimetype'))
+		if extension is None or extension is '':
+		    extension = '.ogg'
+		mediaData = urllib2.urlopen(media['url']).read()
+		mediaKeyExpanded = HKDF(base64.b64decode(media['mediaKey']), 112, "WhatsApp " + info + " Keys")
+		file = mediaData[:-10]
+		iv = mediaKeyExpanded[:16]
+		cipherKey = mediaKeyExpanded[16:48]
+		decryptor = AES.new(cipherKey, AES.MODE_CBC, iv)
+		data = AESUnpad(decryptor.decrypt(file))
 
+		location = self.location + str(getTimestampMs()) + extension
+		with open(location, 'wb') as f:
+		    f.write(data)
+		return location
 
 	def onOpen(self, ws):
 		try:
@@ -170,6 +200,7 @@ class WhatsAppWebClient:
 						try:
 							processedData = whatsappReadBinary(decryptedMessage, True);
 							messageType = "binary";
+							##self.decodeMedia(mediaMessage=processedData[2][0]['message']) media decoder can be called here if message is media
 						except:
 							processedData = { "traceback": traceback.format_exc().splitlines() };
 							messageType = "error";
