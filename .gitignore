@@ -63,6 +63,7 @@ misc/
 backend/decodable_msgs
 backend/undecodable_msgs
 log.txt
+doc/spec/protobuf-extractor/node_modules
 
 # direnv environment
 .envrc
