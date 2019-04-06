@@ -1,6 +1,52 @@
 syntax = "proto2";
 package proto;
 
+message HydratedQuickReplyButton {
+    optional string displayText = 1;
+    optional string buttonId = 2;
+}
+
+message HydratedURLButton {
+    optional string displayText = 1;
+    optional string url = 2;
+}
+
+message HydratedCallButton {
+    optional string displayText = 1;
+    optional string phoneNumber = 2;
+}
+
+message HydratedTemplateButton {
+    oneof hydratedButton {
+        HydratedQuickReplyButton quickReplyButton = 1;
+        HydratedURLButton urlButton = 2;
+        HydratedCallButton callButton = 3;
+    }
+}
+
+message QuickReplyButton {
+    optional HighlyStructuredMessage displayText = 1;
+    optional string buttonId = 2;
+}
+
+message URLButton {
+    optional HighlyStructuredMessage displayText = 1;
+    optional HighlyStructuredMessage url = 2;
+}
+
+message CallButton {
+    optional HighlyStructuredMessage displayText = 1;
+    optional HighlyStructuredMessage phoneNumber = 2;
+}
+
+message TemplateButton {
+    oneof button {
+        QuickReplyButton quickReplyButton = 1;
+        URLButton urlButton = 2;
+        CallButton callButton = 3;
+    }
+}
+
 message Location {
     optional double degreesLatitude = 1;
     optional double degreesLongitude = 2;
@@ -19,6 +65,18 @@ message InteractiveAnnotation {
     }
 }
 
+message AdReplyInfo {
+    optional string advertiserName = 1;
+    enum AD_REPLY_INFO_MEDIATYPE {
+        NONE = 0;
+        IMAGE = 1;
+        VIDEO = 2;
+    }
+    optional AD_REPLY_INFO_MEDIATYPE mediaType = 2;
+    optional bytes jpegThumbnail = 16;
+    optional string caption = 17;
+}
+
 message ContextInfo {
     optional string stanzaId = 1;
     optional string participant = 2;
@@ -28,7 +86,9 @@ message ContextInfo {
     optional string conversionSource = 18;
     optional bytes conversionData = 19;
     optional uint32 conversionDelaySeconds = 20;
+    optional uint32 forwardingScore = 21;
     optional bool isForwarded = 22;
+    optional AdReplyInfo quotedAd = 23;
 }
 
 message SenderKeyDistributionMessage {
@@ -53,6 +113,7 @@ message ImageMessage {
     optional ContextInfo contextInfo = 17;
     optional bytes firstScanSidecar = 18;
     optional uint32 firstScanLength = 19;
+    optional uint32 experimentGroupId = 20;
 }
 
 message ContactMessage {
@@ -287,6 +348,7 @@ message StickerMessage {
 message FourRowTemplate {
     optional HighlyStructuredMessage content = 6;
     optional HighlyStructuredMessage footer = 7;
+    repeated TemplateButton buttons = 8;
     oneof title {
         DocumentMessage documentMessage = 1;
         HighlyStructuredMessage highlyStructuredMessage = 2;
@@ -296,10 +358,57 @@ message FourRowTemplate {
     }
 }
 
+message HydratedFourRowTemplate {
+    optional string hydratedContentText = 6;
+    optional string hydratedFooterText = 7;
+    repeated HydratedTemplateButton hydratedButtons = 9;
+    oneof title {
+        DocumentMessage documentMessage = 1;
+        string hydratedTitleText = 2;
+        ImageMessage imageMessage = 3;
+        VideoMessage videoMessage = 4;
+        LocationMessage locationMessage = 5;
+    }
+}
+
 message TemplateMessage {
     oneof format {
         FourRowTemplate fourRowTemplate = 1;
+        HydratedFourRowTemplate hydratedFourRowTemplate = 2;
     }
+}
+
+message TemplateButtonReplyMessage {
+    optional string selectedButtonId = 1;
+    repeated string selectedButtonDisplayText = 2;
+    optional ContextInfo contextInfo = 3;
+}
+
+message ProductSnapshot {
+    optional ImageMessage productImage = 1;
+    optional string productId = 2;
+    optional string title = 3;
+    optional string description = 4;
+    optional string currencyCode = 5;
+    optional int64 priceAmount1000 = 6;
+    optional string retailerId = 7;
+    optional string url = 8;
+    optional uint32 productImageCount = 9;
+}
+
+message ProductMessage {
+    optional ProductSnapshot product = 1;
+    optional string businessOwnerJid = 2;
+    optional ContextInfo contextInfo = 17;
+}
+
+message GroupInviteMessage {
+    optional string groupJid = 1;
+    optional string inviteCode = 2;
+    optional int64 inviteExpiration = 3;
+    optional string groupName = 4;
+    optional bytes jpegThumbnail = 5;
+    optional string caption = 6;
 }
 
 message Message {
@@ -325,10 +434,9 @@ message Message {
     optional CancelPaymentRequestMessage cancelPaymentRequestMessage = 24;
     optional TemplateMessage templateMessage = 25;
     optional StickerMessage stickerMessage = 26;
+    optional ProductMessage productMessage = 27;
+    optional GroupInviteMessage groupInviteMessage = 28;
 }
-
-syntax = "proto2";
-package proto;
 
 message MessageKey {
     optional string remoteJid = 1;
@@ -336,9 +444,6 @@ message MessageKey {
     optional string id = 3;
     optional string participant = 4;
 }
-
-syntax = "proto2";
-package proto;
 
 message WebFeatures {
     enum WEB_FEATURES_FLAG {
@@ -361,13 +466,13 @@ message WebFeatures {
     optional WEB_FEATURES_FLAG liveLocationsFinal = 13;
     optional WEB_FEATURES_FLAG labelsEdit = 14;
     optional WEB_FEATURES_FLAG mediaUpload = 15;
-    optional WEB_FEATURES_FLAG mediaUploadStickerPackIcons = 16;
-    optional WEB_FEATURES_FLAG mediaUploadThirdPartyStickers = 17;
     optional WEB_FEATURES_FLAG mediaUploadRichQuickReplies = 18;
     optional WEB_FEATURES_FLAG vnameV2 = 19;
     optional WEB_FEATURES_FLAG videoPlaybackUrl = 20;
     optional WEB_FEATURES_FLAG statusRanking = 21;
     optional WEB_FEATURES_FLAG voipIndividualVideo = 22;
+    optional WEB_FEATURES_FLAG thirdPartyStickers = 23;
+    optional WEB_FEATURES_FLAG frequentlyForwardedSetting = 24;
 }
 
 message TabletNotificationsInfo {
@@ -392,11 +497,6 @@ message WebNotificationsInfo {
 }
 
 message PaymentInfo {
-    enum PAYMENT_INFO_CURRENCY {
-        UNKNOWN_CURRENCY = 0;
-        INR = 1;
-    }
-    optional PAYMENT_INFO_CURRENCY currency = 1;
     optional uint64 amount1000 = 2;
     optional string receiverJid = 3;
     enum PAYMENT_INFO_STATUS {
@@ -417,6 +517,8 @@ message PaymentInfo {
     optional uint64 transactionTimestamp = 5;
     optional MessageKey requestMessageKey = 6;
     optional uint64 expiryTimestamp = 7;
+    optional bool futureproofed = 8;
+    optional string currency = 9;
 }
 
 message WebMessageInfo {
@@ -510,6 +612,8 @@ message WebMessageInfo {
         BIZ_MOVE_TO_CONSUMER_APP = 65;
         BIZ_TWO_TIER_MIGRATION_TOP = 66;
         BIZ_TWO_TIER_MIGRATION_BOTTOM = 67;
+        OVERSIZED = 68;
+        GROUP_CHANGE_NO_FREQUENTLY_FORWARDED = 69;
     }
     optional WEB_MESSAGE_INFO_STUBTYPE messageStubType = 24;
     optional bool clearMedia = 25;
