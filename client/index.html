@@ -1,68 +1,68 @@
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<title>WhatsApp Web</title>
-		
-		<!-- stylesheets -->
-		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="lib/jsonTree/jsonTree.css">
-		<link rel="stylesheet" href="css/main.css">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>WhatsApp Web</title>
+        
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="lib/jsonTree/jsonTree.css">
+        <link rel="stylesheet" href="css/main.css">
 
-		<!-- fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,700" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+        <!-- fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
-		<!-- scripts -->
-		<script type="text/javascript" src="lib/lodash/js/lodash.min.js"></script>
-		<script type="text/javascript" src="lib/jquery/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="lib/jquery-colResizable/js/jquery-colResizable-1.6.min.js"></script>
-		<script type="text/javascript" src="lib/bootstrap/js/bootstrap-3.3.7.min.js"></script>
-		<script type="text/javascript" src="lib/bootstrap/js/bootbox-4.4.0.min.js"></script>
-		<script type="text/javascript" src="lib/jsonTree/jsonTree.js"></script>
-		<script type="text/javascript" src="lib/moment/js/moment-2.20.1.min.js"></script>
+        <!-- scripts -->
+        <script type="text/javascript" src="lib/lodash/js/lodash.min.js"></script>
+        <script type="text/javascript" src="lib/jquery/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="lib/jquery-colResizable/js/jquery-colResizable-1.6.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/js/bootstrap-3.3.7.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/js/bootbox-4.4.0.min.js"></script>
+        <script type="text/javascript" src="lib/jsonTree/jsonTree.js"></script>
+        <script type="text/javascript" src="lib/moment/js/moment-2.20.1.min.js"></script>
 
-		<script type="text/javascript" src="js/UpdaterPromise.js"></script>
-		<script type="text/javascript" src="js/WebSocketClient.js"></script>
-		<script type="text/javascript" src="js/BootstrapStep.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-	</head>
-	<body>
-		<div id="bootstrap-container">
-			<h1>WhatsApp Web</h1>
-			<div id="bootstrap-container-content">
-				<button id="bootstrap-button" class="btn">Click to connect to API.</button>
-			</div>
-		</div>
+        <script type="text/javascript" src="js/UpdaterPromise.js"></script>
+        <script type="text/javascript" src="js/WebSocketClient.js"></script>
+        <script type="text/javascript" src="js/BootstrapStep.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </head>
+    <body>
+        <div id="bootstrap-container">
+            <h1>WhatsApp Web</h1>
+            <div id="bootstrap-container-content">
+                <button id="bootstrap-button" class="btn">Click to connect to API.</button>
+            </div>
+        </div>
 
-		<div id="main-container" class="hidden">
-			<div id="main-container-heading">
-				<h1>WhatsApp Web</h1>
-				<button id="button-disconnect" class="btn">Disconnect</button>
-			</div>
-			<div id="main-container-content">
-				<table id="messages-list-table" class="table table-hover">
-					<thead class="thead">
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Timestamp</th>
-							<th scope="col">Type</th>
-							<th scope="col" class="fill">JSON data</th>
-						</tr>
-					</thead>
-					<tbody id="messages-list-table-body"></tbody>
-				</table>
-			</div>
-		</div>
+        <div id="main-container" class="hidden">
+            <div id="main-container-heading">
+                <h1>WhatsApp Web</h1>
+                <button id="button-disconnect" class="btn">Disconnect</button>
+            </div>
+            <div id="main-container-content">
+                <table id="messages-list-table" class="table table-hover">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Type</th>
+                            <th scope="col" class="fill">JSON data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-list-table-body"></tbody>
+                </table>
+            </div>
+        </div>
 
-		<div id="console-arrow">
-			<button id="console-arrow-button" class="btn"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
-		</div>
-		<div id="console">
-			Hello
-		</div>
-	</body>
+        <div id="console-arrow">
+            <button id="console-arrow-button" class="btn"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+        </div>
+        <div id="console">
+            Hello
+        </div>
+    </body>
 </html>

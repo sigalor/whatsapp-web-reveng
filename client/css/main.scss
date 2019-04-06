@@ -1,153 +1,153 @@
 *, *:before, *:after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-	font-family: 'Josefin Sans', Arial, sans-serif;
-	padding: 0;
-	margin: 0;
-	width: 100vw;
-	height: 100vh;
-	background: radial-gradient(#fff 40%, #ddd);
-	background-attachment: fixed;
-	overflow-x: hidden;
-	overflow-y: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    font-family: 'Josefin Sans', Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#fff 40%, #ddd);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 #bootstrap-container {
-	height: 350px;
-	text-align: center;
+    height: 350px;
+    text-align: center;
 
-	img {
-		padding-top: 1.5vh;
-	}
+    img {
+        padding-top: 1.5vh;
+    }
 }
 
 #main-container {
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
 
-	& > #main-container-heading {
-		position: absolute;
-		top: 0%;
-		left: 1.5%;
-		
-		display: flex;
-		flex-direction: row;
-		align-items: baseline;
+    & > #main-container-heading {
+        position: absolute;
+        top: 0%;
+        left: 1.5%;
+        
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
 
-		& > h1 {
-			position: relative;
-			top: 1.5vh;
-			font-weight: 100;
-			font-size: 8vh;
-			text-transform: uppercase;
-			padding-bottom: -10px;
-			margin-right: 3vh;
-		}
-	}
+        & > h1 {
+            position: relative;
+            top: 1.5vh;
+            font-weight: 100;
+            font-size: 8vh;
+            text-transform: uppercase;
+            padding-bottom: -10px;
+            margin-right: 3vh;
+        }
+    }
 
-	& > #main-container-content {
-		position: absolute;
-		top: 15%;
-		left: 1.5%;
-		width: 97%;
-		height: 85%;
+    & > #main-container-content {
+        position: absolute;
+        top: 15%;
+        left: 1.5%;
+        width: 97%;
+        height: 85%;
 
-		& > #messages-list-table {
-			border-collapse: collapse;
+        & > #messages-list-table {
+            border-collapse: collapse;
 
-			th, td {
-				vertical-align: middle;
-			}
+            th, td {
+                vertical-align: middle;
+            }
 
-			td:not(.no-monospace) {
-				font-family: monospace;
-			}
+            td:not(.no-monospace) {
+                font-family: monospace;
+            }
 
-			th:not(.fill), td:not(.fill) {
-				width: 1px;
-				white-space: nowrap;
-				padding: 0px 25px;
-				text-align: center;
-			}
-		}
+            th:not(.fill), td:not(.fill) {
+                width: 1px;
+                white-space: nowrap;
+                padding: 0px 25px;
+                text-align: center;
+            }
+        }
 
-		//display: flex;
-		//flex-direction: column;
-	}
+        //display: flex;
+        //flex-direction: column;
+    }
 }
 
 .bootbox.modal {
-	line-height: 0.8;
+    line-height: 0.8;
 
-	ul {
-		list-style-type: none;
-	}
+    ul {
+        list-style-type: none;
+    }
 
-	li {
-		line-height: 1.5;
-	}
+    li {
+        line-height: 1.5;
+    }
 
-	.jsontree_tree {
-		margin-left: 0;
-		padding-left: 0;
-	}
+    .jsontree_tree {
+        margin-left: 0;
+        padding-left: 0;
+    }
 
-	.jsontree_child-nodes {
-		margin-left: 0;
-	}
+    .jsontree_child-nodes {
+        margin-left: 0;
+    }
 
-	.modal-dialog {
-		width: 100vw;
+    .modal-dialog {
+        width: 100vw;
 
-		.modal-content {
-			width: 90vw;
-			left: 5vw;
-		}
-	}
+        .modal-content {
+            width: 90vw;
+            left: 5vw;
+        }
+    }
 }
 
 #console-arrow {
-	position: absolute;
-	top: 2.5vh;
-	right: 0vw;
-	transition: right 0.2s;
+    position: absolute;
+    top: 2.5vh;
+    right: 0vw;
+    transition: right 0.2s;
 
-	& > button {
-		font-size: 2.5vh;
-	}
+    & > button {
+        font-size: 2.5vh;
+    }
 
-	&.extended {
-		right: 20vw;
-	}
+    &.extended {
+        right: 20vw;
+    }
 }
 
 #console {
-	position: absolute;
-	top: 0vh;
-	left: 100vw;
-	width: 20vw;
-	height: 100vh;
-	padding: 3vh;
-	transition: left 0.2s;
-	font-size: 10pt;
-	font-family: monospace;
-	background-color: rgba(200, 200, 200, 0.5);
+    position: absolute;
+    top: 0vh;
+    left: 100vw;
+    width: 20vw;
+    height: 100vh;
+    padding: 3vh;
+    transition: left 0.2s;
+    font-size: 10pt;
+    font-family: monospace;
+    background-color: rgba(200, 200, 200, 0.5);
 
-	&.extended {
-		left: 80vw;
-	}
+    &.extended {
+        left: 80vw;
+    }
 }

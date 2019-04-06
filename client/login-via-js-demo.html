@@ -1,166 +1,166 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<title>WhatsApp Web: Login via JavaScript demo</title>
-		
-		<!-- stylesheets -->
-		<link rel="stylesheet" href="css/main.css">
-		<style type="text/css">
-			body {
-				flex-direction: column;
-			}
-		</style>
-		
-		<!-- fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,700" rel="stylesheet">
-		
-		<!-- scripts -->
-		<script type="text/javascript" src="lib/jquery/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="lib/qrcode/js/qrcode.min.js"></script>
-		<script type="text/javascript" src="lib/sjcl/js/sjcl-1.0.7.js"></script>
-		<script type="text/javascript" src="lib/curve25519-js/js/axlsign.js"></script>
-		
-		<script type="text/javascript">
-			function numToBits(n) {
-				return sjcl.codec.hex.toBits((n<16?"0":"") + n.toString(16));
-			}
-			
-			function repeatedNumToBits(n, repeats) {
-				let nBits = numToBits(n), ret = [];
-				for(let i = 0; i < repeats; i++)
-					ret = sjcl.bitArray.concat(ret, nBits);
-				return ret;
-			}
-		
-		
-		
-			function HmacSha256(keyBits, signBits) {										//expects key and sign to be bit arrays
-				return (new sjcl.misc.hmac(keyBits, sjcl.hash.sha256)).mac(signBits);
-			}
-			
-			function HKDF(key, length) {													//expects key to be bit array, implements RFC 5869, some parts translated from https://github.com/MirkoDziadzka/pyhkdf
-				let keyStream = [], keyBlock = [], blockIndex = 1;
-				while(keyStream.length < length) {
-					keyBlock = HmacSha256(key, sjcl.bitArray.concat(keyBlock, numToBits(blockIndex)));
-					blockIndex++;
-					keyStream = sjcl.bitArray.concat(keyStream, keyBlock);
-				}
-				return sjcl.bitArray.clamp(keyStream, length*8);
-			}
-			
-			
-			
-			const AES_BLOCK_SIZE = 16;
-			
-			//padding functions not needed as sjcl pads automatically
-			/*function AESPad(s) {
-				let pad = AES_BLOCK_SIZE - (sjcl.bitArray.bitLength(s)/8) % AES_BLOCK_SIZE;
-				return sjcl.bitArray.concat(s, repeatedNumToBits(pad, pad));
-			}
-			
-			function AESUnpad(s) {
-				let ba = sjcl.bitArray;
-				let pad = parseInt(sjcl.codec.hex.fromBits(ba.bitSlice(s, ba.bitLength(s)-8)), 16);
-				return sjcl.bitArray.bitSlice(s, 0, ba.bitLength(s)-pad*8);
-			}*/
-			
-			sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
-			function AESEncrypt(key, plainbits) {
-				let iv = sjcl.random.randomWords(AES_BLOCK_SIZE / 4);
-				let prp = new sjcl.cipher.aes(key);
-				let encrypted = sjcl.mode.cbc.encrypt(prp, plainbits, iv);
-				return sjcl.bitArray.concat(iv, encrypted);
-			}
-			
-			function AESDecrypt(key, cipherbits) {
-				let iv = sjcl.bitArray.bitSlice(cipherbits, 0, AES_BLOCK_SIZE*8);
-				let prp = new sjcl.cipher.aes(key);
-				let decrypted = sjcl.mode.cbc.decrypt(prp, sjcl.bitArray.bitSlice(cipherbits, AES_BLOCK_SIZE*8), iv);
-				return decrypted;
-			}
-			
-			
-		
-			$(document).ready(function() {
-				let whatsapp = new WebSocket("ws://localhost:2021");
-				let clientId = sjcl.codec.base64.fromBits(sjcl.random.randomWords(4));		//generates 16 random bytes
-				let loginMessageTag, keyPair, encKey, macKey;
-				
-				whatsapp.onmessage = function(e) {
-					if(e.data == "whatsapp_open") {
-						console.log("connection to whatsapp opened.");
-						loginMessageTag = +new Date();
-						whatsapp.send(`${loginMessageTag},["admin","init",[0,3,2390],["Long browser description","ShortBrowserDesc"],"${clientId}",true]`);
-					}
-					else {
-						if(typeof e.data == "string") {
-							let messageTag = e.data.substring(0, e.data.indexOf(","));
-							let data = JSON.parse(e.data.substring(e.data.indexOf(",") + 1));
-						
-							if(messageTag == loginMessageTag) {
-								let keySeed = sjcl.codec.arrayBuffer.fromBits(sjcl.random.randomWords(8));
-								keyPair = axlsign.generateKeyPair(new Uint8Array(keySeed));
-								let publicKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.public));
-							
-								new QRCode("qrcode", {
-									text: `${data.ref},${publicKeyBase64},${clientId}`,
-									width: 240,
-									height: 240,
-									colorDark: "#122E31",
-									colorLight: "rgba(0,0,0,0)",
-									correctLevel: QRCode.CorrectLevel.L
-								});
-							}
-							else if(Array.isArray(data)  &&  data.length >= 2  &&  data[0] == "Conn") {
-								let secret = sjcl.codec.base64.toBits(data[1].secret);
-								let ba = sjcl.bitArray;
-				
-								let secretPublicKey = new Uint8Array(sjcl.codec.arrayBuffer.fromBits(ba.bitSlice(secret, 0, 32*8)));
-								let sharedSecret = axlsign.sharedKey(keyPair.private, secretPublicKey);
-								let sharedSecretExpanded = HKDF(HmacSha256(repeatedNumToBits(0, 32), sjcl.codec.arrayBuffer.toBits(sharedSecret.buffer)), 80);
-								let sse = sharedSecretExpanded;
-				
-								let hmacValidation = HmacSha256(ba.bitSlice(sse, 32*8, 64*8), ba.concat(ba.bitSlice(secret, 0, 32*8), ba.bitSlice(secret, 64*8)));
-								if(!ba.equal(hmacValidation, ba.bitSlice(secret, 32*8, 64*8)))
-									throw "hmac mismatch";
-				
-								let keysEncrypted = ba.concat(ba.bitSlice(sse, 64*8), ba.bitSlice(secret, 64*8));
-								let keysDecrypted = AESDecrypt(ba.bitSlice(sse, 0, 32*8), keysEncrypted);
-								encKey = ba.bitSlice(keysDecrypted, 0, 32*8);
-								macKey = ba.bitSlice(keysDecrypted, 32*8);
-								console.log("got encoding and mac key.");
-							}
-						}
-						else {
-							let fileReader = new FileReader();				//from https://stackoverflow.com/a/15981017
-							fileReader.onload = function() {
-								let ba = sjcl.bitArray;
-								let delimPos = new Uint8Array(this.result).indexOf(44);		//look for index of comma because there is a message tag before it
-								let messageContent = sjcl.codec.arrayBuffer.toBits(this.result.slice(delimPos+1));
-								let hmacValidation = HmacSha256(macKey, ba.bitSlice(messageContent, 32*8));
-								if(!sjcl.bitArray.equal(hmacValidation, ba.bitSlice(messageContent, 0, 32*8)))
-									throw ["hmac mismatch", sjcl.codec.hex.fromBits(hmacValidation), sjcl.codec.hex.fromBits(ba.bitSlice(messageContent, 0, 32*8))];
-								
-								let data = AESDecrypt(encKey, ba.bitSlice(messageContent, 32*8));
-								console.log("got binary data: ", String.fromCharCode.apply(null, new Uint8Array(sjcl.codec.arrayBuffer.fromBits(data, 0))));
-							};
-							fileReader.readAsArrayBuffer(e.data);
-						}
-					}
-				}
-				
-				whatsapp.onclose = function(e) {
-					console.log("whatsapp websocket closed.");
-				}
-			});
-		</script>
-	</head>
-	<body>
-		<h1>whatsapp-web-reveng (JS demo)</h1>
-		<div id="qrcode"></div>
-	</body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>WhatsApp Web: Login via JavaScript demo</title>
+        
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="css/main.css">
+        <style type="text/css">
+            body {
+                flex-direction: column;
+            }
+        </style>
+        
+        <!-- fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,700" rel="stylesheet">
+        
+        <!-- scripts -->
+        <script type="text/javascript" src="lib/jquery/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="lib/qrcode/js/qrcode.min.js"></script>
+        <script type="text/javascript" src="lib/sjcl/js/sjcl-1.0.7.js"></script>
+        <script type="text/javascript" src="lib/curve25519-js/js/axlsign.js"></script>
+        
+        <script type="text/javascript">
+            function numToBits(n) {
+                return sjcl.codec.hex.toBits((n<16?"0":"") + n.toString(16));
+            }
+            
+            function repeatedNumToBits(n, repeats) {
+                let nBits = numToBits(n), ret = [];
+                for(let i = 0; i < repeats; i++)
+                    ret = sjcl.bitArray.concat(ret, nBits);
+                return ret;
+            }
+        
+        
+        
+            function HmacSha256(keyBits, signBits) {										//expects key and sign to be bit arrays
+                return (new sjcl.misc.hmac(keyBits, sjcl.hash.sha256)).mac(signBits);
+            }
+            
+            function HKDF(key, length) {													//expects key to be bit array, implements RFC 5869, some parts translated from https://github.com/MirkoDziadzka/pyhkdf
+                let keyStream = [], keyBlock = [], blockIndex = 1;
+                while(keyStream.length < length) {
+                    keyBlock = HmacSha256(key, sjcl.bitArray.concat(keyBlock, numToBits(blockIndex)));
+                    blockIndex++;
+                    keyStream = sjcl.bitArray.concat(keyStream, keyBlock);
+                }
+                return sjcl.bitArray.clamp(keyStream, length*8);
+            }
+            
+            
+            
+            const AES_BLOCK_SIZE = 16;
+            
+            //padding functions not needed as sjcl pads automatically
+            /*function AESPad(s) {
+                let pad = AES_BLOCK_SIZE - (sjcl.bitArray.bitLength(s)/8) % AES_BLOCK_SIZE;
+                return sjcl.bitArray.concat(s, repeatedNumToBits(pad, pad));
+            }
+            
+            function AESUnpad(s) {
+                let ba = sjcl.bitArray;
+                let pad = parseInt(sjcl.codec.hex.fromBits(ba.bitSlice(s, ba.bitLength(s)-8)), 16);
+                return sjcl.bitArray.bitSlice(s, 0, ba.bitLength(s)-pad*8);
+            }*/
+            
+            sjcl.beware["CBC mode is dangerous because it doesn't protect message integrity."]();
+            function AESEncrypt(key, plainbits) {
+                let iv = sjcl.random.randomWords(AES_BLOCK_SIZE / 4);
+                let prp = new sjcl.cipher.aes(key);
+                let encrypted = sjcl.mode.cbc.encrypt(prp, plainbits, iv);
+                return sjcl.bitArray.concat(iv, encrypted);
+            }
+            
+            function AESDecrypt(key, cipherbits) {
+                let iv = sjcl.bitArray.bitSlice(cipherbits, 0, AES_BLOCK_SIZE*8);
+                let prp = new sjcl.cipher.aes(key);
+                let decrypted = sjcl.mode.cbc.decrypt(prp, sjcl.bitArray.bitSlice(cipherbits, AES_BLOCK_SIZE*8), iv);
+                return decrypted;
+            }
+            
+            
+        
+            $(document).ready(function() {
+                let whatsapp = new WebSocket("ws://localhost:2021");
+                let clientId = sjcl.codec.base64.fromBits(sjcl.random.randomWords(4));		//generates 16 random bytes
+                let loginMessageTag, keyPair, encKey, macKey;
+                
+                whatsapp.onmessage = function(e) {
+                    if(e.data == "whatsapp_open") {
+                        console.log("connection to whatsapp opened.");
+                        loginMessageTag = +new Date();
+                        whatsapp.send(`${loginMessageTag},["admin","init",[0,3,2390],["Long browser description","ShortBrowserDesc"],"${clientId}",true]`);
+                    }
+                    else {
+                        if(typeof e.data == "string") {
+                            let messageTag = e.data.substring(0, e.data.indexOf(","));
+                            let data = JSON.parse(e.data.substring(e.data.indexOf(",") + 1));
+                        
+                            if(messageTag == loginMessageTag) {
+                                let keySeed = sjcl.codec.arrayBuffer.fromBits(sjcl.random.randomWords(8));
+                                keyPair = axlsign.generateKeyPair(new Uint8Array(keySeed));
+                                let publicKeyBase64 = btoa(String.fromCharCode.apply(null, keyPair.public));
+                            
+                                new QRCode("qrcode", {
+                                    text: `${data.ref},${publicKeyBase64},${clientId}`,
+                                    width: 240,
+                                    height: 240,
+                                    colorDark: "#122E31",
+                                    colorLight: "rgba(0,0,0,0)",
+                                    correctLevel: QRCode.CorrectLevel.L
+                                });
+                            }
+                            else if(Array.isArray(data)  &&  data.length >= 2  &&  data[0] == "Conn") {
+                                let secret = sjcl.codec.base64.toBits(data[1].secret);
+                                let ba = sjcl.bitArray;
+                
+                                let secretPublicKey = new Uint8Array(sjcl.codec.arrayBuffer.fromBits(ba.bitSlice(secret, 0, 32*8)));
+                                let sharedSecret = axlsign.sharedKey(keyPair.private, secretPublicKey);
+                                let sharedSecretExpanded = HKDF(HmacSha256(repeatedNumToBits(0, 32), sjcl.codec.arrayBuffer.toBits(sharedSecret.buffer)), 80);
+                                let sse = sharedSecretExpanded;
+                
+                                let hmacValidation = HmacSha256(ba.bitSlice(sse, 32*8, 64*8), ba.concat(ba.bitSlice(secret, 0, 32*8), ba.bitSlice(secret, 64*8)));
+                                if(!ba.equal(hmacValidation, ba.bitSlice(secret, 32*8, 64*8)))
+                                    throw "hmac mismatch";
+                
+                                let keysEncrypted = ba.concat(ba.bitSlice(sse, 64*8), ba.bitSlice(secret, 64*8));
+                                let keysDecrypted = AESDecrypt(ba.bitSlice(sse, 0, 32*8), keysEncrypted);
+                                encKey = ba.bitSlice(keysDecrypted, 0, 32*8);
+                                macKey = ba.bitSlice(keysDecrypted, 32*8);
+                                console.log("got encoding and mac key.");
+                            }
+                        }
+                        else {
+                            let fileReader = new FileReader();				//from https://stackoverflow.com/a/15981017
+                            fileReader.onload = function() {
+                                let ba = sjcl.bitArray;
+                                let delimPos = new Uint8Array(this.result).indexOf(44);		//look for index of comma because there is a message tag before it
+                                let messageContent = sjcl.codec.arrayBuffer.toBits(this.result.slice(delimPos+1));
+                                let hmacValidation = HmacSha256(macKey, ba.bitSlice(messageContent, 32*8));
+                                if(!sjcl.bitArray.equal(hmacValidation, ba.bitSlice(messageContent, 0, 32*8)))
+                                    throw ["hmac mismatch", sjcl.codec.hex.fromBits(hmacValidation), sjcl.codec.hex.fromBits(ba.bitSlice(messageContent, 0, 32*8))];
+                                
+                                let data = AESDecrypt(encKey, ba.bitSlice(messageContent, 32*8));
+                                console.log("got binary data: ", String.fromCharCode.apply(null, new Uint8Array(sjcl.codec.arrayBuffer.fromBits(data, 0))));
+                            };
+                            fileReader.readAsArrayBuffer(e.data);
+                        }
+                    }
+                }
+                
+                whatsapp.onclose = function(e) {
+                    console.log("whatsapp websocket closed.");
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>whatsapp-web-reveng (JS demo)</h1>
+        <div id="qrcode"></div>
+    </body>
 </html>
