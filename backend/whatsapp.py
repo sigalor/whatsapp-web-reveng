@@ -144,7 +144,7 @@ class WhatsAppWebClient:
                         pend["callback"]({"Connected": True,"user":self.connInfo["me"],"pushname":self.connInfo["pushname"]})
                 elif pend["desc"] == "_restoresession":
                     eprint("")  # TODO implement Challenge Solving
-                 elif pend["desc"] == "_login":
+                elif pend["desc"] == "_login":
                     eprint("Message after login: ", message);
                     self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
                     eprint("set server id: " + self.loginInfo["serverRef"]);
