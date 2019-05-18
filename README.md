@@ -60,7 +60,14 @@ To log in at an open websocket, follow these steps:
 	- Obviously, you need to replace `messageTag` and `clientId` by the values you chose before
 	- The `[0,3,2390]` part specifies the current WhatsApp Web version. The last value changes frequently. It should be quite backwards-compatible though.
 	- `"Long browser description"` is an arbitrary string that will be shown in the WhatsApp app in the list of registered WhatsApp Web clients after you scan the QR code.
-	- `"ShortBrowserDesc"` has not been observed anywhere yet but is arbitrary as well.
+	- `"ShortBrowserDesc"` is an arbitrary string that is used to resolve the icon shown in the Whatsapp Client, for example:
+		- Firefox
+		- Chrome
+		- Edge
+		- IE
+		- Safari
+		- Opera
+		any other string would default to the Desktop Symbol
 4. After a few moments, your websocket will receive a message in the specified format with the message tag _you chose in step 2_. The JSON object of this message has the following attributes:
 	- `status`: should be 200
 	- `ref`: in the application, this is treated as the server ID; important for the QR generation, see below
