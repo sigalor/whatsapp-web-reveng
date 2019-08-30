@@ -177,6 +177,9 @@ async function findAppModules(mods) {
         });
     }
 
+	console.log('syntax = "proto2";')
+	console.log('package proto;')
+	console.log('')
     for(const mod of modules) {
         let modInfo = modulesInfo[mod.key.name];
         let spacesPerIndentLevel = 4;
@@ -214,7 +217,7 @@ async function findAppModules(mods) {
                 ["}", ""]
             );
 
-        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
+        let lines = [].concat(...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
         console.log(lines.join("\n"));
     }
     
