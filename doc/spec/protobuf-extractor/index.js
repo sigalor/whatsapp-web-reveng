@@ -66,7 +66,7 @@ async function findAppModules(mods) {
                     node = node.init.right;
 
                     // enums get their array of values directly
-                    if(node.type === "CallExpression" && node.callee.type === "SequenceExpression" && node.arguments.length == 1 && node.arguments[0].type == "ObjectExpression")
+                    if(node.type === "CallExpression" && node.callee.type === "MemberExpression" && node.arguments.length == 1 && node.arguments[0].type == "ObjectExpression")
                         ident.enumValues = node.arguments[0].properties.map(p => ({ name: p.key.name, id: p.value.value }));
                 }
             }
@@ -209,7 +209,7 @@ async function findAppModules(mods) {
                 ["}", ""]
             );
 
-        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : i[1].enumValues ? stringifyEnum(i[0], i[1].enumValues) : '').filter(i => Boolean(i)));
+        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
         console.log(lines.join("\n"));
     }
     
