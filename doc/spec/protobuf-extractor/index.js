@@ -6,21 +6,22 @@ const objectToArray = obj => Object.keys(obj).map(k => [k, obj[k]]);
 const indent = (lines, n) => lines.map(l => " ".repeat(n) + l);
 
 async function findAppModules(mods) {
+    const ua = { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0" } }
     const WAWebMain = "https://web.whatsapp.com";
-    const index = await request.get(WAWebMain, { headers: { "User-Agent": "Chrome/70 Safari/537 Edge/13" } });
+    const index = await request.get(WAWebMain, ua);
     const progressPath = index.match(/(?<=\<script src=")\/progress\.[0-9a-z]+\.js(?="\>\<\/script\>)/g);
     if(progressPath.length === 0)
         throw "unable to find path of progress.js script";
-    const progress = await request.get(WAWebMain + progressPath[0]);
-    const appPath = progress.match(/(?<={"src":")\/app\.[0-9a-z]+\.js(?=",)/g);
-    if(appPath.length === 0)
-        throw "unable to find path of app.js script";
-    const appModules = acorn.parse(await request.get(WAWebMain + appPath[0])).body[0].expression.arguments[1].properties;
-    return appModules.filter(m => mods.indexOf(m.key.value) != -1);
+    const progress = await request.get(WAWebMain + progressPath[0], ua);
+    const appPathNumber = progress.match(/(\d+):"app"/)[1]
+    const appPathId = progress.match(new RegExp('[,{]' + appPathNumber + ':"([0-9a-z]{10,})"'))[1]
+    const data = await request.get(WAWebMain + "/app." + appPathId + ".js", ua)
+    const appModules = acorn.parse(data).body[0].expression.arguments[1].properties;
+    return appModules.filter(m => mods.indexOf(m.key.name) != -1);
 }
 
 (async () => {
-    const wantedModules = ['"ebfhaccdcd"', '"djijebjjdh"', '"bfggaciiij"'];
+    const wantedModules = ['bgiachiigg', 'bfifcddbbg', 'bbcaggdbc'];
     const modules = await findAppModules(wantedModules);
     if(modules.length !== wantedModules.length)
         throw "did not find all wanted modules";
@@ -29,18 +30,18 @@ async function findAppModules(mods) {
     let modulesInfo = {};
     modules.forEach(({key, value}) => {
         const requiringParam = value.params[2].name;
-        modulesInfo[key.value] = { crossRefs: [] };
+        modulesInfo[key.name] = { crossRefs: [] };
         walk.simple(value, {
             VariableDeclarator(node) {
-                if(node.init.type === "CallExpression" && node.init.callee.name === requiringParam && node.init.arguments.length == 1 && wantedModules.indexOf(node.init.arguments[0].value) != -1)
-                    modulesInfo[key.value].crossRefs.push({ alias: node.id.name, module: node.init.arguments[0].value });
+                if(node.init && node.init.type === "CallExpression" && node.init.callee.name === requiringParam && node.init.arguments.length == 1 && wantedModules.indexOf(node.init.arguments[0].value) != -1)
+                    modulesInfo[key.name].crossRefs.push({ alias: node.id.name, module: node.init.arguments[0].value });
             }
         });
     });
 
     // find all identifiers and, for enums, their array of values
     for(const mod of modules) {
-        let modInfo = modulesInfo[mod.key.value];
+        let modInfo = modulesInfo[mod.key.name];
         
         // all identifiers will be initialized to "void 0" (i.e. "undefined") at the start, so capture them here
         walk.ancestor(mod, {
@@ -59,7 +60,7 @@ async function findAppModules(mods) {
         // enums are defined directly, and both enums and messages get a one-letter alias
         walk.simple(mod, {
             VariableDeclarator(node) {
-                if(node.init.type === "AssignmentExpression" && node.init.left.type === "MemberExpression" && modInfo.identifiers[node.init.left.property.name]) {
+                if(node.init && node.init.type === "AssignmentExpression" && node.init.left.type === "MemberExpression" && modInfo.identifiers[node.init.left.property.name]) {
                     let ident = modInfo.identifiers[node.init.left.property.name];
                     ident.alias = node.id.name;
                     node = node.init.right;
@@ -74,7 +75,7 @@ async function findAppModules(mods) {
 
     // find the contents for all protobuf messages
     for(const mod of modules) {
-        let modInfo = modulesInfo[mod.key.value];
+        let modInfo = modulesInfo[mod.key.name];
 
         // message specifications are stored in a "_spec" attribute of the respective identifier alias
         walk.simple(mod, {
@@ -119,7 +120,7 @@ async function findAppModules(mods) {
                                 if(crossRef && modulesInfo[crossRef.module].identifiers[elements[2].property.name])
                                     type = elements[2].property.name;
                                 else
-                                    console.warn(`unable to find reference of alias to other module '${elements[2].object.name}' or to message ${elements[2].property.name} of this module` + currLog)
+                                    console.warn(`unable to find reference of alias to other module '${elements[2].object.name}' or to message ${elements[2].property.name} of this module` + currLoc)
                             }
                         }
 
@@ -151,7 +152,7 @@ async function findAppModules(mods) {
 
     // make all enums only one message uses be local to that message
     for(const mod of modules) {
-        let idents = modulesInfo[mod.key.value].identifiers;
+        let idents = modulesInfo[mod.key.name].identifiers;
         let identsArr = objectToArray(idents);
 
         identsArr.filter(i => !!i[1].enumValues).forEach(e => {
@@ -172,7 +173,7 @@ async function findAppModules(mods) {
     }
 
     for(const mod of modules) {
-        let modInfo = modulesInfo[mod.key.value];
+        let modInfo = modulesInfo[mod.key.name];
         let spacesPerIndentLevel = 4;
 
         // enum stringifying function
@@ -207,8 +208,8 @@ async function findAppModules(mods) {
                 indent([].concat(...members.map(m => stringifyMessageSpecMember(m))), spacesPerIndentLevel),
                 ["}", ""]
             );
-        
-        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : stringifyEnum(i[0], i[1].enumValues)));
+
+        let lines = [].concat([`syntax = "proto2";`, `package proto;`, ""], ...objectToArray(modInfo.identifiers).map(i => i[1].members ? stringifyMessageSpec(i[0], i[1].members) : i[1].enumValues ? stringifyEnum(i[0], i[1].enumValues) : '').filter(i => Boolean(i)));
         console.log(lines.join("\n"));
     }
     
