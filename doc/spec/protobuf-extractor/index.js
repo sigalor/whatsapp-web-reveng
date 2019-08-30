@@ -22,9 +22,14 @@ async function findAppModules(mods) {
 
 (async () => {
     const wantedModules = ['bgiachiigg', 'bfifcddbbg', 'bbcaggdbc'];
-    const modules = await findAppModules(wantedModules);
-    if(modules.length !== wantedModules.length)
+    const unsortedModules = await findAppModules(wantedModules);
+    if(unsortedModules.length !== wantedModules.length)
         throw "did not find all wanted modules";
+    // Sort modules so that whatsapp module id changes don't change the order in the output protobuf schema
+    const modules = []
+    for (const mod of wantedModules) {
+        modules.push(unsortedModules.find(node => node.key.name === mod))
+    }
     
     // find aliases of cross references between the wanted modules
     let modulesInfo = {};
