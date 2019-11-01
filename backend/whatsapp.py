@@ -235,7 +235,6 @@ class WhatsAppWebClient:
 
 
     def connect(self):
-        #websocket.enableTrace(False) #Disable WebSocket logs
         self.activeWs = websocket.WebSocketApp("wss://web.whatsapp.com/ws",
                                                on_message = lambda ws, message: self.onMessage(ws, message),
                                                on_error = lambda ws, error: self.onError(ws, error),
