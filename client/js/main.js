@@ -163,12 +163,32 @@ $(document).ready(function() {
                             let viewJSONButton = $("<button></button>").addClass("btn").html("View").click(function() {
                                 let messageIndex = parseInt($(this).parent().parent().attr("data-message-index"));
                                 let jsonData = allWhatsAppMessages[messageIndex];
+                                let tree, collapse = false;
                                 let dialog = bootbox.dialog({
                                     title: `WhatsApp message #${messageIndex+1}`,
-                                    message: "<p>Loading JSON...</p>"
+                                    message: "<p>Loading JSON...</p>",
+                                    buttons: {
+                                        noclose: {
+                                            label: "Collapse/Expand All",
+                                            className: "btn-info",
+                                            callback: function () {
+                                                if (!tree)
+                                                    return true;
+
+                                                if (collapse === false)
+                                                    tree.expand();
+                                                else
+                                                    tree.collapse();
+
+                                                collapse = !collapse;
+
+                                                return false;
+                                            }
+                                        }
+                                    }
                                 });
                                 dialog.init(() => {
-                                    jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
+                                    tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
                             
