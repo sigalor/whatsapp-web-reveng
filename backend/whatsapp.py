@@ -227,6 +227,7 @@ class WhatsAppWebClient:
                         elif jsonObj[0] == "Props":
                             pass;
                         elif jsonObj[0] == "Presence":
+                            self.onMessageCallback["func"](jsonObj, self.onMessageCallback, {"message_type": "presence"});
                             eprint(jsonObj[1]["id"] + " is now " + jsonObj[1]["type"])
         except:
             eprint(traceback.format_exc());
