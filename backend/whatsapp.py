@@ -102,6 +102,8 @@ class WhatsAppWebClient:
         "sharedSecret": None,
         "me": None
     };
+    magicNumber = 786;
+    messageNumber = 2;
 
     def __init__(self, onOpenCallback, onMessageCallback, onCloseCallback):
         self.onOpenCallback = onOpenCallback;
@@ -139,7 +141,9 @@ class WhatsAppWebClient:
         try:
             messageSplit = message.split(",", 1);
             messageTag = messageSplit[0];
-            messageContent = messageSplit[1];
+            messageContent = ""
+            if len(messageSplit) >= 2:
+                messageContent = messageSplit[1];
             
             if messageTag in self.messageQueue:											# when the server responds to a client's message
                 pend = self.messageQueue[messageTag];
@@ -184,7 +188,6 @@ class WhatsAppWebClient:
                     if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
                         eprint(json.dumps(jsonObj));
                         if jsonObj[0] == "Conn":
-                            Timer(20.0, self.keepAlive).start() # Keepalive Request
                             self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
                             self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
                             self.connInfo["browserToken"] = jsonObj[1]["browserToken"];
@@ -212,10 +215,15 @@ class WhatsAppWebClient:
 
                             eprint("set connection info: client, server and browser token; secret, shared secret, enc key, mac key");
                             eprint("logged in as " + jsonObj[1]["pushname"]  + " (" + jsonObj[1]["wid"] + ")");
+
+                            Timer(20.0, self.keepAlive).start() # Start keepalive request loop
+                            Timer(5.0, self.subscribePresences, [self.magicNumber, ["31612345678", "31623456789"]]).start() # Start watching online statuses
                         elif jsonObj[0] == "Stream":
                             pass;
                         elif jsonObj[0] == "Props":
                             pass;
+                        elif jsonObj[0] == "Presence":
+                            eprint(jsonObj[1]["id"] + " is now " + jsonObj[1]["type"])
         except:
             eprint(traceback.format_exc());
 
@@ -280,3 +288,18 @@ class WhatsAppWebClient:
         self.activeWs.send('goodbye,,["admin","Conn","disconnect"]');		# WhatsApp server closes connection automatically when client wants to disconnect
         #time.sleep(0.5);
         #self.activeWs.close();
+
+    """After 'subscribing' to a numbers presence WhatsApps backend will update you when they come online
+    :param magicNumber (int): number 000-999 that seems to be random generated and looks like it doesn't really matter
+    :param phoneNumber (string): phone number without leading zero's (e.g. 31612345678)
+    """
+    def subscribePresence(self, magicNumber, phoneNumber):
+        message = str(magicNumber) + '.' + '--' +  str(self.messageNumber) + ',,["action", "presence", "subscribe", "' + phoneNumber + '@c.us"]'
+        eprint(message);
+        self.messageNumber += 1
+        self.activeWs.send(message)
+
+    def subscribePresences(self, magicNumber, phoneNumbers):
+        for phoneNumber in phoneNumbers:
+            eprint(phoneNumber);
+            self.subscribePresence(magicNumber, phoneNumber)
