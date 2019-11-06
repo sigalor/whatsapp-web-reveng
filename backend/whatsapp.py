@@ -216,8 +216,12 @@ class WhatsAppWebClient:
                             eprint("set connection info: client, server and browser token; secret, shared secret, enc key, mac key");
                             eprint("logged in as " + jsonObj[1]["pushname"]  + " (" + jsonObj[1]["wid"] + ")");
 
-                            Timer(20.0, self.keepAlive).start() # Start keepalive request loop
-                            Timer(5.0, self.subscribePresences, [self.magicNumber, ["31612345678", "31623456789"]]).start() # Start watching online statuses
+                            # Start keepalive request loop
+                            Timer(20.0, self.keepAlive).start()
+                            # Start watching online statuses
+                            with open(os.path.dirname(__file__) + '/../config.json') as json_file:
+                                data = json.load(json_file)
+                                Timer(5.0, self.subscribePresences, [self.magicNumber, data['phoneNumbers']]).start()
                         elif jsonObj[0] == "Stream":
                             pass;
                         elif jsonObj[0] == "Props":
