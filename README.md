@@ -361,7 +361,7 @@ The message forwarding procedures are rather complex, as there are several layer
 ### Build docker image
 `docker build . -t whatsapp-web-reveng`
 ### Run your image and redirect front & back ports
-` docker run -p 2019:2019 -p 2018:2018`
+`docker run -p 2019:2019 -p 2018:2018 whatsapp-web-reveng`
 
 Go to : <http://localhost:2019/>
 
