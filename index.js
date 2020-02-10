@@ -131,6 +131,34 @@ wss.on("connection", function(clientWebsocketRaw, req) {
             clientCallRequest.respond({ type: "error", reason: reason });
         })
     }).run();
+    clientWebsocket.waitForMessage({
+        condition: obj => {
+            return obj.from == "client"  &&  obj.type == "call"  &&  obj.command == "backend-getChatHistory"
+                    && "data" in obj && typeof(obj.data) === "object" && "jid" in obj.data
+        },
+        keepWhenHit: true
+    }).then(
+        clientCallRequest => {
+            if(!backendWebsocket.isOpen) {
+                clientCallRequest.respond({ type: "error", reason: "No backend connected." });
+                return;
+            }
+            new BootstrapStep({
+                websocket: backendWebsocket,
+                request: {
+                    type: "call",
+                    callArgs: {
+                        command: "backend-getChatHistory",
+                        jid: clientCallRequest.data.jid,
+                        whatsapp_instance_id: backendWebsocket.activeWhatsAppInstanceId,
+                    },
+                    // TODO Add success Condition
+                    successCondition: obj => true
+                }
+            }).run()
+            //TODO
+            // THEN & CATCH
+        }).run();
 
 
     //TODO:
@@ -139,6 +167,7 @@ wss.on("connection", function(clientWebsocketRaw, req) {
     // - add buttons for that to client
     // - look for handlers in "decoder.py" and add them to output information
     // - when decoding fails, write packet to file for further investigation later
+    // - List contacts and add buttons for each to get messages
 
 
 
@@ -169,7 +198,7 @@ wss.on("connection", function(clientWebsocketRaw, req) {
 
         switch(obj.command) {
             case "api-connectBackend": {*/
-                
+
 
                 //backendWebsocket = new WebSocketClient("ws://localhost:2020", true);
                 //backendWebsocket.onClose
