@@ -91,6 +91,8 @@ class WhatsAppWeb(WebSocket):
                         currWhatsAppInstance.getLoginInfo(callback);
                     elif cmd == "backend-getConnectionInfo":
                         currWhatsAppInstance.getConnectionInfo(callback);
+                    elif cmd == "backend-getChatHistory":
+                        currWhatsAppInstance.get_chat_history(str(obj["jid"]));
                     elif cmd == "backend-disconnectWhatsApp":
                         currWhatsAppInstance.disconnect();
                         self.sendJSON({ "type": "resource_disconnected", "resource": "whatsapp", "resource_instance_id": obj["whatsapp_instance_id"] }, tag);
