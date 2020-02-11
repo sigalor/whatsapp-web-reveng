@@ -354,6 +354,29 @@ The message forwarding procedures are rather complex, as there are several layer
 	The returned promise's `then` block finally handles a received message. It gets a `clientCallRequest` you can call `.respond({...})` on to send a JSON response to the caller. If the NodeJS API is not the message's final destination, you need to instantiate a new `BootstrapStep` here which will contact to the Python backend and, after it receives its response, will return it to the original caller.
 4. Thus, when you want a message for the backend, now edit [`backend/whatsapp-web-backend.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py). In the if-else-compound starting in [line 88](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp-web-backend.py#L88), add your own branch for the command name you chose. Then, edit [`backend/whatsapp.py`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py) and add a function similar to `generateQRCode` in [line 223](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L223). Just using something like in [`getLoginInfo`](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L230) may not be enough, as your command may require an asynchronous request to the WhatsApp Web servers. In this case, make sure to add an entry to `self.messageQueue` with the message tag you chose and send an appropriate message to `self.activeWs`. The servers will respond to your request with a response containing the same tag, thus this is resolved in [line 134](https://github.com/sigalor/whatsapp-web-reveng/blob/master/backend/whatsapp.py#L134). Make sure to eventually call `pend["callback"]["func"]({...})` with the JSON object containing your response data to resolve the callback.
 
+## Docker
+
+**Please note, this version is not stable enough to be deployabled in production.**
+
+### Build docker image
+`docker build . -t whatsapp-web-reveng`
+### Run your image and redirect front & back ports
+`docker run -p 2019:2019 -p 2018:2018 whatsapp-web-reveng`
+
+Front end (client) at : <http://localhost:2018/>
+
+### For server use
+The addresses of the websockets used are "localhost" by default.
+If you want to deploy this docker on your own server and share it, modify the backend websocket address on the front end. 
+`client/js/main.js`
+```javascript
+let backendInfo = {
+    url: "ws://{{your-server-addr}}:2020",
+    timeout: 10000
+};
+```
+Front end (client) at : : <http://{{your-server-addr}}:2018/>
+
 ## Tasks
 
 ### Backend
