@@ -64,6 +64,8 @@ backend/decodable_msgs
 backend/undecodable_msgs
 log.txt
 doc/spec/protobuf-extractor/node_modules
-
+# JetBrainsIDEs
+.idea
+.iml
 # direnv environment
 .envrc
