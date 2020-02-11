@@ -6,11 +6,11 @@ class WABinaryReader:
     def __init__(self, data):
         self.data = data;
         self.index = 0;
-    
+
     def checkEOS(self, length):
         if self.index + length > len(self.data):
             raise EOFError("end of stream reached");
-    
+
     def readByte(self):
         self.checkEOS(1);
         ret = ord(self.data[self.index]);
@@ -47,7 +47,7 @@ class WABinaryReader:
         for i in range(startByte & 127):
             currByte = self.readByte();
             ret += self.unpackByte(tag, (currByte & 0xF0) >> 4) + self.unpackByte(tag, currByte & 0x0F);
-        if (startByte >> 7) == 0:
+        if (startByte >> 7) != 0:
             ret = ret[:len(ret)-1];
         return ret;
 
@@ -67,7 +67,7 @@ class WABinaryReader:
         elif value == 15:
             return "\0";
         raise ValueError("invalid nibble to unpack: " + value);
-    
+
     def unpackHex(self, value):
         if value < 0 or value > 15:
             raise ValueError("invalid hex to unpack: " + str(value));
@@ -94,14 +94,14 @@ class WABinaryReader:
         elif(tag == WATags.LIST_16):
             return self.readInt16();
         raise ValueError("invalid tag for list size: " + str(tag));
-    
+
     def readString(self, tag):
         if tag >= 3 and tag <= 235:
             token = self.getToken(tag);
             if token == "s.whatsapp.net":
                 token = "c.us";
             return token;
-        
+
         if tag == WATags.DICTIONARY_0 or tag == WATags.DICTIONARY_1 or tag == WATags.DICTIONARY_2 or tag == WATags.DICTIONARY_3:
             return self.getTokenDouble(tag - WATags.DICTIONARY_0, self.readByte());
         elif tag == WATags.LIST_EMPTY:
@@ -122,13 +122,13 @@ class WABinaryReader:
             return self.readPacked8(tag);
         else:
             raise ValueError("invalid string with tag " + str(tag));
-    
+
     def readStringFromChars(self, length):
         self.checkEOS(length);
         ret = self.data[self.index:self.index+length];
         self.index += length;
         return ret;
-    
+
     def readAttributes(self, n):
         ret = {};
         if n == 0:
@@ -174,7 +174,7 @@ class WABinaryReader:
         for i in range(n):
             ret += chr(self.readByte());
         return ret;
-    
+
     def getToken(self, index):
         if index < 3 or index >= len(WASingleByteTokens):
             raise ValueError("invalid token index: " + str(index));
@@ -185,7 +185,7 @@ class WABinaryReader:
         if n < 0 or n >= len(WADoubleByteTokens):
             raise ValueError("invalid token index: " + str(n));
         return WADoubleByteTokens[n];
-        
+
 
 
 def whatsappReadMessageArray(msgs):
