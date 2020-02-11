@@ -140,21 +140,27 @@ wss.on("connection", function(clientWebsocketRaw, req) {
                 clientCallRequest.respond({ type: "error", reason: "No backend connected." });
                 return;
             }
+            let jid = clientCallRequest.data.jid;
             new BootstrapStep({
                 websocket: backendWebsocket,
                 request: {
                     type: "call",
                     callArgs: {
+                        jid,
                         command: "backend-getChatHistory",
-                        jid: clientCallRequest.data.jid,
                         whatsapp_instance_id: backendWebsocket.activeWhatsAppInstanceId,
                     },
-                    // TODO Add success Condition
-                    successCondition: obj => true
+                    successCondition: obj => "from" in obj && "jid" in obj && "type" in obj &&
+                        obj.from === "backend" && obj.jid === jid && obj.type === "chat_history",
                 }
-            }).run()
-            //TODO
-            // THEN & CATCH
+            }).run().then(
+                backendResponse => clientCallRequest.respond(
+                    {
+                        type: "chat_history",
+                        jid: backendResponse.data.jid,
+                        messages: backendResponse.data.content[0][2]
+                    }
+            ));
         }).run();
 
 
