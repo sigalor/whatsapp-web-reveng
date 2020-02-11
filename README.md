@@ -363,7 +363,7 @@ The message forwarding procedures are rather complex, as there are several layer
 ### Run your image and redirect front & back ports
 `docker run -p 2019:2019 -p 2018:2018 whatsapp-web-reveng`
 
-Go to : <http://localhost:2019/>
+Front end (client) at : <http://localhost:2018/>
 
 ### For server use
 The addresses of the websockets used are "localhost" by default.
@@ -375,7 +375,7 @@ let backendInfo = {
     timeout: 10000
 };
 ```
-Go to : <http://{{your-server-addr}}:2019/>
+Front end (client) at : : <http://{{your-server-addr}}:2018/>
 
 ## Tasks
 
