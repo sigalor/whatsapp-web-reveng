@@ -132,10 +132,7 @@ wss.on("connection", function(clientWebsocketRaw, req) {
         })
     }).run();
     clientWebsocket.waitForMessage({
-        condition: obj => {
-            return obj.from == "client"  &&  obj.type == "call"  &&  obj.command == "backend-getChatHistory"
-                    && "data" in obj && typeof(obj.data) === "object" && "jid" in obj.data
-        },
+        condition: obj => obj.from === "client"  &&  obj.type === "call"  &&  obj.command === "backend-getChatHistory" && "jid" in obj,
         keepWhenHit: true
     }).then(
         clientCallRequest => {
