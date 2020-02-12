@@ -51,7 +51,10 @@ WASingleByteTokens = [
     "invite","gif","vcard","frequent","privacy","blacklist","whitelist",
     "verify","location","document","elapsed","revoke_invite","expiration",
     "unsubscribe","disable","vname","old_jid","new_jid","announcement",
-    "locked","prop","label","color","call","offer","call-id"
+    "locked","prop","label","color","call","offer","call-id",
+    "quick_reply", "sticker", "pay_t", "accept", "reject", "sticker_pack",
+    "invalid", "canceled", "missed", "connected", "result", "audio",
+    "video", "recent"
 ];
 
 WADoubleByteTokens = [];
@@ -147,7 +150,7 @@ class WAWebMessageInfo:
         msg = whatsapp_protobuf_pb2.WebMessageInfo();
         msg.ParseFromString(data);
         return json.loads(json_format.MessageToJson(msg));
-    
+
     @staticmethod
     def encode(msg):
         data = json_format.Parse(json.dumps(msg), whatsapp_protobuf_pb2.WebMessageInfo(), ignore_unknown_fields=True);
