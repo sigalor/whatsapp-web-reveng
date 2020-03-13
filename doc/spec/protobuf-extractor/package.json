@@ -9,7 +9,7 @@
   "author": "sigalor",
   "license": "ISC",
   "dependencies": {
-    "acorn": "^6.1.1",
+    "acorn": "^6.4.1",
     "acorn-walk": "^6.1.1",
     "request": "^2.88.0",
     "request-promise-core": "^1.1.2",
