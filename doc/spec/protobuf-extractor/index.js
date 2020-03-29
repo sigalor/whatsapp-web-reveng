@@ -6,17 +6,12 @@ const objectToArray = obj => Object.keys(obj).map(k => [k, obj[k]]);
 const indent = (lines, n) => lines.map(l => " ".repeat(n) + l);
 
 async function findAppModules(mods) {
-    const ua = { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0" } }
+    const ua = { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0" } }
     const WAWebMain = "https://web.whatsapp.com";
     const index = await request.get(WAWebMain, ua);
-    const progressPath = index.match(/(?<=\<script src=")\/progress\.[0-9a-z]+\.js(?="\>\<\/script\>)/g);
-    if(progressPath.length === 0)
-        throw "unable to find path of progress.js script";
-    const progress = await request.get(WAWebMain + progressPath[0], ua);
-    const appPathNumber = progress.match(/(\d+):"app"/)[1]
-    const appPathId = progress.match(new RegExp('[,{]' + appPathNumber + ':"([0-9a-z]{10,})"'))[1]
+    const appPathId = index.match(/data-app="\/app.([0-9a-z]{10,}).js"/)[1]
     const data = await request.get(WAWebMain + "/app." + appPathId + ".js", ua)
-    const appModules = acorn.parse(data).body[0].expression.arguments[1].properties;
+    const appModules = acorn.parse(data).body[0].expression.argument.arguments[0].properties;
     return appModules.filter(m => mods.indexOf(m.key.name) != -1);
 }
 
@@ -61,18 +56,19 @@ async function findAppModules(mods) {
                 }
             }
         });
-        
+        const enumAliases = {}
         // enums are defined directly, and both enums and messages get a one-letter alias
         walk.simple(mod, {
+            AssignmentExpression(node) {
+                if (node.left.type === "MemberExpression" && modInfo.identifiers[node.left.property.name]) {
+                    let ident = modInfo.identifiers[node.left.property.name];
+                    ident.alias = node.right.name;
+                    ident.enumValues = enumAliases[ident.alias];
+                }
+            },
             VariableDeclarator(node) {
-                if(node.init && node.init.type === "AssignmentExpression" && node.init.left.type === "MemberExpression" && modInfo.identifiers[node.init.left.property.name]) {
-                    let ident = modInfo.identifiers[node.init.left.property.name];
-                    ident.alias = node.id.name;
-                    node = node.init.right;
-
-                    // enums get their array of values directly
-                    if(node.type === "CallExpression" && node.callee.type === "MemberExpression" && node.arguments.length == 1 && node.arguments[0].type == "ObjectExpression")
-                        ident.enumValues = node.arguments[0].properties.map(p => ({ name: p.key.name, id: p.value.value }));
+                if(node.init && node.init.type === "CallExpression" && node.init.callee.type === "MemberExpression" && node.init.arguments.length === 1 && node.init.arguments[0].type === "ObjectExpression") {
+                    enumAliases[node.id.name] = node.init.arguments[0].properties.map(p => ({ name: p.key.name, id: p.value.value }));
                 }
             }
         });
@@ -85,7 +81,7 @@ async function findAppModules(mods) {
         // message specifications are stored in a "_spec" attribute of the respective identifier alias
         walk.simple(mod, {
             AssignmentExpression(node) {
-                if(node.left.type === "MemberExpression" && node.left.property.name === "_spec" && node.right.type === "ObjectExpression") {
+                if(node.left.type === "MemberExpression" && node.left.property.name === "internalSpec" && node.right.type === "ObjectExpression") {
                     let targetIdentName = Object.keys(modInfo.identifiers).find(k => modInfo.identifiers[k].alias == node.left.object.name);
                     if(!targetIdentName) {
                         console.warn(`found message specification for unknown identifier alias: ${node.left.object.name}`);
