@@ -1,9 +1,9 @@
 FROM node
 
-RUN apt-get update
-
 # Install pip
-RUN apt-get -y install python-pip
+RUN apt-get update && apt-get install -y \
+    python-pip
+
 
 # Create app dir
 RUN mkdir /app
