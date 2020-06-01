@@ -26,7 +26,9 @@ Lastly, to finally launch it, just run `npm start` on Linux based OS's and `npm 
 
 A recent addition is a version of the decryption routine translated to in-browser JavaScript. Run `node index_jsdemo.js` (just needed because browsers don't allow changing HTTP headers for WebSockets), then open `client/login-via-js-demo.html` as a normal file in any browser. The console output should show decrypted binary messages after scanning the QR code.
 
-Other JS with TypeScript reimplementations [WaJs](https://github.com/ndunks/WaJs).
+[adiwajshing](https://github.com/adiwajshing) created [Baileys](https://github.com/adiwajshing/Baileys), a Node library that implements the WhatsApp Web API. 
+
+[ndunks](https://github.com/ndunks) made a TypeScript reimplementation at [WaJs](https://github.com/ndunks/WaJs).
 
 ### Rust
 
