@@ -131,7 +131,42 @@ wss.on("connection", function(clientWebsocketRaw, req) {
             clientCallRequest.respond({ type: "error", reason: reason });
         })
     }).run();
+    clientWebsocket.waitForMessage({
+        condition: obj => 
+        {
+            last_session_data = obj.last_session
+            return obj.from == "client"  &&  obj.type == "call"  &&  obj.command == "backend-restoreSession" 
+        },
+        keepWhenHit: true
+    }).then(clientCallRequest => {
+        if(!backendWebsocket.isOpen) {
+            clientCallRequest.respond({ type: "error", reason: "No backend connected." });
+            clientWebsocket.send({ data: backendResponse });
 
+            return;
+        }
+        new BootstrapStep({
+            websocket: backendWebsocket,
+            request: {
+                type: "call",
+                callArgs: { command: "backend-restoreSession", last_session: last_session_data, whatsapp_instance_id: backendWebsocket.activeWhatsAppInstanceId },
+                successCondition: obj => obj.from == "backend"  &&  obj.type == "restore_session"
+            }
+        }).run(backendInfo.timeout).then(backendResponse => {
+            clientWebsocket.send({ data: backendResponse });
+            clientCallRequest.respond({ type: "restore_session", res: backendResponse })
+
+            backendWebsocket.waitForMessage({
+                condition: obj => obj.type == "whatsapp_message_received"  &&  obj.message  &&  obj.message_type  &&  obj.timestamp  &&  obj.resource_instance_id == backendWebsocket.activeWhatsAppInstanceId,
+                keepWhenHit: true
+            }).then(whatsAppMessage => {
+                let d = whatsAppMessage.data;
+                clientWebsocket.send({ type: "whatsapp_message_received", message: d.message, message_type: d.message_type, timestamp: d.timestamp });
+            }).run();
+        }).catch(reason => {
+            clientCallRequest.respond({ type: "error", reason: reason });
+        })
+    }).run();
 
     //TODO:
     // - designated backend call function to make everything shorter

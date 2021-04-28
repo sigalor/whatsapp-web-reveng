@@ -48,6 +48,8 @@ $(document).ready(function() {
 
             allWhatsAppMessages = [];
             $("#messages-list-table-body").empty();
+            $("#restore-session").addClass("hidden");
+
         },
         activateQRCode: image => {
             let container = $("#bootstrap-container").removeClass("hidden").children("#bootstrap-container-content");
@@ -59,6 +61,11 @@ $(document).ready(function() {
             $("#bootstrap-container").addClass("hidden");
             $("#main-container").removeClass("hidden");
             $("#button-disconnect").html("Disconnect").attr("disabled", false);
+        },
+        restoreSession: () => {
+            $("#restore-session").removeClass("hidden");
+            $("#restore-session").html("Restore Session");
+
         },
         steps: [
             new BootstrapStep({
@@ -116,6 +123,8 @@ $(document).ready(function() {
                     connLost: "Connection of backend to WhatsApp closed. Click to reconnect."
                 },
                 actor: websocket => {
+                    bootstrapInfo.restoreSession();
+
                     websocket.waitForMessage({
                         condition: obj => obj.type == "resource_gone"  &&  obj.resource == "whatsapp",
                         keepWhenHit: false
@@ -206,10 +215,96 @@ $(document).ready(function() {
                     },
                     timeoutCondition: websocket => websocket.backendConnectedToWhatsApp
                 }
+            }),
+            new BootstrapStep({
+                websocket: apiWebsocket,
+                texts: {
+                    handling: "Restoring...",
+                    success: "Restored in %1 ms.",
+                    failure: "Restore failed: %1. Click to try again."
+                },
+                request: {
+                    type: "call",
+                    callArgs: { command: "backend-restoreSession" },
+                    successCondition: obj => obj.type == "restore_session" ,
+                    successActor: (websocket) => {
+                        websocket.waitForMessage({
+                            condition: obj => obj.type == "whatsapp_message_received"  &&  obj.message,
+                            keepWhenHit: true
+                        }).then(whatsAppMessage => {
+
+                            bootstrapInfo.deactivate();
+                            /*<tr>
+                                <th scope="row">1</th>
+                                <td>Do., 21.12.2017, 22:59:09.123</td>
+                                <td>Binary</td>
+                                <td class="fill no-monospace"><button class="btn">View</button></td>
+                            </tr>*/
+
+                            let d = whatsAppMessage.data;
+                            let viewJSONButton = $("<button></button>").addClass("btn").html("View").click(function() {
+                                let messageIndex = parseInt($(this).parent().parent().attr("data-message-index"));
+                                let jsonData = allWhatsAppMessages[messageIndex];
+                                let tree, collapse = false;
+                                let dialog = bootbox.dialog({
+                                    title: `WhatsApp message #${messageIndex+1}`,
+                                    message: "<p>Loading JSON...</p>",
+                                    buttons: {
+                                        noclose: {
+                                            label: "Collapse/Expand All",
+                                            className: "btn-info",
+                                            callback: function () {
+                                                if (!tree)
+                                                    return true;
+
+                                                if (collapse === false)
+                                                    tree.expand();
+                                                else
+                                                    tree.collapse();
+
+                                                collapse = !collapse;
+
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                });
+                                dialog.init(() => {
+                                    tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
+                                });
+                            });
+                            
+                            let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
+                            tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
+                            tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
+                            tableRow.append($("<td></td>").html(d.message_type));
+                            tableRow.append($("<td></td>").addClass("fill no-monospace").append(viewJSONButton));
+                            $("#messages-list-table-body").append(tableRow);
+                            allWhatsAppMessages.push(d.message);
+
+                            //$("#main-container-content").empty();
+                            //jsonTree.create(whatsAppMessage.data.message, $("#main-container-content")[0]);
+                        }).run();
+                    },
+                    timeoutCondition: websocket => websocket.backendConnectedToWhatsApp
+                }
             })
+
         ]
     };
+    $("#restore-session").addClass("hidden");
 
+    $("#restore-session").click(function() {
+        bootstrapInfo.steps[4].run(apiInfo.timeout).then(() => {
+            let text = currStep.texts.success.replace("%1", Math.round(performance.now() - stepStartTime));
+            $(this).html(text).attr("disabled", false);
+            bootstrapState++;
+        })
+        .catch(reason => {
+            let text = currStep.texts.failure.replace("%1", reason);
+            $(this).html(text).attr("disabled", false);
+        });
+    });
     $("#bootstrap-button").click(function() {
         let currStep = bootstrapInfo.steps[bootstrapState];
         let stepStartTime = performance.now();
