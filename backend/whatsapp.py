@@ -153,7 +153,8 @@ class WhatsAppWebClient:
                     if messageContent[0] == 'Pong' and messageContent[1] == True:
                         pend["callback"]({"Connected": True,"user":self.connInfo["me"],"pushname":self.connInfo["pushname"]})
                 elif pend["desc"] == "_restoresession":
-                    eprint("")  # TODO implement Challenge Solving
+                    pend["callback"]["func"]({ "type": "restore_session" }, pend["callback"]);
+
                 elif pend["desc"] == "_login":
                     eprint("Message after login: ", message);
                     self.loginInfo["serverRef"] = json.loads(messageContent)["ref"];
@@ -270,7 +271,7 @@ class WhatsAppWebClient:
         self.activeWs.send(message)
 
         messageTag = str(getTimestamp())
-        self.messageQueue[messageTag] = {"desc": "_restoresession"}
+        self.messageQueue[messageTag] = {"desc": "_restoresession","callback": callback}
         message = messageTag + ',["admin","login","' + self.connInfo["clientToken"] + '", "' + self.connInfo[
             "serverToken"] + '", "' + self.loginInfo["clientId"] + '", "takeover"]'
 
@@ -299,20 +300,7 @@ class WhatsAppWebClient:
         self.messageSentCount = self.messageSentCount + 1
         self.messageQueue[messageId] = {"desc": "__sending"}
         self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
-    def __send_request(self, msgData, metrics):
-        messageId = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
 
-        encryptedMessage = WhatsAppEncrypt(
-            self.loginInfo["key"]["encKey"],
-            self.loginInfo["key"]["macKey"],
-            whatsappWriteBinary(msgData)
-        )
-
-        payload = bytearray(messageId) + bytearray(",") + bytearray(
-            to_bytes(metrics, 1)
-        ) + bytearray([0x80]) + encryptedMessage
-        self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
-        
     def status(self, callback=None):
         if self.activeWs is not None:
             messageTag = str(getTimestamp())
