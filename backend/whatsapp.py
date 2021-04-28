@@ -20,7 +20,11 @@ from Crypto.Hash import SHA256;
 import hashlib;
 import hmac;
 import traceback;
-
+import binascii 
+from Crypto import Random 
+from whatsapp_defines import WATags, WASingleByteTokens, WADoubleByteTokens, WAWebMessageInfo;
+from whatsapp_binary_writer import whatsappWriteBinary, WASingleByteTokens, WADoubleByteTokens, WAWebMessageInfo;
+from whatsapp_defines import WAMetrics;
 import websocket;
 import curve25519;
 import pyqrcode;
@@ -132,6 +136,10 @@ class WhatsAppWebClient:
         if self.onCloseCallback is not None and "func" in self.onCloseCallback:
             self.onCloseCallback["func"](self.onCloseCallback);
         eprint("WhatsApp backend Websocket closed.");
+    def keepAlive(self):
+        if self.activeWs is not None:
+            self.activeWs.send("?,,")
+            Timer(20.0, self.keepAlive).start()
 
     def onMessage(self, ws, message):
         try:
@@ -182,8 +190,7 @@ class WhatsAppWebClient:
                     if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
                         eprint(json.dumps(jsonObj));
                         if jsonObj[0] == "Conn":
-                            Timer(25, lambda: self.activeWs.send('?,,')).start() # Keepalive Request
-                            self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
+                            Timer(20.0, self.keepAlive).start() # Keepalive Request
                             self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
                             self.connInfo["browserToken"] = jsonObj[1]["browserToken"];
                             self.connInfo["me"] = jsonObj[1]["wid"];
