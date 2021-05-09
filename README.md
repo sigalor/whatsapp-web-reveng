@@ -6,6 +6,64 @@
 This project intends to provide a complete description and re-implementation of the WhatsApp Web API, which will eventually lead to a custom client. WhatsApp Web internally works using WebSockets; this project does as well.
 
 ## Trying it out
+
+### With Nix
+There's no need to install or manage python and node versions, the file
+`shell.nix` defines an environment with all the dependencies included to run
+this project.
+
+There's an `.envrc` file in root folder that is called automatically when
+`cd`ing (changing directory) to project, if program `direnv` is installed along
+with `nix` you should get an output like this:
+
+```sh
+>cd ~/dev/whatsapp
+Installing node modules
+npm WARN prepare removing existing node_modules/ before installation
+
+> fsevents@1.2.11 install /home/rainy/dev/whatsapp/node_modules/fsevents
+> node-gyp rebuild
+
+make: Entering directory '/home/rainy/dev/whatsapp/node_modules/fsevents/build'
+  SOLINK_MODULE(target) Release/obj.target/.node
+  COPY Release/.node
+make: Leaving directory '/home/rainy/dev/whatsapp/node_modules/fsevents/build'
+
+> nodemon@1.19.4 postinstall /home/rainy/dev/whatsapp/node_modules/nodemon
+> node bin/postinstall || exit 0
+
+added 310 packages in 3.763s
+Done.
+
+$$\      $$\ $$\                  $$\
+$$ | $\  $$ |$$ |                 $$ |
+$$ |$$$\ $$ |$$$$$$$\   $$$$$$\ $$$$$$\    $$$$$$$\  $$$$$$\   $$$$$$\   $$$$$$\
+$$ $$ $$\$$ |$$  __$$\  \____$$\\_$$  _|  $$  _____| \____$$\ $$  __$$\ $$  __$$\
+$$$$  _$$$$ |$$ |  $$ | $$$$$$$ | $$ |    \$$$$$$\   $$$$$$$ |$$ /  $$ |$$ /  $$ |
+$$$  / \$$$ |$$ |  $$ |$$  __$$ | $$ |$$\  \____$$\ $$  __$$ |$$ |  $$ |$$ |  $$ |
+$$  /   \$$ |$$ |  $$ |\$$$$$$$ | \$$$$  |$$$$$$$  |\$$$$$$$ |$$$$$$$  |$$$$$$$  |
+\__/     \__|\__|  \__| \_______|  \____/ \_______/  \_______|$$  ____/ $$  ____/
+                                                              $$ |      $$ |
+                                                              $$ |      $$ |
+                                                              \__|      \__|
+Node v13.13.0
+Python 2.7.17
+
+Try running server with: npm start
+
+[nix-shell:~/dev/whatsapp]$ 
+```
+
+If you don't use `direnv` or just want to manually get into the build
+environment do:
+
+```sh
+nix-shell
+```
+
+in the project root
+
+### Bare metal
 Before you can run the application, make sure that you have the following software installed:
 
 - Node.js (at least version 8, as the `async` `await` syntax is used)
