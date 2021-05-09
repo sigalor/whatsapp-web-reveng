@@ -3,6 +3,8 @@
 
 from __future__ import print_function;
 import sys;
+
+
 sys.dont_write_bytecode = True;
 
 import os;
@@ -75,10 +77,14 @@ class WhatsAppWeb(WebSocket):
                     self.clientInstances[clientInstanceId] = WhatsAppWebClient(onOpenCallback, onMessageCallback, onCloseCallback);
                 else:
                     currWhatsAppInstance = self.clientInstances[obj["whatsapp_instance_id"]];
+
+                    def callback_function(obj_, cbSelf_):
+                        self.sendJSON(mergeDicts(obj_, getAttr(cbSelf_, "args")), getAttr(cbSelf_, "tag"))
+
                     callback = {
-                        "func": lambda obj, cbSelf: self.sendJSON(mergeDicts(obj, getAttr(cbSelf, "args")), getAttr(cbSelf, "tag")),
+                        "func": callback_function,
                         "tag": tag,
-                        "args": { "resource_instance_id": obj["whatsapp_instance_id"] }
+                        "args": {"resource_instance_id": obj["whatsapp_instance_id"]}
                     };
                     if currWhatsAppInstance.activeWs is None:
                         self.sendError("No WhatsApp server connected to backend.");
@@ -91,6 +97,12 @@ class WhatsAppWeb(WebSocket):
                         currWhatsAppInstance.getLoginInfo(callback);
                     elif cmd == "backend-getConnectionInfo":
                         currWhatsAppInstance.getConnectionInfo(callback);
+                    elif cmd == "backend-getChatHistory":
+                        currWhatsAppInstance.get_chat_history({
+                            "func": callback_function,
+                            "tag": tag,
+                            "args": {"resource_instance_id": obj["whatsapp_instance_id"], "jid": obj["jid"]}
+                        }, str(obj["jid"]));
                     elif cmd == "backend-disconnectWhatsApp":
                         currWhatsAppInstance.disconnect();
                         self.sendJSON({ "type": "resource_disconnected", "resource": "whatsapp", "resource_instance_id": obj["whatsapp_instance_id"] }, tag);
