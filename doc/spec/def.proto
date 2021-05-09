@@ -11,14 +11,17 @@ message HydratedURLButton {
     optional string url = 2;
 }
 
-message HydratedCallButton {
+message HydratedCallButton 
+{
     optional string displayText = 1;
     optional string phoneNumber = 2;
 }
 
-message HydratedTemplateButton {
+message HydratedTemplateButton 
+{
     optional uint32 index = 4;
-    oneof hydratedButton {
+    oneof hydratedButton
+    {
         HydratedQuickReplyButton quickReplyButton = 1;
         HydratedURLButton urlButton = 2;
         HydratedCallButton callButton = 3;
@@ -100,6 +103,8 @@ message ContextInfo {
 
 message SenderKeyDistributionMessage {
     optional string groupId = 1;
+     optional string participant = 2;
+     optional bytes conversionData = 19;
     optional bytes axolotlSenderKeyDistributionMessage = 2;
 }
 
