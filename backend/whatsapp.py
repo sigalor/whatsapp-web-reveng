@@ -31,7 +31,7 @@ import pyqrcode;
 from utilities import *;
 from whatsapp_binary_reader import whatsappReadBinary;
 
-WHATSAPP_WEB_VERSION="0,4,2081"
+WHATSAPP_WEB_VERSION="2,2121,6"
 
 reload(sys);
 sys.setdefaultencoding("utf-8");
