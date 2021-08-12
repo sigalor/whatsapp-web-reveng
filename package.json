@@ -22,7 +22,7 @@
     "lodash": "^4.17.21",
     "path": "^0.12.7",
     "string_decoder": "^1.3.0",
-    "ws": "^3.3.3"
+    "ws": "^5.2.3"
   },
   "devDependencies": {
     "concurrently": "^3.6.1",
