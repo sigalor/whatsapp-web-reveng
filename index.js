@@ -131,6 +131,37 @@ wss.on("connection", function(clientWebsocketRaw, req) {
             clientCallRequest.respond({ type: "error", reason: reason });
         })
     }).run();
+    clientWebsocket.waitForMessage({
+        condition: obj => obj.from === "client"  &&  obj.type === "call"  &&  obj.command === "backend-getChatHistory" && "jid" in obj,
+        keepWhenHit: true
+    }).then(
+        clientCallRequest => {
+            if(!backendWebsocket.isOpen) {
+                clientCallRequest.respond({ type: "error", reason: "No backend connected." });
+                return;
+            }
+            let jid = clientCallRequest.data.jid;
+            new BootstrapStep({
+                websocket: backendWebsocket,
+                request: {
+                    type: "call",
+                    callArgs: {
+                        jid,
+                        command: "backend-getChatHistory",
+                        whatsapp_instance_id: backendWebsocket.activeWhatsAppInstanceId,
+                    },
+                    successCondition: obj => "from" in obj && "jid" in obj && "type" in obj &&
+                        obj.from === "backend" && obj.jid === jid && obj.type === "chat_history",
+                }
+            }).run().then(
+                backendResponse => clientCallRequest.respond(
+                    {
+                        type: "chat_history",
+                        jid: backendResponse.data.jid,
+                        messages: backendResponse.data.content[0][2]
+                    }
+            ));
+        }).run();
 
 
     //TODO:
@@ -139,6 +170,7 @@ wss.on("connection", function(clientWebsocketRaw, req) {
     // - add buttons for that to client
     // - look for handlers in "decoder.py" and add them to output information
     // - when decoding fails, write packet to file for further investigation later
+    // - List contacts and add buttons for each to get messages
 
 
 
@@ -169,7 +201,7 @@ wss.on("connection", function(clientWebsocketRaw, req) {
 
         switch(obj.command) {
             case "api-connectBackend": {*/
-                
+
 
                 //backendWebsocket = new WebSocketClient("ws://localhost:2020", true);
                 //backendWebsocket.onClose

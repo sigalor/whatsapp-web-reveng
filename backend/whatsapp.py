@@ -4,6 +4,7 @@
 import sys;
 sys.dont_write_bytecode = True;
 
+import binascii;
 import os;
 import signal;
 import base64;
@@ -24,8 +25,12 @@ import traceback;
 import websocket;
 import curve25519;
 import pyqrcode;
+
+from Crypto import Random;
 from utilities import *;
 from whatsapp_binary_reader import whatsappReadBinary;
+from whatsapp_binary_writer import whatsappWriteBinary;
+from whatsapp_defines import WAMetrics;
 
 WHATSAPP_WEB_VERSION="2,2121,6"
 
@@ -33,6 +38,10 @@ reload(sys);
 sys.setdefaultencoding("utf-8");
 
 
+def is_callback_valid_in(pend):
+    return "callback" in pend and pend["callback"] is not None and\
+           "func" in pend["callback"] and pend["callback"]["func"] is not None and\
+           "tag" in pend["callback"] and pend["callback"]["tag"] is not None
 
 def HmacSha256(key, sign):
     return hmac.new(key, sign, hashlib.sha256).digest();
@@ -134,11 +143,12 @@ class WhatsAppWebClient:
         eprint("WhatsApp backend Websocket closed.");
 
     def onMessage(self, ws, message):
+
         try:
             messageSplit = message.split(",", 1);
             messageTag = messageSplit[0];
             messageContent = messageSplit[1];
-            
+
             if messageTag in self.messageQueue:											# when the server responds to a client's message
                 pend = self.messageQueue[messageTag];
                 if pend["desc"] == "_status":
@@ -157,26 +167,24 @@ class WhatsAppWebClient:
 
                     svgBuffer = io.BytesIO();											# from https://github.com/mnooner256/pyqrcode/issues/39#issuecomment-207621532
                     pyqrcode.create(qrCodeContents, error='L').svg(svgBuffer, scale=6, background="rgba(0,0,0,0.0)", module_color="#122E31", quiet_zone=0);
-                    if "callback" in pend and pend["callback"] is not None and "func" in pend["callback"] and pend["callback"]["func"] is not None and "tag" in pend["callback"] and pend["callback"]["tag"] is not None:
-                        pend["callback"]["func"]({ "type": "generated_qr_code", "image": "data:image/svg+xml;base64," + base64.b64encode(svgBuffer.getvalue()), "content": qrCodeContents }, pend["callback"]);
+                    if is_callback_valid_in(pend):
+                        pend["callback"]["func"]({"type": "generated_qr_code", "image": "data:image/svg+xml;base64," + base64.b64encode(svgBuffer.getvalue()), "content": qrCodeContents }, pend["callback"]);
+                elif pend["desc"] == "_chatHistory":
+                    if messageContent != "":
+                        messageDecrypted = self.decrypt_message_content(messageContent);
+                        if is_callback_valid_in(pend):
+                            pend["callback"]["func"]({
+                                "type": "chat_history",
+                                "jid": pend["callback"]["args"]["jid"],
+                                "content": messageDecrypted
+                            }, pend["callback"]);
             else:
                 try:
                     jsonObj = json.loads(messageContent);								# try reading as json
-                except ValueError, e:
+                except ValueError:
                     if messageContent != "":
-                        hmacValidation = HmacSha256(self.loginInfo["key"]["macKey"], messageContent[32:]);
-                        if hmacValidation != messageContent[:32]:
-                            raise ValueError("Hmac mismatch");
-                        
-                        decryptedMessage = AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]);
-                        try:
-                            processedData = whatsappReadBinary(decryptedMessage, True);
-                            messageType = "binary";
-                        except:
-                            processedData = { "traceback": traceback.format_exc().splitlines() };
-                            messageType = "error";
-                        finally:
-                            self.onMessageCallback["func"](processedData, self.onMessageCallback, { "message_type": messageType });
+                        processedData, messageType = self.decrypt_message_content(messageContent)
+                        self.onMessageCallback["func"](processedData, self.onMessageCallback, {"message_type": messageType});
                 else:
                     self.onMessageCallback["func"](jsonObj, self.onMessageCallback, { "message_type": "json" });
                     if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
@@ -187,7 +195,7 @@ class WhatsAppWebClient:
                             self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
                             self.connInfo["browserToken"] = jsonObj[1]["browserToken"];
                             self.connInfo["me"] = jsonObj[1]["wid"];
-                            
+
                             self.connInfo["secret"] = base64.b64decode(jsonObj[1]["secret"]);
                             self.connInfo["sharedSecret"] = self.loginInfo["privateKey"].get_shared_key(curve25519.Public(self.connInfo["secret"][:32]), lambda a: a);
                             sse = self.connInfo["sharedSecretExpanded"] = HKDF(self.connInfo["sharedSecret"], 80);
@@ -199,7 +207,7 @@ class WhatsAppWebClient:
                             keysDecrypted = AESDecrypt(sse[:32], keysEncrypted);
                             self.loginInfo["key"]["encKey"] = keysDecrypted[:32];
                             self.loginInfo["key"]["macKey"] = keysDecrypted[32:64];
-                            
+
                             # eprint("private key            : ", base64.b64encode(self.loginInfo["privateKey"].serialize()));
                             # eprint("secret                 : ", base64.b64encode(self.connInfo["secret"]));
                             # eprint("shared secret          : ", base64.b64encode(self.connInfo["sharedSecret"]));
@@ -217,7 +225,19 @@ class WhatsAppWebClient:
         except:
             eprint(traceback.format_exc());
 
-
+    def decrypt_message_content(self, messageContent):
+        hmacValidation = HmacSha256(self.loginInfo["key"]["macKey"], messageContent[32:]);
+        if hmacValidation != messageContent[:32]:
+            raise ValueError("Hmac mismatch");
+        decryptedMessage = AESDecrypt(self.loginInfo["key"]["encKey"], messageContent[32:]);
+        try:
+            processedData = whatsappReadBinary(decryptedMessage, True);
+            messageType = "binary";
+        except:
+            processedData = {"traceback": traceback.format_exc().splitlines()};
+            messageType = "error";
+        finally:
+            return processedData, messageType
 
     def connect(self):
         self.activeWs = websocket.WebSocketApp("wss://web.whatsapp.com/ws",
@@ -226,7 +246,7 @@ class WhatsAppWebClient:
                                                on_open = lambda ws: self.onOpen(ws),
                                                on_close = lambda ws: self.onClose(ws),
                                                header = { "Origin: https://web.whatsapp.com" });
-        
+
         self.websocketThread = Thread(target = self.activeWs.run_forever);
         self.websocketThread.daemon = True;
         self.websocketThread.start();
@@ -249,13 +269,42 @@ class WhatsAppWebClient:
             "serverToken"] + '", "' + self.loginInfo["clientId"] + '", "takeover"]'
 
         self.activeWs.send(message)
-        
+
     def getLoginInfo(self, callback):
         callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
-    
+
     def getConnectionInfo(self, callback):
         callback["func"]({ "type": "connection_info", "data": self.connInfo }, callback);
-    
+
+    def get_chat_history(self, callback, jid, count=10000):
+        """
+
+        :param callback:
+        :param jid:
+        :param count:
+        :return:
+        """
+
+        messageTag = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
+        self.messageQueue[messageTag] = { "desc": "_chatHistory", "callback": callback};
+        messageTag = self.__send_request(messageTag,
+            ["query", {"type": "message", "jid": jid, "count": str(count)}, None],
+            WAMetrics.QUERY_MESSAGES
+        );
+
+
+    def __send_request(self, messageTag, msgData, metrics):
+        encryptedMessage = WhatsAppEncrypt(
+            self.loginInfo["key"]["encKey"],
+            self.loginInfo["key"]["macKey"],
+            whatsappWriteBinary(msgData)
+        )
+
+        payload = bytearray(messageTag) + bytearray(",") + bytearray(
+            to_bytes(metrics, 1)
+        ) + bytearray([0x80]) + encryptedMessage
+        self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
+
     def sendTextMessage(self, number, text):
         messageId = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
         messageTag = str(getTimestamp())
@@ -266,7 +315,7 @@ class WhatsAppWebClient:
         self.messageSentCount = self.messageSentCount + 1
         self.messageQueue[messageId] = {"desc": "__sending"}
         self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
-        
+
     def status(self, callback=None):
         if self.activeWs is not None:
             messageTag = str(getTimestamp())

@@ -6,8 +6,44 @@ function sleep(ms) {
         setTimeout(() => resolve(), ms);
     });
 }
+function request_chat_history(jid) {
+    new BootstrapStep({
+        websocket: apiWebsocket,
+        request: {
+            type: "call",
+            callArgs: { command: "backend-getChatHistory", jid: jid },
+            successCondition: obj => "jid" in obj && "type" in obj &&
+                obj.jid === jid && obj.type === "chat_history" && "messages" in obj && Array.isArray(obj.messages),
+            successActor: (websocket, {messages, jid})=>  {
+                download("messages-" + jid + ".json", JSON.stringify(messages));
+            }
+        }
+    }).run().catch(() => currentRequestJID = null);
+}
+/**
+ * https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server
+ * @param filename
+ * @param text
+ */
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 
 $(document).ready(function() {
+    $("#formDlChat").submit((event) => {
+        event.preventDefault();
+        request_chat_history($("#chatDlRemoteJID").val());
+    });
+
     $("#console-arrow-button").click(() => {
         if(consoleShown) {
             $("#console-arrow").removeClass("extended").find("i.fa").removeClass("fa-angle-right").addClass("fa-angle-left");
@@ -19,10 +55,10 @@ $(document).ready(function() {
         }
         consoleShown = !consoleShown;
     });
-    
+
     const responseTimeout = 10000;
     let bootstrapState = 0;
-    
+
 
 
     let apiInfo = {
@@ -40,11 +76,15 @@ $(document).ready(function() {
 
     let allWhatsAppMessages = [];
     let bootstrapInfo = {
+        deactivated: false,
         activateButton: (text, buttonEnabled) => {
             let container = $("#bootstrap-container").removeClass("hidden").children("#bootstrap-container-content");
             container.children("img").detach();
             container.children("button").removeClass("hidden").html(text).attr("disabled", !buttonEnabled);
             $("#main-container").addClass("hidden");
+
+            $("#formDlChat").addClass("hidden");
+            this.deactivated = false;
 
             allWhatsAppMessages = [];
             $("#messages-list-table-body").empty();
@@ -56,9 +96,14 @@ $(document).ready(function() {
             $("#main-container").addClass("hidden");
         },
         deactivate: () => {
-            $("#bootstrap-container").addClass("hidden");
+            if (this.deactivated) return;
+            this.deactivated = true;
+            $("#bootstrap-container").addClass("hidden")
+
+            $("#formDlChat").removeClass("hidden");
             $("#main-container").removeClass("hidden");
             $("#button-disconnect").html("Disconnect").attr("disabled", false);
+
         },
         steps: [
             new BootstrapStep({
@@ -152,6 +197,7 @@ $(document).ready(function() {
                             keepWhenHit: true
                         }).then(whatsAppMessage => {
                             bootstrapInfo.deactivate();
+
                             /*<tr>
                                 <th scope="row">1</th>
                                 <td>Do., 21.12.2017, 22:59:09.123</td>
@@ -191,7 +237,7 @@ $(document).ready(function() {
                                     tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
-                            
+
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
                             tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
@@ -229,7 +275,7 @@ $(document).ready(function() {
     $("#button-disconnect").click(function() {
         if(!apiWebsocket.backendConnectedToWhatsApp)
             return;
-        
+
         $(this).attr("disabled", true).html("Disconnecting...");
         new BootstrapStep({
             websocket: apiWebsocket,

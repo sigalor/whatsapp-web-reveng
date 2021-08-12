@@ -3,9 +3,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <title>WhatsApp Web</title>
-        
+
         <!-- stylesheets -->
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
@@ -62,7 +62,16 @@
             <button id="console-arrow-button" class="btn"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
         </div>
         <div id="console">
-            Hello
+            <form class="form-inline hidden" id="formDlChat">
+                <span>Download chat history (.json)</span>
+                <div class="form-group">
+                    <label for="chatDlRemoteJID">Chat JID</label>
+                    <input type="text" class="form-control" id="chatDlRemoteJID" placeholder="Enter chat JID">
+                </div>
+                <button type="submit" class="btn btn-default" value="download">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                </button>
+            </form>
         </div>
     </body>
 </html>
