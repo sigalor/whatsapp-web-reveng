@@ -1,9 +1,4 @@
-let _ = require("lodash");
-let fs = require("fs");
-let path = require("path");
 let WebSocket = require("ws");
-
-
 
 let wss = new WebSocket.Server({ port: 2021 });
 console.log("whatsapp-web-reveng jsdemo server listening on port 2021");
