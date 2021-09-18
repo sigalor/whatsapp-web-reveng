@@ -1,6 +1,6 @@
 websocket-client
 git+https://github.com/dpallot/simple-websocket-server.git
 curve25519-donna
-pycrypto
+pycryptodome
 pyqrcode
 protobuf
