@@ -1,5 +1,9 @@
-from whatsapp_defines import WATags, WASingleByteTokens, WADoubleByteTokens, WAWebMessageInfo;
-
+from whatsapp_defines import (
+    WATags,
+    WASingleByteTokens,
+    WADoubleByteTokens,
+    WAWebMessageInfo,
+)
 
 
 class WABinaryReader:
@@ -21,8 +25,8 @@ class WABinaryReader:
         self.checkEOS(n)
         ret = 0
         for i in range(n):
-            currShift = i if littleEndian else n-1-i
-            ret |= ord(self.data[self.index + i]) << (currShift*8)
+            currShift = i if littleEndian else n - 1 - i
+            ret |= ord(self.data[self.index + i]) << (currShift * 8)
         self.index += n
         return ret
 
@@ -31,7 +35,11 @@ class WABinaryReader:
 
     def readInt20(self):
         self.checkEOS(3)
-        ret = ((ord(self.data[self.index]) & 15) << 16) + (ord(self.data[self.index+1]) << 8) + ord(self.data[self.index+2])
+        ret = (
+            ((ord(self.data[self.index]) & 15) << 16)
+            + (ord(self.data[self.index + 1]) << 8)
+            + ord(self.data[self.index + 2])
+        )
         self.index += 3
         return ret
 
@@ -46,9 +54,11 @@ class WABinaryReader:
         ret = ""
         for i in range(startByte & 127):
             currByte = self.readByte()
-            ret += self.unpackByte(tag, (currByte & 0xF0) >> 4) + self.unpackByte(tag, currByte & 0x0F)
+            ret += self.unpackByte(tag, (currByte & 0xF0) >> 4) + self.unpackByte(
+                tag, currByte & 0x0F
+            )
         if (startByte >> 7) != 0:
-            ret = ret[:len(ret)-1]
+            ret = ret[: len(ret) - 1]
         return ret
 
     def unpackByte(self, tag, value):
@@ -59,7 +69,7 @@ class WABinaryReader:
 
     def unpackNibble(self, value):
         if value >= 0 and value <= 9:
-            return chr(ord('0') + value)
+            return chr(ord("0") + value)
         elif value == 10:
             return "-"
         elif value == 11:
@@ -72,9 +82,9 @@ class WABinaryReader:
         if value < 0 or value > 15:
             raise ValueError("invalid hex to unpack: " + str(value))
         if value < 10:
-            return chr(ord('0') + value)
+            return chr(ord("0") + value)
         else:
-            return chr(ord('A') + value - 10)
+            return chr(ord("A") + value - 10)
 
     def readRangedVarInt(self, minVal, maxVal, desc="unknown"):
         ret = self.readVarInt()
@@ -82,16 +92,15 @@ class WABinaryReader:
             raise ValueError("varint for " + desc + " is out of bounds: " + str(ret))
         return ret
 
-
     def isListTag(self, tag):
         return tag == WATags.LIST_EMPTY or tag == WATags.LIST_8 or tag == WATags.LIST_16
 
     def readListSize(self, tag):
-        if(tag == WATags.LIST_EMPTY):
+        if tag == WATags.LIST_EMPTY:
             return 0
-        elif(tag == WATags.LIST_8):
+        elif tag == WATags.LIST_8:
             return self.readByte()
-        elif(tag == WATags.LIST_16):
+        elif tag == WATags.LIST_16:
             return self.readInt16()
         raise ValueError("invalid tag for list size: " + str(tag))
 
@@ -102,7 +111,12 @@ class WABinaryReader:
                 token = "c.us"
             return token
 
-        if tag == WATags.DICTIONARY_0 or tag == WATags.DICTIONARY_1 or tag == WATags.DICTIONARY_2 or tag == WATags.DICTIONARY_3:
+        if (
+            tag == WATags.DICTIONARY_0
+            or tag == WATags.DICTIONARY_1
+            or tag == WATags.DICTIONARY_2
+            or tag == WATags.DICTIONARY_3
+        ):
             return self.getTokenDouble(tag - WATags.DICTIONARY_0, self.readByte())
         elif tag == WATags.LIST_EMPTY:
             return
@@ -125,7 +139,7 @@ class WABinaryReader:
 
     def readStringFromChars(self, length):
         self.checkEOS(length)
-        ret = self.data[self.index:self.index+length]
+        ret = self.data[self.index : self.index + length]
         self.index += length
         return ret
 
@@ -152,7 +166,7 @@ class WABinaryReader:
         descr = self.readString(descrTag)
         if listSize == 0 or not descr:
             raise ValueError("invalid node")
-        attrs = self.readAttributes((listSize-1) >> 1)
+        attrs = self.readAttributes((listSize - 1) >> 1)
         if listSize % 2 == 1:
             return [descr, attrs, None]
 
@@ -187,17 +201,26 @@ class WABinaryReader:
         return WADoubleByteTokens[n]
 
 
-
 def whatsappReadMessageArray(msgs):
     if not isinstance(msgs, list):
         return msgs
     ret = []
     for x in msgs:
-        ret.append(WAWebMessageInfo.decode(x[2]) if isinstance(x, list) and x[0]=="message" else x)
+        ret.append(
+            WAWebMessageInfo.decode(x[2])
+            if isinstance(x, list) and x[0] == "message"
+            else x
+        )
     return ret
+
 
 def whatsappReadBinary(data, withMessages=False):
     node = WABinaryReader(data).readNode()
-    if withMessages and node is not None and isinstance(node, list) and node[1] is not None:
+    if (
+        withMessages
+        and node is not None
+        and isinstance(node, list)
+        and node[1] is not None
+    ):
         node[2] = whatsappReadMessageArray(node[2])
     return node
