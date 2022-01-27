@@ -5,7 +5,6 @@ import sys
 
 sys.dont_write_bytecode = True
 
-from importlib import reload
 import os
 import signal
 import base64
@@ -45,8 +44,15 @@ from whatsapp_binary_reader import whatsappReadBinary
 
 WHATSAPP_WEB_VERSION = "2,2121,6"
 
+# importlib library has reload function since Python 3.4
+if sys.version_info.major >= 3 and sys.version_info.minor >= 4:
+    from importlib import reload
+
 reload(sys)
-sys.setdefaultencoding("utf-8")
+
+# Python 3 doesn't have sys.setdefaultencoding function, since the default on Python 3 is UTF-8
+if not sys.version_info.major >= 3:
+    sys.setdefaultencoding("utf-8")
 
 
 def HmacSha256(key, sign):
@@ -363,12 +369,16 @@ class WhatsAppWebClient:
             eprint(traceback.format_exc())
 
     def connect(self):
+        # to fix this error: "<lambda>() takes 1 positional argument but 3 were given"
+        def onClose(ws, *args, **kwargs):
+            self.onClose(ws)
+
         self.activeWs = websocket.WebSocketApp(
             "wss://web.whatsapp.com/ws",
             on_message=lambda ws, message: self.onMessage(ws, message),
             on_error=lambda ws, error: self.onError(ws, error),
             on_open=lambda ws: self.onOpen(ws),
-            on_close=lambda ws: self.onClose(ws),
+            on_close=onClose,
             header={"Origin: https://web.whatsapp.com"},
         )
 
@@ -387,7 +397,7 @@ class WhatsAppWebClient:
             + '],["Chromium at '
             + datetime.datetime.now().isoformat()
             + '","Chromium"],"'
-            + self.loginInfo["clientId"]
+            + self.loginInfo["clientId"] if sys.version_info.major < 3 else self.loginInfo["clientId"].decode() # for Python 3 compatibility
             + '",true]'
         )
         self.activeWs.send(message)

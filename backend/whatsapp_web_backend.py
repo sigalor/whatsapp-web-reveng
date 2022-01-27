@@ -17,8 +17,17 @@ from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 from whatsapp import WhatsAppWebClient
 from utilities import *
 
+import sys
+
+# importlib library has reload function since Python 3.4
+if sys.version_info.major >= 3 and sys.version_info.minor >= 4:
+    from importlib import reload
+
 reload(sys)
-sys.setdefaultencoding("utf-8")
+
+# Python 3 doesn't have sys.setdefaultencoding function, since the default on Python 3 is UTF-8
+if not sys.version_info.major >= 3:
+    sys.setdefaultencoding("utf-8")
 
 
 def eprint(*args, **kwargs):  # from https://stackoverflow.com/a/14981125

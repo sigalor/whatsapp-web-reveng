@@ -67,9 +67,9 @@ in the project root
 Before you can run the application, make sure that you have the following software installed:
 
 - Node.js (at least version 8, as the `async` `await` syntax is used)
-- Python 2.7 with the following `pip` packages installed:
+- Python 2.7 or Python 3+ with the following `pip` packages installed:
   - `websocket-client` and `git+https://github.com/dpallot/simple-websocket-server.git` for acting as WebSocket server and client.
-  - `curve25519-donna` and `pycrypto` for the encryption stuff.
+  - `curve25519-donna` and `pycryptodome` for the encryption stuff.
   - `pyqrcode` for QR code generation.
   - `protobuf` for reading and writing the binary conversation format.
 - Note: On Windows `curve25519-donna` requires [Microsoft Visual C++ 9.0](http://aka.ms/vcpython27) and you need to copy [`stdint.h`](windows) into `C:\Users\YOUR USERNAME\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0\VC\include`.
