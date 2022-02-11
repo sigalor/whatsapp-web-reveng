@@ -181,6 +181,15 @@ class WhatsAppWebClient:
                         try:
                             processedData = whatsappReadBinary(decryptedMessage, True);
                             messageType = "binary";
+
+                            # sort contacts obj{jid : name}
+                            try:
+                                if processedData[1]['type'] is "contacts":
+                                    messageType = "jsonContacts";
+                                    processedData.append(self.sortedContacts(processedData)) 
+                            except:
+                                pass
+                        
                         except:
                             processedData = { "traceback": traceback.format_exc().splitlines() };
                             messageType = "error";
@@ -283,6 +292,13 @@ class WhatsAppWebClient:
         f = open("./session.json","w")
         f.write(json.dumps(session))
         f.close()
+
+    def sortedContacts(self,processedData):
+        contacts = {} 
+        for contact in range(len(processedData[2])):
+            if 'name' in processedData[2][contact][1].keys() :
+                contacts[processedData[2][contact][1]['jid']] = processedData[2][contact][1]['name']
+        return contacts
 
     def getLoginInfo(self, callback):
         callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
