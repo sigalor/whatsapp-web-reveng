@@ -207,7 +207,6 @@ class WhatsAppWebClient:
                     if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
                         eprint(json.dumps(jsonObj));
                         if jsonObj[0] == "Conn":
-                            self.getStatuses(); # request for contacts statuses
                             Timer(20.0, self.keepAlive).start() # Keepalive Request
                             self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
                             self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
@@ -246,6 +245,7 @@ class WhatsAppWebClient:
                                 eprint(json.dumps( [messageTag,["admin","challenge",challenge,self.connInfo["serverToken"],self.loginInfo["clientId"]]]))
                                 self.activeWs.send(json.dumps( [messageTag,["admin","challenge",challenge,self.connInfo["serverToken"],self.loginInfo["clientId"]]]));
                         elif jsonObj[0] == "Stream":
+                            self.getStatuses(); # request for contacts statuses
                             pass;
                         elif jsonObj[0] == "Props":
                             pass;
