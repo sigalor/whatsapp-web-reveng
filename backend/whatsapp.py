@@ -189,7 +189,14 @@ class WhatsAppWebClient:
                                     processedData.append(self.sortedContacts(processedData)) 
                             except:
                                 pass
-                        
+                            # sort statuses
+                            try:
+                                if processedData[2][0][0] is "status":
+                                    processedData[2] = self.sortedStatuses(processedData)
+                                    messageType = "jsonStatuses";
+                            except:
+                                pass
+
                         except:
                             processedData = { "traceback": traceback.format_exc().splitlines() };
                             messageType = "error";
@@ -312,6 +319,23 @@ class WhatsAppWebClient:
             to_bytes(WAMetrics.QUERY_MEDIA, 1)
         ) + bytearray([0x80]) + encryptedMessage
         self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
+    
+    def sortedStatuses(self,processedData):
+        entries = {}
+        bad = []
+        for user in range(len(processedData[2])):
+            jid = processedData[2][user][1]['jid']
+            for story in range(len(processedData[2][user][2])):
+                if processedData[2][user][2][story][0] == "picture" :
+                    bad.append(story)
+                    continue 
+                decoded_msgs = WAWebMessageInfo.decode(processedData[2][user][2][story][2])
+                processedData[2][user][2][story] = decoded_msgs['message']
+            entries[jid] = processedData[2][user][2]
+            for b in bad:
+                del entries[jid][b]
+        return entries
+
 
     def getLoginInfo(self, callback):
         callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
