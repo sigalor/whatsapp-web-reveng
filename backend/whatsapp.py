@@ -209,7 +209,7 @@ class WhatsAppWebClient:
                             self.loginInfo["key"]["encKey"] = keysDecrypted[:32];
                             self.loginInfo["key"]["macKey"] = keysDecrypted[32:64];
                             
-                            self.save_session();
+                            self.saveSession();
                             # eprint("private key            : ", base64.b64encode(self.loginInfo["privateKey"].serialize()));
                             # eprint("secret                 : ", base64.b64encode(self.connInfo["secret"]));
                             # eprint("shared secret          : ", base64.b64encode(self.connInfo["sharedSecret"]));
@@ -276,7 +276,7 @@ class WhatsAppWebClient:
             "serverToken"] + '", "' + self.loginInfo["clientId"] + '", "takeover"]'
 
         self.activeWs.send(message)
-    def save_session(self):
+    def saveSession(self):
         session = {"clientToken":self.connInfo["clientToken"],"serverToken":self.connInfo["serverToken"],
         "clientId":self.loginInfo["clientId"],"macKey": self.loginInfo["key"]["macKey"].decode("latin_1")
         ,"encKey": self.loginInfo["key"]["encKey"].decode("latin_1")};
