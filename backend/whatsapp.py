@@ -200,6 +200,7 @@ class WhatsAppWebClient:
                     if isinstance(jsonObj, list) and len(jsonObj) > 0:					# check if the result is an array
                         eprint(json.dumps(jsonObj));
                         if jsonObj[0] == "Conn":
+                            self.getStatuses(); # request for contacts statuses
                             Timer(20.0, self.keepAlive).start() # Keepalive Request
                             self.connInfo["clientToken"] = jsonObj[1]["clientToken"];
                             self.connInfo["serverToken"] = jsonObj[1]["serverToken"];
@@ -299,6 +300,18 @@ class WhatsAppWebClient:
             if 'name' in processedData[2][contact][1].keys() :
                 contacts[processedData[2][contact][1]['jid']] = processedData[2][contact][1]['name']
         return contacts
+
+    def getStatuses(self):
+        messageId = "3EB0"+binascii.hexlify(Random.get_random_bytes(8)).upper()
+        encryptedMessage = WhatsAppEncrypt(
+            self.loginInfo["key"]["encKey"],
+            self.loginInfo["key"]["macKey"],
+            whatsappWriteBinary(["query", {"type": "status","jid":""}, None])
+        )
+        payload = bytearray(messageId) + bytearray(",") + bytearray(
+            to_bytes(WAMetrics.QUERY_MEDIA, 1)
+        ) + bytearray([0x80]) + encryptedMessage
+        self.activeWs.send(payload, websocket.ABNF.OPCODE_BINARY)
 
     def getLoginInfo(self, callback):
         callback["func"]({ "type": "login_info", "data": self.loginInfo }, callback);
