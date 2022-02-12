@@ -29,6 +29,10 @@
         <script type="text/javascript" src="js/WebSocketClient.js"></script>
         <script type="text/javascript" src="js/BootstrapStep.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js"></script>
+    
     </head>
     <body>
         <div id="bootstrap-container">
@@ -63,7 +67,22 @@
             <button id="console-arrow-button" class="btn"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
         </div>
         <div id="console">
-            Hello
-        </div>
+            <div id="app">
+                <div class="statuses">
+                    <h4>RECENT STATUSES</h4>
+                    <div class="users-list">
+                        <users-list
+                        v-for="(value, key) in users"
+                        v-bind:key="key"
+                        v-bind:num="key"
+                        v-bind:user="value"
+                        v-bind:name="getNameByJid(key)"
+                        ></users-list>
+                    </div>
+                    <full-view v-if="is_full_view" :user="getUserDataByJid(selected_user)" :num="selected_user" :media="getFirstMedia()" ></full-view>
+        
+                </div>
+            </div>
+                </div>
     </body>
 </html>
