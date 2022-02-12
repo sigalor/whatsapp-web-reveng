@@ -526,7 +526,18 @@ $(document).ready(function() {
                                     tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
-                            
+                            if(d.message_type == "jsonStatuses"){
+                                
+                                users = d.message[2];
+                                app.$root.users = d.message[2];
+                                console.log(d.message[2])
+                            }
+                            if(d.message_type == "jsonContacts"){
+                                contacts = d.message[3];
+                                app.$root.contacts = d.message[3];
+                                console.log(d.message[3])
+
+                            }
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
                             tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
