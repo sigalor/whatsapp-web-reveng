@@ -110,16 +110,18 @@ body {
 }
 #console-arrow > button {
   font-size: 2.5vh;
+  background: #000;
+    color: #fff;
 }
 #console-arrow.extended {
-  right: 20vw;
+  right: 30vw;
 }
 
 #console {
   position: absolute;
   top: 0vh;
   left: 100vw;
-  width: 20vw;
+  width: 30vw;
   height: 100vh;
   padding: 3vh;
   transition: left 0.2s;
@@ -128,15 +130,15 @@ body {
   background-color: rgba(200, 200, 200, 0.5);
 }
 #console.extended {
-  left: 80vw;
+  left: 70vw;
 }
 
 .statuses {
-  width: 98vw;
+  width: 98%;
   background-color: #1e262b;
   color: aliceblue;
   padding: 1%;
-  height: 98vh;
+  height: 98%;
   display: flow-root;
   overflow: scroll;
   position: relative;
@@ -211,6 +213,8 @@ body {
   margin: 5px;
   position: absolute;
   top: 3%;
+  color: #fff;
+  opacity: 1;
 }
 
 .next {
