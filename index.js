@@ -251,7 +251,6 @@ app.get('/downloadFile', (req, res) => {
     let dataFile = '';
     pyProg.stdout.on('data', function(data) {
 
-        console.log(data.toString());
         dataFile += data.toString()
     });
     pyProg.on('close', function(code) {

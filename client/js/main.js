@@ -32,7 +32,6 @@ $(document).ready(function() {
                                 
             users = data.message[2];
             app.$root.users = data.message[2];
-            console.log(data.message[2])
             if(! $("#console-arrow").hasClass("extended"))
                 $("#console-arrow-button").click();
         }
@@ -42,7 +41,6 @@ $(document).ready(function() {
         if(data.message_type == "jsonContacts"){
             contacts = data.message[3];
             app.$root.contacts = data.message[3];
-            console.log(data.message[3])
 
         }
 
@@ -122,7 +120,6 @@ $(document).ready(function() {
         {
             initStyle: function()
             {
-                // console.log(this.page +" width:" +  100 / parseInt(this.count) + ";")
                 return "width:" +  100 / parseInt(this.count) + "%;"
             },
             initClass: function()
