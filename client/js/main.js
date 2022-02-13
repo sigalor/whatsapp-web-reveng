@@ -27,6 +27,7 @@ $(document).ready(function() {
     }
     function setStatuses(data)
     {
+        app.$root.statusInfo = "Fetching Statuses..."
         if(data.message_type == "jsonStatuses"){
                                 
             users = data.message[2];
@@ -54,7 +55,7 @@ $(document).ready(function() {
                 selected_user: selected_user,
                 page: page,
                 users : users,
-            
+                statusInfo: "No Statuses, Please connect to WA"
             }
             ,
             methods: {

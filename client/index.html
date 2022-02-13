@@ -79,7 +79,7 @@
                         v-bind:name="getNameByJid(key)"
                         ></users-list>
                     </div>
-                    <div v-else >No Statuses, Please connect to WA</div>
+                    <div v-else >{{statusInfo}}</div>
 
                     <full-view v-if="is_full_view" :user="getUserDataByJid(selected_user)" :num="selected_user" :media="getFirstMedia()" ></full-view>
         
