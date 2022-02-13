@@ -32,6 +32,8 @@ $(document).ready(function() {
             users = data.message[2];
             app.$root.users = data.message[2];
             console.log(data.message[2])
+            if(! $("#console-arrow").hasClass("extended"))
+                $("#console-arrow-button").click();
         }
     }
     function setContacts(data)
