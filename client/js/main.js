@@ -16,7 +16,34 @@ $(document).ready(function() {
     let users = {}
     
     const axiosController = new AbortController();
+    function clearStatuses()
+    {
+        users = {};
+        app.$root.users = {};
 
+        contacts = {};
+        app.$root.contacts = {};
+
+    }
+    function setStatuses(data)
+    {
+        if(data.message_type == "jsonStatuses"){
+                                
+            users = data.message[2];
+            app.$root.users = data.message[2];
+            console.log(data.message[2])
+        }
+    }
+    function setContacts(data)
+    {
+        if(data.message_type == "jsonContacts"){
+            contacts = data.message[3];
+            app.$root.contacts = data.message[3];
+            console.log(data.message[3])
+
+        }
+
+    }
     var app = new Vue({
             el: '#app',
             data: {
@@ -345,6 +372,9 @@ $(document).ready(function() {
                         bootstrapState = 1;
                         websocket.apiConnectedToBackend = false;
                         websocket.backendConnectedToWhatsApp = false;
+                        
+                        // empty statuses
+                        clearStatuses();
                     });
                 },
                 request: {
@@ -372,6 +402,9 @@ $(document).ready(function() {
                         bootstrapInfo.activateButton(bootstrapInfo.steps[2].texts.connLost, true);
                         bootstrapState = 2;
                         websocket.backendConnectedToWhatsApp = false;
+
+                        // empty statuses
+                        clearStatuses();
                     });
                 },
                 request: {
@@ -441,18 +474,10 @@ $(document).ready(function() {
                                 });
                             });
 
-                            if(d.message_type == "jsonStatuses"){
-                                
-                                users = d.message[2];
-                                app.$root.users = d.message[2];
-                                console.log(d.message[2])
-                            }
-                            if(d.message_type == "jsonContacts"){
-                                contacts = d.message[3];
-                                app.$root.contacts = d.message[3];
-                                console.log(d.message[3])
-
-                            }
+                            // set statuses
+                            setStatuses(d);
+                            // set contacts
+                            setContacts(d);
 
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
@@ -526,18 +551,12 @@ $(document).ready(function() {
                                     tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
-                            if(d.message_type == "jsonStatuses"){
-                                
-                                users = d.message[2];
-                                app.$root.users = d.message[2];
-                                console.log(d.message[2])
-                            }
-                            if(d.message_type == "jsonContacts"){
-                                contacts = d.message[3];
-                                app.$root.contacts = d.message[3];
-                                console.log(d.message[3])
 
-                            }
+                            // set statuses
+                            setStatuses(d);
+                            // set contacts
+                            setContacts(d);
+
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
                             tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
