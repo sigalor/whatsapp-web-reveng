@@ -70,8 +70,8 @@
             <div id="app">
                 <div class="statuses">
                     <h4>RECENT STATUSES</h4>
-                    <div class="users-list">
-                        <users-list
+                    <div class="users-list" v-if="Object.keys(users).length > 0" >
+                        <users-list 
                         v-for="(value, key) in users"
                         v-bind:key="key"
                         v-bind:num="key"
@@ -79,6 +79,8 @@
                         v-bind:name="getNameByJid(key)"
                         ></users-list>
                     </div>
+                    <div v-else >No Statuses, Please connect to WA</div>
+
                     <full-view v-if="is_full_view" :user="getUserDataByJid(selected_user)" :num="selected_user" :media="getFirstMedia()" ></full-view>
         
                 </div>
