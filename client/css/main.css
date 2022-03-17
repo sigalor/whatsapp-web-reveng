@@ -205,7 +205,7 @@ body {
   margin: 0 auto;
 }
 
-.close {
+.statuses .close {
   padding: 8px 13px;
   background: #000000b0;
   border-radius: 15px;
