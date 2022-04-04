@@ -179,7 +179,7 @@ To log in at an open websocket, follow these steps:
 	- `encKey`: `keysDecrypted[:32]`
 	- `macKey`: `keysDecrypted[32:64]`
     
-### Restoring closed sessions (not implemented)
+### Restoring closed sessions
 1. After sending `init` command, check whether you have `serverToken` and `clientToken`.
 2. If so, send `messageTag,["admin","login","clientToken","serverToken","clientId","takeover"]`
 3. The server should respond with `{"status": 200}`. Other statuses:
@@ -188,7 +188,7 @@ To log in at an open websocket, follow these steps:
 	- 405: Already logged in
 	- 409: Logged in from another location
 
-### Resolving challenge (not implemented)
+### Resolving challenge
 4. When using old or expired `serverToken` and `clientToken`, you will be challenged to confirm that you still have valid encryption keys.
 5. The challenge looks like this `messageTag,["Cmd",{"type":"challenge","challenge":"BASE_64_ENCODED_STRING=="}]`
 6. Decode `challenge` string from Base64, sign it with your macKey, encode it back with Base64 and send `messageTag,["admin","challenge","BASE_64_ENCODED_STRING==","serverToken","clientId"]`
