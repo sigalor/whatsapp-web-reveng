@@ -244,6 +244,21 @@ wss.on("connection", function(clientWebsocketRaw, req) {
 
 app.use(express.static("client"));
 
+app.get('/downloadFile', (req, res) => {
+
+    const { spawn } = require('child_process');
+    const pyProg = spawn('python', ['./backend/status_decoder.py',JSON.stringify(req.query)]);
+    let dataFile = '';
+    pyProg.stdout.on('data', function(data) {
+
+        dataFile += data.toString()
+    });
+    pyProg.on('close', function(code) {
+        return res.end(dataFile);
+    });
+
+
+})
 app.listen(2018, function() {
     console.log("whatsapp-web-reveng HTTP server listening on port 2018");
 });
