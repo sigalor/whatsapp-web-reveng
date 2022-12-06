@@ -89,7 +89,7 @@ A recent addition is a version of the decryption routine translated to in-browse
 [ndunks](https://github.com/ndunks) made a TypeScript reimplementation at [WaJs](https://github.com/ndunks/WaJs).
 
 ### Python
-
+**(!!NOT maintained!!)**
 [p4kl0nc4t](https://github.com/p4kl0nc4t) created [kyros](https://github.com/p4kl0nc4t/kyros), a Python package that implements the WhatsApp Web API.
 
 ### Rust
