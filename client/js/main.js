@@ -8,6 +8,273 @@ function sleep(ms) {
 }
 
 $(document).ready(function() {
+
+    let is_full_view = false;
+    let selected_user ;
+    let page = 0 ;
+    let contacts = {}
+    let users = {}
+    
+    const axiosController = new AbortController();
+    function clearStatuses()
+    {
+        users = {};
+        app.$root.users = {};
+
+        contacts = {};
+        app.$root.contacts = {};
+
+    }
+    function setStatuses(data)
+    {
+        app.$root.statusInfo = "Fetching Statuses..."
+        if(data.message_type == "jsonStatuses"){
+                                
+            users = data.message[2];
+            app.$root.users = data.message[2];
+            if(! $("#console-arrow").hasClass("extended"))
+                $("#console-arrow-button").click();
+        }
+    }
+    function setContacts(data)
+    {
+        if(data.message_type == "jsonContacts"){
+            contacts = data.message[3];
+            app.$root.contacts = data.message[3];
+
+        }
+
+    }
+    var app = new Vue({
+            el: '#app',
+            data: {
+                axiosController : axiosController,
+                is_full_view : is_full_view,
+                selected_user: selected_user,
+                page: page,
+                users : users,
+                statusInfo: "No Statuses, Please connect to WA"
+            }
+            ,
+            methods: {
+                getNameByJid: function (jid) {
+                    return contacts[jid];
+                    },
+                getUserDataByJid: function (jid) {
+                return users[jid];
+                },
+                getFirstMedia: function () {
+                    if(selected_user)
+                        return Object.values(this.getUserDataByJid(selected_user)[0])[0];
+                }
+
+                }
+            });
+    Vue.component('users-list', {
+        props: ['user','num','name'],
+
+        computed: {
+            getImage: function()
+            {
+                textPlaceHolder = "iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAU5JREFUSEvtl79qAkEQhz+LNFYWElJYKHkDi6RLJb6IkJcK+B4WVjYBC18hRUIIwSKFRSCYMLIrc8vsundcFPGuuv33+2Zmd+fmWhSf36Bdd7PlBfcvrkPAYV9d8IK2hrSBTQCOReAK+FHGWsZNgKkaEK1r4FP6NPgeeFZ9HmpFpQusD4QiXC/tR+ApBL8DNw4sk16AgSEuYxos7QXwYMzdOj0xvmCI9kYPpPbaAr8BvUgEvFYSLF72nUDskFngJXCXAH8Dr8Ct30rLY1k/BFYJoZw99svHwExp7ZhVrk7ZUJv2N+CcLNWEWiKQusfN4dpF4Cyuk8654UfiX/f4ZGB/Oo9+j0/m8WWDO8CXKvY+XNmUk+tL32Md6ljJdFSwlKzicalkVGoyoKtG7Z1EYwTMc13OAYdFfaoI1Nykdi44Z55OMAe/AzmCVX/kktp/xJSEH1b13sIAAAAASUVORK5CYII=";
+                return Object.values(this.user[0])[0]['jpegThumbnail'] == undefined ? textPlaceHolder : Object.values(this.user[0])[0]['jpegThumbnail']
+            }
+        },
+        methods:
+        {
+            toggleFullView: function()
+            {
+                this.$root.is_full_view = this.$root.is_full_view  ? false : true;
+                
+            },
+            setSelectedUser: function(num)
+            {
+                this.toggleFullView()
+                this.$root.selected_user = num;
+                this.$root.page = 1
+            },
+
+            getFirstMediaThumb: function(num)
+            {
+                this.$root.selected_user = num;
+                this.$root.page = 1
+            }
+
+        },
+        template: `
+        <div class="user-item" :num="num" @click="setSelectedUser(num)">
+                <div class="user-image" :style="'background-image: url(data:image/jpeg;base64,'+ getImage +');'" 
+                >
+                </div>
+                <div class="user-details">
+                    <span>{{name}}</span>
+                    <span>{{moment(Object.values(user[0])[0]['mediaKeyTimestamp'], "X").fromNow()}}</span>
+                </div>
+
+            </div>
+        `
+        });
+    Vue.component('dots', {
+        props: ['count','page','index'],
+        methods:
+        {
+            initStyle: function()
+            {
+                return "width:" +  100 / parseInt(this.count) + "%;"
+            },
+            initClass: function()
+            {
+                if(parseInt(this.index) == parseInt(this.page))
+                    return "active"
+                return ""    
+            },
+
+        },
+        template: `
+            <div :class="'dots ' + initClass()" :style="initStyle()">
+                
+            </div>
+        `
+        });
+    Vue.component('full-view', {
+    props: ['user','num','media'],
+    data: function () {
+        return {
+            base64Media: 'null',
+            page: this.$root.page - 1,
+            media : this.media,
+            userLength : this.user.length,
+            isLoading : true,
+        }
+    },
+    created: function () {
+        this.fetchFile()
+    },
+    methods:
+        {
+            fetchFile: function()
+            {
+
+                this.isLoading = true
+                currentFile = Object.values(this.user[this.page])[0]
+                this.media = currentFile
+
+                if(this.media['text']){
+                    return;
+                }
+                this.base64Media = this.media['jpegThumbnail']
+
+                url = 'http://localhost:2018/downloadFile?mediakey='+encodeURIComponent(currentFile.mediaKey)+'&mimetype='+currentFile.mimetype
+                +'&url='+ encodeURIComponent(currentFile.url);
+
+                vm = this
+                axios.get(url,{signal: this.$root.axiosController.signal})
+                .then(function (response) {
+                    vm.base64Media = response.data;
+                    vm.isLoading = false
+                                        
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    vm.base64Media = undefined
+                
+                })
+
+
+            },
+            toggleFullView: function()
+            {
+                this.$root.is_full_view = false;
+                this.$root.page = 0
+
+                // abort media request before loading ends
+                this.$root.axiosController.abort()
+                this.$root.axiosController = new AbortController();
+
+            },
+            nextPage: function()
+            {
+                if(this.page + 1 < this.userLength){
+                    this.page = this.page + 1
+                    this.fetchFile()
+                }else
+                this.$root.is_full_view = false;
+
+            },
+            perviousPage: function()
+            {
+                if(this.page - 1 >= 0){
+                    this.page = this.page - 1
+                    this.fetchFile()
+                }else
+                    this.$root.is_full_view = false;
+
+            },
+        },
+
+    template: `
+        <div v-if="this.media.hasOwnProperty('text')" class="full-view" :num="num" :page="this.$root.page" >
+            <div class="text-media">{{ this.media['text'] }}</div>
+            <div class="close" @click="toggleFullView">X</div>
+            <div v-if="this.page + 1 < this.userLength" class="next" @click="nextPage"></div>
+            <div v-if="this.page - 1 >= 0 " class="pervious" @click="perviousPage"></div>
+            <div class="status-dots"> <dots 
+                v-for="(value, key) in this.user"
+                v-bind:key="key"
+                v-bind:count="userLength"
+                v-bind:page="page"
+                v-bind:index="key"
+
+                ></dots>
+            </div>
+
+        </div>
+        <div v-else-if="this.media.mimetype == 'image/jpeg'" class="full-view" :num="num" :page="this.$root.page" :style="'background-image: url(data:image/jpeg;base64,' + base64Media + ');'" >
+            <div class="close" @click="toggleFullView">X</div>
+            <div v-if="this.page + 1 < this.userLength" class="next" @click="nextPage"></div>
+            <div v-if="this.page - 1 >= 0 " class="pervious" @click="perviousPage"></div>
+            <div v-if="isLoading" class="loader"></div>
+            <div class="status-dots"> <dots 
+                v-for="(value, key) in this.user"
+                v-bind:key="key"
+                v-bind:count="userLength"
+                v-bind:page="page"
+                v-bind:index="key"
+
+                ></dots>
+            </div>
+        </div>
+        <div v-else-if="this.media.mimetype == 'video/mp4'" class="full-view" :num="num" :page="this.$root.page" >
+            <video  controls :src="'data:video/mp4;base64,' + base64Media " autoplay :poster="'data:image/jpeg;base64,' + media['jpegThumbnail'] ">
+            </video>
+
+            <div class="close" @click="toggleFullView">X</div>
+            <div v-if="this.page + 1 < this.userLength" class="next" @click="nextPage"></div>
+            <div v-if="this.page - 1 >= 0 " class="pervious" @click="perviousPage"></div>
+            <div v-show="isLoading" class="loader"></div>
+            <div class="status-dots"> <dots 
+                v-for="(value, key) in this.user"
+                v-bind:key="key"
+                v-bind:count="userLength"
+                v-bind:page="page"
+                v-bind:index="key"
+
+                ></dots>
+        </div>
+
+
+    `
+});
+
+
+
+
+
+
+
+
+
+
     $("#console-arrow-button").click(() => {
         if(consoleShown) {
             $("#console-arrow").removeClass("extended").find("i.fa").removeClass("fa-angle-right").addClass("fa-angle-left");
@@ -105,6 +372,9 @@ $(document).ready(function() {
                         bootstrapState = 1;
                         websocket.apiConnectedToBackend = false;
                         websocket.backendConnectedToWhatsApp = false;
+                        
+                        // empty statuses
+                        clearStatuses();
                     });
                 },
                 request: {
@@ -132,6 +402,9 @@ $(document).ready(function() {
                         bootstrapInfo.activateButton(bootstrapInfo.steps[2].texts.connLost, true);
                         bootstrapState = 2;
                         websocket.backendConnectedToWhatsApp = false;
+
+                        // empty statuses
+                        clearStatuses();
                     });
                 },
                 request: {
@@ -200,7 +473,12 @@ $(document).ready(function() {
                                     tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
-                            
+
+                            // set statuses
+                            setStatuses(d);
+                            // set contacts
+                            setContacts(d);
+
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
                             tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
@@ -273,7 +551,12 @@ $(document).ready(function() {
                                     tree = jsonTree.create(jsonData, dialog.find(".bootbox-body").empty()[0]);
                                 });
                             });
-                            
+
+                            // set statuses
+                            setStatuses(d);
+                            // set contacts
+                            setContacts(d);
+
                             let tableRow = $("<tr></tr>").attr("data-message-index", allWhatsAppMessages.length);
                             tableRow.append($("<th></th>").attr("scope", "row").html(allWhatsAppMessages.length+1));
                             tableRow.append($("<td></td>").html(moment.unix(d.timestamp/1000.0).format("ddd, DD.MM.YYYY, HH:mm:ss.SSS")));
